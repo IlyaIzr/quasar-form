@@ -22,7 +22,7 @@ export default {
     return {
       store,
       isRendered: undefined,
-      vNodeStore
+      vNodeStore,
     };
   },
   props: {
@@ -77,11 +77,14 @@ export default {
       store.updateKeyValue(this.inputInfo.key, this.inputInfo.value); //don't set value unless field is visible
   },
   mounted() {
-    vNodeStore.setComponent(this.inputInfo.key, this.$children[0])
+    vNodeStore.setComponent(this.inputInfo.key, this.$children[0]);
   },
   methods: {
     customF(val) {
-      this.isRendered = val;
+      if (this.inputInfo.onChange) {
+        const onChange = this.inputInfo.onChange();
+        onChange(this.$children[0], vNodeStore)
+      }
     },
   },
 };

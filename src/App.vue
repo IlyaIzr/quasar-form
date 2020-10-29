@@ -22,7 +22,7 @@ export default {
   components: { FormWrap },
   methods: {
     onChange(e){
-      console.log(this)
+      // console.log(this)
     }
   },
 };
