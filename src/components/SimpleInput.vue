@@ -1,8 +1,14 @@
 <template>
   <div class="q-gutter-md">
-    <input type="text" :value="valueStore" @input="onInput" />
-    <br />
-    Store mini message: {{ store.state.msg }}
+    <q-input
+      :value="valueStore"
+      :label="label"
+      :type="type"
+      :rest="rest"
+      @focus="onFocusLocal"
+      @change="onChange"
+      @input="onInput"
+    />
   </div>
 </template>
 
@@ -48,9 +54,9 @@ export default {
       // console.log("change event triggered");
     },
     onInput(val) {
-      this.store.updateKeyValue(this.rest.key, val.target.value);
+      this.store.updateKeyValue(this.rest.key, val);
       this.valueStore = this.store.getValueByKey(this.rest.key);
-      this.$emit('customevent', val.target.value)
+      this.$emit('customevent', val)
     },
   },
   computed: {

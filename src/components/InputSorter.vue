@@ -1,17 +1,14 @@
 <template>
-  <div>
-    <div v-if="isRendered">
-      <SimpleInput
-        v-if="inputType === 'simple'"
-        :type="inputInfo.type"
-        :value="inputInfo.value"
-        :label="inputInfo.label"
-        :rest="inputInfo"
-        :store="store"
-        v-on:customevent="customF"
-      />
-    </div>
-    Store input message: {{ store.state.msg }}
+  <div v-if="isRendered">
+    <SimpleInput
+      v-if="inputType === 'simple'"
+      :type="inputInfo.type"
+      :value="inputInfo.value"
+      :label="inputInfo.label"
+      :rest="inputInfo"
+      :store="store"
+      v-on:customevent="customF"
+    />
   </div>
 </template>
 
@@ -58,13 +55,6 @@ export default {
         return inputType;
       }
     },
-    // isRendered() {
-    //   if (this.inputInfo.renderIf) {
-    //     if (store.getValueByKey(this.inputInfo.renderIf)) {
-    //       return true;
-    //     } else return false;
-    //   } else return true;
-    // },
   },
   watch: {
     "store.state.msg": function () {
