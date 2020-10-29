@@ -1,19 +1,19 @@
 <template>
   <div id="q-app" class="bg-white">
-    <Mapper v-if="globalSettings.data" :settings="globalSettings" />
+    <Mapper v-if="globalConfig.data" :settings="globalConfig" :values="globalValues" />
   </div>
 </template>
 
 <script>
 import Mapper from "./components/Mapper";
-import { gSettings } from "./fakeData";
+import { config, values } from "./fakeData";
 export default {
   components: { Mapper },
   name: "App",
   data() {
     return {
-      // globalSettings: { data: {}, label: "working" },
-      globalSettings: gSettings,
+      globalConfig: config,
+      globalValues: values,
     };
   },
 };

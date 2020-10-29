@@ -57,8 +57,7 @@ export default {
     },
   },
   watch: {
-    "store.state.msg": function () {
-      console.log("store updated !!!");
+    "store.state.watcher": function () {
       if (this.inputInfo.renderIf) {
         if (store.getValueByKey(this.inputInfo.renderIf)) {
           this.isRendered = true;

@@ -1,4 +1,4 @@
-export const gSettings = {
+export const config = {
   data: {
     fields: [
       {
@@ -29,9 +29,7 @@ export const gSettings = {
   label: "working"
 }
 
-// try to separate settings and config
-// data = {
-//   value: {
-//     key: 'afasfa'
-//   }
-// }
+export const values = {
+  n55eds: '200',
+  mailo12: 'testo@validate'
+}

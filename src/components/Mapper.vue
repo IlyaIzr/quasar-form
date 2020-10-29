@@ -19,13 +19,20 @@ export default {
       type: Object,
       required: true,
     },
+    values: {
+      type: Object,
+      required: false,
+    },
   },
   computed: {
     sortedFields: function () {
       const res = [];
-      this.settings.data.fields.map((field, i) => {
+      this.settings.data.fields.map((field) => {
+        if (this.values[field.key] !== undefined) {
+          field.value = this.values[field.key];
+        } else if (field.value === undefined) field.value = "";
+
         const cell = res[field.rowIndex - 1];
-        // TODO assign def values here
         if (cell) {
           res[field.rowIndex - 1] = [...cell, field];
         } else {

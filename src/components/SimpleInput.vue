@@ -59,17 +59,6 @@ export default {
       this.$emit('customevent', val)
     },
   },
-  computed: {
-    // valueStore: {
-    //   get() {
-    //     console.log(this.rest)
-    //     return store.getValueByKey(this.rest.key);
-    //   },
-    // set(value) {
-    //   store.updateKeyValue(this.rest.key, value);
-    // },
-    // },
-  },
 };
 </script>
 
