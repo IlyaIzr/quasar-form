@@ -14,7 +14,7 @@
 
 <script>
 import SimpleInput from "./SimpleInput";
-import { store } from "../store";
+import { store, vNodeStore } from "../store";
 
 export default {
   name: "InputSorter",
@@ -22,6 +22,7 @@ export default {
     return {
       store,
       isRendered: undefined,
+      vNodeStore
     };
   },
   props: {
@@ -36,7 +37,6 @@ export default {
   computed: {
     inputType: function () {
       const type = this.inputInfo.type;
-      console.log(this);
       let inputType;
       const simpleTypes = [
         "text",
@@ -66,13 +66,18 @@ export default {
     },
   },
   beforeMount() {
-    store.updateKeyValue(this.inputInfo.key, this.inputInfo.value);
+    // store.updateKeyValue(this.inputInfo.key, this.inputInfo.value);  //set value even if field invisible
 
     if (this.inputInfo.renderIf) {
       if (store.getValueByKey(this.inputInfo.renderIf)) {
         this.isRendered = true;
       } else this.isRendered = false;
     } else this.isRendered = true;
+    if (this.isRendered)
+      store.updateKeyValue(this.inputInfo.key, this.inputInfo.value); //don't set value unless field is visible
+  },
+  mounted() {
+    vNodeStore.setComponent(this.inputInfo.key, this.$children[0])
   },
   methods: {
     customF(val) {

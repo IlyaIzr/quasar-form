@@ -1,20 +1,29 @@
 <template>
-  <div id="q-app" class="bg-white">
-    <Mapper v-if="globalConfig.data" :settings="globalConfig" :values="globalValues" />
+  <div id="q-app" v-on:change="onChange">
+    <FormWrap
+      v-if="globalConfig.data"
+      :settings="globalConfig"
+      :values="globalValues"
+    />
   </div>
 </template>
 
 <script>
-import Mapper from "./components/Mapper";
 import { config, values } from "./fakeData";
+import FormWrap from "./components/FormWrap";
 export default {
-  components: { Mapper },
   name: "App",
   data() {
     return {
       globalConfig: config,
       globalValues: values,
     };
+  },
+  components: { FormWrap },
+  methods: {
+    onChange(e){
+      console.log(this)
+    }
   },
 };
 </script>

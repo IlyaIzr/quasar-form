@@ -5,6 +5,7 @@
       :label="label"
       :type="type"
       :rest="rest"
+      :name="rest.key"
       @focus="onFocusLocal"
       @change="onChange"
       @input="onInput"
@@ -48,7 +49,7 @@ export default {
       res && res(this);
     },
     extraMethod() {
-      console.log("extra called");
+      // console.log("extra called");
     },
     onChange(e) {
       // console.log("change event triggered");
@@ -58,7 +59,7 @@ export default {
       this.valueStore = this.store.getValueByKey(this.rest.key);
       this.$emit('customevent', val)
     },
-  },
+  }
 };
 </script>
 

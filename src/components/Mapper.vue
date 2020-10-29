@@ -1,6 +1,5 @@
 <template>
-  <div class="q-pa-md">
-    {{ settings.label }}
+  <div>
     <div v-for="row in sortedFields" v-bind:key="sortedFields.indexOf(row)">
       <FormRow :row="row" />
     </div>

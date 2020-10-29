@@ -2,7 +2,7 @@ export const config = {
   data: {
     fields: [
       {
-        type: 'text', value: '', label: 'Working text', rowIndex: 1,
+        type: 'text', value: 'a', label: 'Working label', rowIndex: 1,
         key: 'afUID2',
         // fetch: { path: '', func: 'fun', payload: 'self' },
         onFocus: () => { console.log('Function passed') },
@@ -24,9 +24,20 @@ export const config = {
     ],
     buttons: [
       { type: 'submit', text: 'отправить' }
-    ]
+    ],
+    title: 'Form title'
   },
-  label: "working"
+  label: "working",
+  onChange: () => {
+    const func = async (vueRootCompnent) => { 
+      //pseudo code!
+      const changedComponent = vueRootCompnent.child
+      const response = await ws.send()
+      const componentToChange = vueRootCompnent.store.getcomponentbykey()
+      componentToChange.value = response.value
+    }
+    return func
+  }
 }
 
 export const values = {

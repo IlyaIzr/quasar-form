@@ -13,3 +13,20 @@ export const store = {
     return this.state[key]
   }
 }
+
+export const vNodeStore = {
+  state: {
+    // root: null,
+    // watcher: ''
+  },
+  // setRoot(vueComponent) {
+  //   this.state.root = vueComponent
+  // },
+  setComponent(key, component) {
+    console.log('updated ', component)
+    this.state[key] = component
+  },
+  getComponent(key) {
+    return this.state[key]
+  }
+}
