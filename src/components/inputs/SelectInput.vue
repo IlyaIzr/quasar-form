@@ -53,12 +53,15 @@ export default {
     },
   },
   methods: {
-    onInput(val) {
-      // const DBformat = "";
-      // if (val.label && val.value) {
-      //   return { name: val.label, id: val.value };
-      // }
+    onInput(val) {      
       const noObserver = { ...val };
+      if (noObserver.id && noObserver.name) {
+        noObserver.value = noObserver.id
+        noObserver.label = noObserver.name
+        delete noObserver.id
+        delete noObserver.name
+      }
+      
       this.store.updateKeyValue(this.keyName, noObserver);
       this.valueStore = this.store.getValueByKey(this.keyName);
       this.$emit("input", val);
