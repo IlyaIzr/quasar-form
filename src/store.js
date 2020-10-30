@@ -15,12 +15,13 @@ export const store = {
 }
 
 export const vNodeStore = {
+  debug: false,
   state: {
     // root: null,
     // watcher: ''
   },
   setComponent(key, component) {  //sorter component, parent to input
-    console.log('updated ', component)
+    if (this.debug) console.log('updated ', component)
     this.state[key] = component
   },
   getComponent(key) { //  child input component

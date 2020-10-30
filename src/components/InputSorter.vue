@@ -5,15 +5,27 @@
       :type="inputInfo.type"
       :value="inputInfo.value"
       :label="inputInfo.label"
+      :keyName="inputInfo.key"
       :rest="inputInfo"
       :store="store"
       v-on:customevent="customF"
+    />
+    <SelectInput
+      v-if="inputType === 'select'"
+      :value="inputInfo.value"
+      :label="inputInfo.label"
+      :options="inputInfo.options"
+      :keyName="inputInfo.key"
+      :rest="inputInfo"
+      :store="store"
+      @input="onInput"
     />
   </div>
 </template>
 
 <script>
-import SimpleInput from "./SimpleInput";
+import SimpleInput from "./inputs/SimpleInput";
+import SelectInput from "./inputs/SelectInput";
 import { store, vNodeStore } from "../store";
 
 export default {
@@ -33,6 +45,7 @@ export default {
   },
   components: {
     SimpleInput,
+    SelectInput,
   },
   computed: {
     inputType: function () {
@@ -53,13 +66,15 @@ export default {
       if (simpleTypes.find((value) => value === type)) {
         inputType = "simple";
         return inputType;
+      } else if (type === "select") {
+        inputType = "select";
+        return inputType;
       }
     },
   },
   watch: {
     "store.state.watcher": function () {
       if (this.inputInfo.renderIf) {
-        console.log("conditional render function runned");
         if (store.getValueByKey(this.inputInfo.renderIf)) {
           this.isRendered = true;
         } else this.isRendered = false;
@@ -84,12 +99,13 @@ export default {
     customF(val) {
       if (this.inputInfo.onChange) {
         const onChange = this.inputInfo.onChange();
-        console.log("onChange injected function runned");
         this.$nextTick(function () {
-          console.log("next tick");
           onChange(this.$children[0], vNodeStore);
         });
       }
+    },
+    onInput(val) {
+      console.log(val);
     },
   },
 };

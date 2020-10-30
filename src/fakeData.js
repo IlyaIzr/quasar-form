@@ -5,7 +5,7 @@ export const config = {
         type: 'text', value: '', label: 'Working label', rowIndex: 1,  // TODO bug if this is empty
         key: 'afUID2',
         // fetch: { path: '', func: 'fun', payload: 'self' },
-        onFocus: () => { console.log('Function passed') },
+        onFocus: () => { console.log('first field has focus on') },
         onChange: () => {
           const updater = async (vnode, vNodeStore) => {
             const { value, rest } = vnode
@@ -37,23 +37,22 @@ export const config = {
           return methodCaller
         }
       },
+      {
+        type: 'select', rowIndex: 3, key: 'sel1base',
+        label: 'first select',
+        options: [{ label: 'BMW', value: 'car' }, { label: 'Samsung Phone', value: 'phone' }],
+        // renderIf: 'n55eds',
+      }
     ],
     buttons: [
       { type: 'submit', text: 'отправить' }
     ],
+    form: [
+      //form methods like onSubmit
+    ],
     title: 'Form title'
   },
-  label: "working",
-  onChange: () => {
-    const func = async (vueRootCompnent) => {
-      //pseudo code!
-      const changedComponent = vueRootCompnent.child
-      const response = await ws.send()
-      const componentToChange = vueRootCompnent.store.getcomponentbykey()
-      componentToChange.value = response.value
-    }
-    return func
-  }
+  label: "working"
 }
 
 export const values = {

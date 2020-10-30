@@ -5,7 +5,7 @@
       :label="label"
       :type="type"
       :rest="rest"
-      :name="rest.key"
+      :name="keyName"
       @focus="onFocusLocal"
       @change="onChange"
       @input="onInput"
@@ -27,11 +27,15 @@ export default {
     },
     label: {
       type: String,
-      required: false,
+      default: false
+    },
+    keyName: {
+      type: String,
+      required: true,
     },
     rest: {
       type: Object,
-      required: false,
+      required: true,
     },
     store: {
       type: Object,
@@ -40,7 +44,7 @@ export default {
   },
   data() {
     return {
-      valueStore: this.store.getValueByKey(this.rest.key)
+      valueStore: this.store.getValueByKey(this.keyName)
     };
   },
   methods: {
@@ -55,8 +59,8 @@ export default {
       // console.log("change event triggered");
     },
     onInput(val) {
-      this.store.updateKeyValue(this.rest.key, val);
-      this.valueStore = this.store.getValueByKey(this.rest.key);
+      this.store.updateKeyValue(this.keyName, val);
+      this.valueStore = this.store.getValueByKey(this.keyName);
       this.$emit('customevent', val)
     },
   }
