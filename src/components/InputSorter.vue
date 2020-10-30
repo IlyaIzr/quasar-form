@@ -59,6 +59,7 @@ export default {
   watch: {
     "store.state.watcher": function () {
       if (this.inputInfo.renderIf) {
+        console.log("conditional render function runned");
         if (store.getValueByKey(this.inputInfo.renderIf)) {
           this.isRendered = true;
         } else this.isRendered = false;
@@ -77,13 +78,17 @@ export default {
       store.updateKeyValue(this.inputInfo.key, this.inputInfo.value); //don't set value unless field is visible
   },
   mounted() {
-    vNodeStore.setComponent(this.inputInfo.key, this.$children[0]);
+    vNodeStore.setComponent(this.inputInfo.key, this);
   },
   methods: {
     customF(val) {
       if (this.inputInfo.onChange) {
         const onChange = this.inputInfo.onChange();
-        onChange(this.$children[0], vNodeStore)
+        console.log("onChange injected function runned");
+        this.$nextTick(function () {
+          console.log("next tick");
+          onChange(this.$children[0], vNodeStore);
+        });
       }
     },
   },

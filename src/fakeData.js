@@ -2,23 +2,23 @@ export const config = {
   data: {
     fields: [
       {
-        type: 'text', value: 'ф', label: 'Working label', rowIndex: 1,  // TODO bug if this is empty
+        type: 'text', value: '', label: 'Working label', rowIndex: 1,  // TODO bug if this is empty
         key: 'afUID2',
         // fetch: { path: '', func: 'fun', payload: 'self' },
         onFocus: () => { console.log('Function passed') },
         onChange: () => {
-          const updater = async (vnode, nodeStore) => {
+          const updater = async (vnode, vNodeStore) => {
             const { value, rest } = vnode
             // request
-            let pe = 'bad bad'
+            let phrase = 'bad bad'
             setTimeout(async () => {
-              pe = 'fuck yeah'
-              console.log('we are he')
-              const vTarget = nodeStore.getComponent('mailo12') // field key
+              phrase = 'fuck yeah'
+              console.log('runing async function')
+              const vTarget = vNodeStore.getComponent('mailo12') // field key
               console.log(vTarget)
-              vTarget.onInput(pe)
+              vTarget.onInput(phrase)
 
-            }, 1000);
+            }, 2000);
           }
           return updater
         }

@@ -19,14 +19,11 @@ export const vNodeStore = {
     // root: null,
     // watcher: ''
   },
-  // setRoot(vueComponent) {
-  //   this.state.root = vueComponent
-  // },
-  setComponent(key, component) {
+  setComponent(key, component) {  //sorter component, parent to input
     console.log('updated ', component)
     this.state[key] = component
   },
-  getComponent(key) {
-    return this.state[key]
+  getComponent(key) { //  child input component
+    return this.state[key].$children[0]
   }
 }
