@@ -46,23 +46,17 @@ export default {
   },
   computed: {
     parsedOptions() {
-      console.log('parsed opts did run')
       const arr = [];
       this.localOptions.map((option) => {
         const noObserver = { ...option };
-        console.log(noObserver)
-        console.log(noObserver.name)
-        const fuckYou = { label: noObserver.name, value: noObserver.id }
-        console.log(fuckYou)
-        arr.push(fuckYou);
+        arr.push({ label: noObserver.name, value: noObserver.id });
       });
-      console.log(arr)
       return arr;
     },
   },
   methods: {
     onInput(val) {
-      const noObserver = { ...val };
+      const noObserver = val && typeof (val === "object") ? { ...val } : "";
       if (noObserver.id && noObserver.name) {
         noObserver.value = noObserver.id;
         noObserver.label = noObserver.name;
