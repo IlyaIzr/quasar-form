@@ -30,6 +30,10 @@
     let WS = new WebsocketPromiseLiteClient({
       url: 'ws://localhost:5555'
     })
+    async function a () {      
+      await WS.connectionEstablished()
+    }
+    a()
   </script>
 </body>
 
