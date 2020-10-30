@@ -8,7 +8,7 @@
       :keyName="inputInfo.key"
       :rest="inputInfo"
       :store="store"
-      v-on:customevent="customF"
+      @input="onInput"
     />
     <SelectInput
       v-if="inputType === 'select'"
@@ -96,16 +96,13 @@ export default {
     vNodeStore.setComponent(this.inputInfo.key, this);
   },
   methods: {
-    customF(val) {
+    onInput(val) {
       if (this.inputInfo.onChange) {
         const onChange = this.inputInfo.onChange();
         this.$nextTick(function () {
           onChange(this.$children[0], vNodeStore);
         });
       }
-    },
-    onInput(val) {
-      console.log(val);
     },
   },
 };

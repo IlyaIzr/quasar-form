@@ -61,7 +61,7 @@ export default {
     onInput(val) {
       this.store.updateKeyValue(this.keyName, val);
       this.valueStore = this.store.getValueByKey(this.keyName);
-      this.$emit('customevent', val)
+      this.$emit('input', val)
     },
   }
 };

@@ -49,12 +49,8 @@ export default {
     onInput(val) {
       this.store.updateKeyValue(this.rest.keyName, val);
       this.valueStore = this.store.getValueByKey(this.rest.keyName);
-      this.$emit("customevent", val);
       this.$emit("input", val);
     },
-  },
-  mounted() {
-    console.log('im mounted. SELECT MEAH')
   },
 };
 </script>
