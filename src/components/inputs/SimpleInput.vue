@@ -19,15 +19,13 @@ export default {
   props: {
     type: {
       type: String,
+      required: false,
       default: "text",
-    },
-    value: {
-      type: String,
-      default: "",
     },
     label: {
       type: String,
-      default: false
+      required: false,
+      default: '',
     },
     keyName: {
       type: String,

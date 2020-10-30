@@ -12,7 +12,7 @@ export const config = {
             // request
             let phrase = 'bad bad'
             setTimeout(async () => {
-              phrase = 'fuck yeah'
+              phrase = 'fuck@yea.h'
               console.log('runing async function')
               const vTarget = vNodeStore.getComponent('mailo12') // field key
               console.log(vTarget)
@@ -24,7 +24,7 @@ export const config = {
         }
       },
       {
-        type: 'number', value: '14', label: 'Working number', rowIndex: 1,
+        type: 'number', label: 'Working number?', rowIndex: 1,
         key: 'n55eds',
       },
       {
@@ -40,8 +40,8 @@ export const config = {
       {
         type: 'select', rowIndex: 3, key: 'sel1base',
         label: 'first select',
-        options: [{ label: 'BMW', value: 'car' }, { label: 'Samsung Phone', value: 'phone' }],
-        // renderIf: 'n55eds',
+        options: [{ name: 'BMW', id: 'car' }, { name: 'Samsung Phone', id: 'phone' }],
+        renderIf: 'n55eds',
       }
     ],
     buttons: [

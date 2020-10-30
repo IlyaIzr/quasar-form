@@ -2,7 +2,7 @@
   <div class="q-gutter-md">
     <q-select
       :value="valueStore"
-      :options="options"
+      :options="parsedOptions"
       @input="onInput"
       :name="keyName"
       :label="label"
@@ -15,16 +15,14 @@
 export default {
   name: "SelectInput",
   props: {
-    value: {
-      type: String,
-      default: "",
-    },
     label: {
       type: String,
-      default: false,
+      required: false,
+      default: "",
     },
     options: {
       type: Array,
+      required: false,
       default: [],
     },
     keyName: {
@@ -45,10 +43,23 @@ export default {
       valueStore: this.store.getValueByKey(this.keyName),
     };
   },
+  computed: {
+    parsedOptions() {
+      const arr = [];
+      this.options.map((option) => {
+        arr.push({ label: option.name, value: option.id });
+      });
+      return arr;
+    },
+  },
   methods: {
     onInput(val) {
-      this.store.updateKeyValue(this.rest.keyName, val);
-      this.valueStore = this.store.getValueByKey(this.rest.keyName);
+      // const DBformat = "";
+      // if (val.label && val.value) {
+      //   return { name: val.label, id: val.value };
+      // }
+      this.store.updateKeyValue(this.keyName, val);
+      this.valueStore = this.store.getValueByKey(this.keyName);
       this.$emit("input", val);
     },
   },

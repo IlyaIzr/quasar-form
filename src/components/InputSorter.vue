@@ -103,6 +103,7 @@ export default {
           onChange(this.$children[0], vNodeStore);
         });
       }
+      console.log(store.state)
     },
   },
 };
