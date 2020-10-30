@@ -32,7 +32,20 @@ export default {
     onSubmit(e) {
       const valuesResponse = { ...store.state };
       delete valuesResponse.watcher;
-      console.log(valuesResponse);
+      const response = {};
+      for (const [key, value] of Object.entries(valuesResponse)) {
+        if (typeof value === "object") {
+          const noObs = { ...value };
+          if (noObs.value) {
+            noObs.id = noObs.value;
+            noObs.name = noObs.label;
+            delete noObs.value;
+            delete noObs.label;
+          }
+          response[key] = noObs;
+        } else response[key] = value;
+      }
+      console.log(response);
     },
     onReset() {},
   },
