@@ -41,30 +41,41 @@ export default {
   data() {
     return {
       valueStore: this.store.getSelectValue(this.keyName),
+      localOptions: this.options,
     };
   },
   computed: {
     parsedOptions() {
+      console.log('parsed opts did run')
       const arr = [];
-      this.options.map((option) => {
-        arr.push({ label: option.name, value: option.id });
+      this.localOptions.map((option) => {
+        const noObserver = { ...option };
+        console.log(noObserver)
+        console.log(noObserver.name)
+        const fuckYou = { label: noObserver.name, value: noObserver.id }
+        console.log(fuckYou)
+        arr.push(fuckYou);
       });
+      console.log(arr)
       return arr;
     },
   },
   methods: {
-    onInput(val) {      
+    onInput(val) {
       const noObserver = { ...val };
       if (noObserver.id && noObserver.name) {
-        noObserver.value = noObserver.id
-        noObserver.label = noObserver.name
-        delete noObserver.id
-        delete noObserver.name
+        noObserver.value = noObserver.id;
+        noObserver.label = noObserver.name;
+        delete noObserver.id;
+        delete noObserver.name;
       }
-      
+
       this.store.updateKeyValue(this.keyName, noObserver);
       this.valueStore = this.store.getValueByKey(this.keyName);
       this.$emit("input", val);
+    },
+    setOptions(options) {
+      this.localOptions = options;
     },
   },
   mounted() {

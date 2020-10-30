@@ -11,7 +11,7 @@
     "build:pwa": "quasar build -m pwa",
     "build:ssr": "quasar build -m ssr",
     "git": "git add . && git commit -m",
-    "postgit": "git push --all"
+    "postgit": "git push origin HEAD:master"
   },
   "dependencies": {
     "@quasar/extras": "^1.0.0",

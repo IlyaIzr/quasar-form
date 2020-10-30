@@ -4,11 +4,6 @@ const db_data_group_options = [
   { name: 'Gamma', id: '31414aZ' }
 ];
 
-const db_data_sender_options = [
-  { name: 'Piotr', id: '1414S' },
-  { name: 'Ivan', id: '14414S' },
-  { name: 'Alex', id: '14414swS' },
-];
 
 const db_data_accounts_options = [
   { name: 'Piotr', id: '1414S' },
@@ -47,7 +42,7 @@ export const config = {
         value: { name: 'Beta', id: '2aaaZ' },
         onChange: () => {
           const updater = async (vNode, vNodeStore) => {
-            const { value, rest } = vNode
+            const { value, rest, options } = vNode
 
             //Request
             await WS.connectionEstablished()
@@ -55,6 +50,7 @@ export const config = {
             if (status === 'OK') {
               const vTarget = vNodeStore.getComponent('sendersKey132')
               vTarget.onInput(data)
+              vTarget.setOptions(options)
             }
           }
           return updater
@@ -63,7 +59,7 @@ export const config = {
       {
         type: 'select', rowIndex: 2, key: 'sendersKey132', // required
         label: '@(Отправитель)',
-        options: db_data_sender_options,
+        options: [],
         onChange: () => {
           const updater = async (vNode, vNodeStore) => {
             const { value, rest } = vNode
