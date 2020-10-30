@@ -40,7 +40,7 @@ export default {
   },
   data() {
     return {
-      valueStore: this.store.getValueByKey(this.keyName),
+      valueStore: this.store.getSelectValue(this.keyName),
     };
   },
   computed: {
@@ -58,10 +58,14 @@ export default {
       // if (val.label && val.value) {
       //   return { name: val.label, id: val.value };
       // }
-      this.store.updateKeyValue(this.keyName, val);
+      const noObserver = { ...val };
+      this.store.updateKeyValue(this.keyName, noObserver);
       this.valueStore = this.store.getValueByKey(this.keyName);
       this.$emit("input", val);
     },
+  },
+  mounted() {
+    // console.log(this.valueStore);
   },
 };
 </script>

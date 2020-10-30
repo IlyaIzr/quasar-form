@@ -41,6 +41,7 @@ export const config = {
         type: 'select', rowIndex: 3, key: 'sel1base',
         label: 'first select',
         options: [{ name: 'BMW', id: 'car' }, { name: 'Samsung Phone', id: 'phone' }],
+        value: { name: 'Samsung Phone', id: 'phone' },
         renderIf: 'n55eds',
       }
     ],
