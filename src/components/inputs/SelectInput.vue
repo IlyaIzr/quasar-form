@@ -1,7 +1,7 @@
 <template>
   <div class="q-gutter-md">
     <q-select
-      :value="valueStore"
+      :value="parsedValue"
       :options="parsedOptions"
       @input="onInput"
       :name="keyName"
@@ -15,6 +15,11 @@
 export default {
   name: "SelectInput",
   props: {
+    value: {
+      type: String || Object,
+      required: false,
+      default: "",
+    },
     label: {
       type: String,
       required: false,
@@ -40,7 +45,7 @@ export default {
   },
   data() {
     return {
-      valueStore: this.store.getSelectValue(this.keyName),
+      valueStore: this.store.getValueByKey(this.keyName),
       localOptions: this.options,
     };
   },
@@ -53,21 +58,37 @@ export default {
       });
       return arr;
     },
+    parsedValue(){
+      let res;
+      this.localOptions && this.localOptions.map((option) => {
+        const noObserver = {...option};
+        if (this.valueStore === noObserver.id)
+          res = { label: noObserver.name, value: noObserver.id };
+      });
+      if (!res)
+        console.log(
+          "option " + this.valueStore + "wasnt found in options",
+          this.localOptions
+        );
+      return res;
+    }
   },
   methods: {
     onInput(val) {
-      const noObserver = val && typeof (val === "object") ? { ...val } : "";
-      if (noObserver.id && noObserver.name) {
-        noObserver.value = noObserver.id;
-        noObserver.label = noObserver.name;
-        delete noObserver.id;
-        delete noObserver.name;
+      // console.log("val of", val);
+      let noObserver = val && typeof val === "object" ? { ...val } : "";
+      if (noObserver.value) {
+        noObserver = noObserver.value;
       }
+      // handle string
+      if (typeof val === "string") noObserver = val;
+      // console.log("returned reselut of ", noObserver);
 
       this.store.updateKeyValue(this.keyName, noObserver);
       this.valueStore = this.store.getValueByKey(this.keyName);
       this.$emit("input", val);
     },
+
     setOptions(options) {
       this.localOptions = options;
     },

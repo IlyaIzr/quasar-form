@@ -5,6 +5,7 @@
     <Mapper :settings="settings" :values="values" />
 
     <!-- Buttons component to be here insted of -->
+    <!-- If no buttons provided, render DefSubButtons component -->
     <div>
       <q-btn label="Submit" type="submit" color="primary" />
       <q-btn label="Reset" type="reset" color="primary" flat class="q-ml-sm" />
@@ -32,20 +33,15 @@ export default {
     onSubmit(e) {
       const valuesResponse = { ...store.state };
       delete valuesResponse.watcher;
-      const response = {};
+      // const response = {};
       for (const [key, value] of Object.entries(valuesResponse)) {
-        if (typeof value === "object") {
-          const noObs = { ...value };
-          if (noObs.value) {
-            noObs.id = noObs.value;
-            noObs.name = noObs.label;
-            delete noObs.value;
-            delete noObs.label;
-          }
-          response[key] = noObs;
-        } else response[key] = value;
+        // if (typeof value === "object") {
+        //   let noObs = { ...value };
+        //   noObs = noObs.value ? noObs.value : "";
+        //   response[key] = noObs;
+        // } else response[key] = value;
       }
-      console.log(response);
+      console.log(valuesResponse);
     },
     onReset() {},
   },

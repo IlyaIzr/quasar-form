@@ -13,7 +13,7 @@ export const config = {
         type: 'select', rowIndex: 1, key: 'sel1base', // required properties
         label: '@(Группа)',
         options: db_data_group_options,
-        value: { name: 'Beta', id: '2aaaZ' },
+        value: '2aaaZ',
         onChange: () => {
           const updater = async (vNode, vNodeStore) => {
             const { value, rest } = vNode
@@ -41,6 +41,7 @@ export const config = {
         type: 'select', rowIndex: 2, key: 'sendersKey132', // required
         label: '@(Отправитель)',
         options: [],
+        renderIf: 'sel1base',
         onChange: () => {
           const updater = async (vNode, vNodeStore) => {
             const { value, rest } = vNode
@@ -68,6 +69,7 @@ export const config = {
         type: 'select', rowIndex: 3, key: 'recieverkey214', // required
         label: '@(Отправитель)',
         options: [],
+        renderIf: 'sel1base',
         onChange: () => {
           const updater = async (vNode, vNodeStore) => {
             const { value, rest } = vNode
@@ -87,6 +89,12 @@ export const config = {
       {
         type: 'select', rowIndex: 3, key: 'accountsKey422', // required
         label: '@(Счёт отправителя)',
+        options: []
+      },
+      
+      {
+        type: 'email', rowIndex: 4, key: 'accountsKey42222', // required
+        label: 'Mail',
         options: []
       }
     ],
