@@ -52,16 +52,10 @@ export default {
   },
   methods: {
     async onFocus(e) {
-      if (this.rest.onFocus) {
-        const cb = await this.rest.onFocus(this, e);
-        if (cb && typeof cb === "function") cb(this);
-      }      
+      this.$emit("focus", e);
     },
     async onBlur(e) {
-      if (this.rest.onBlur) {
-        const cb = await this.rest.onBlur(this, e);
-        if (cb && typeof cb === "function") cb(this);
-      }
+      this.$emit("blur", e);
     },
     async onInput(val) {      
       store.updateKeyValue(this.keyName, val);

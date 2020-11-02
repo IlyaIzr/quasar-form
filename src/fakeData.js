@@ -45,12 +45,12 @@ export const config = {
         rules: [val => val.length <= 3 || "Please use maximum 3 characters"]  //array of functions of rules
       },
 
-      // Event handlers
+      // Universal event handlers
       {
         type: 'text', rowIndex: 4, key: '24assa21as',
         label: 'Event Handlers',
 
-        async onBlur(vNode, event) {
+        async onBlur(vNode, event, vNodeStore) {
           console.log('blur happend')
           let res = 'this was blurred'
 
@@ -61,14 +61,14 @@ export const config = {
           }
         },
 
-        async onInput(vNode, value) {
+        async onInput(vNode, value, vNodeStore) {
           console.log('input happend')
           return function (vNode) {
             console.log('callback function')
           }
         },
 
-        async onFocus(vNode, value) {
+        async onFocus(vNode, value, vNodeStore) {
           console.log('focus happend')
           return function (vNode) {
             console.log('callback function')

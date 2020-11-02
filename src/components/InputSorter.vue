@@ -9,6 +9,8 @@
       :rest="inputInfo"
       :store="store"
       @input="onInput"
+      @blur="onBlur"
+      @focus="onFocus"
     />
     <SelectInput
       v-if="inputType === 'select'"
@@ -19,6 +21,8 @@
       :rest="inputInfo"
       :store="store"
       @input="onInput"
+      @blur="onBlur"
+      @focus="onFocus"
     />
   </div>
 </template>
@@ -104,7 +108,33 @@ export default {
             val,
             vNodeStore
           );
-          if (cb && typeof cb === "function") cb(this);
+          if (cb && typeof cb === "function") cb(this.$children[0]);
+        });
+      }
+    },
+
+    async onBlur(e) {
+      if (this.inputInfo.onBlur) {
+        this.$nextTick(async function () {
+          const cb = await this.inputInfo.onBlur(
+            this.$children[0],
+            e,
+            vNodeStore
+          );
+          if (cb && typeof cb === "function") cb(this.$children[0]);
+        });
+      }
+    },
+
+    async onFocus(e) {
+      if (this.inputInfo.onFocus) {
+        this.$nextTick(async function () {
+          const cb = await this.inputInfo.onFocus(
+            this.$children[0],
+            e,
+            vNodeStore
+          );
+          if (cb && typeof cb === "function") cb(this.$children[0]);
         });
       }
     },

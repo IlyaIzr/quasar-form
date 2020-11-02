@@ -4,6 +4,8 @@
       :value="parsedValue"
       :options="parsedOptions"
       @input="onInput"
+      @focus="onFocus"
+      @blur="onBlur"
       :name="keyName"
       :label="label"
       :rest="rest"
@@ -60,20 +62,21 @@ export default {
       });
       return arr;
     },
-    parsedValue(){
+    parsedValue() {
       let res;
-      this.localOptions && this.localOptions.map((option) => {
-        const noObserver = {...option};
-        if (this.valueStore === noObserver.id)
-          res = { label: noObserver.name, value: noObserver.id };
-      });
+      this.localOptions &&
+        this.localOptions.map((option) => {
+          const noObserver = { ...option };
+          if (this.valueStore === noObserver.id)
+            res = { label: noObserver.name, value: noObserver.id };
+        });
       // if (!res)
       //   console.log(
       //     "option " + this.valueStore + "wasnt found in options",
       //     this.localOptions
       //   );
       return res;
-    }
+    },
   },
   methods: {
     onInput(val) {
@@ -89,6 +92,12 @@ export default {
       this.store.updateKeyValue(this.keyName, noObserver);
       this.valueStore = this.store.getValueByKey(this.keyName);
       this.$emit("input", val);
+    },
+    async onFocus(e) {
+      this.$emit("focus", e);
+    },
+    async onBlur(e) {
+      this.$emit("blur", e);
     },
 
     setOptions(options) {
