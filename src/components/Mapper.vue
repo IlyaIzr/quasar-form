@@ -14,8 +14,8 @@ export default {
     FormRow,
   },
   props: {
-    settings: {
-      type: Object,
+    fields: {
+      type: Array,
       required: true,
     },
     values: {
@@ -26,7 +26,7 @@ export default {
   computed: {
     sortedFields: function () {
       const res = [];
-      this.settings.data.fields.map((field) => {
+      this.fields.map((field) => {
         if (this.values[field.key] !== undefined) {
           field.value = this.values[field.key];
         } else if (field.value === undefined) field.value = "";

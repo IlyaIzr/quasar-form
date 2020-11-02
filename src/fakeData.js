@@ -91,7 +91,7 @@ export const config = {
         label: '@(Счёт отправителя)',
         options: []
       },
-      
+
       {
         type: 'email', rowIndex: 4, key: 'accountsKey42222', // required
         label: 'Mail',
@@ -100,8 +100,12 @@ export const config = {
     ],
 
 
-    buttons: [
-      { type: 'submit', text: 'отправить' }
+    buttons: [  // buttons NOT required
+      { 
+        type: 'submit', // required IF buttons declared
+        label: 'отправить', color: 'primary', class: 'customClassName' //not required
+      },
+      { type: 'reset', label: 'сбросить' }  // reset button not required
     ],
 
     form: {

@@ -2,23 +2,21 @@
   <q-form class="bg-white q-pa-md" @submit="onSubmit" @reset="onReset">
     <div class="text-h6">{{ settings.data.title }}</div>
 
-    <Mapper :settings="settings" :values="values" />
+    <Mapper :fields="settings.data.fields" :values="values" />
 
     <!-- Buttons component to be here insted of -->
     <!-- If no buttons provided, render DefSubButtons component -->
-    <div>
-      <q-btn label="Submit" type="submit" color="primary" />
-      <q-btn label="Reset" type="reset" color="primary" flat class="q-ml-sm" />
-    </div>
+    <Buttons :buttons="settings.data.buttons" />
   </q-form>
 </template>
 
 <script>
 import Mapper from "./Mapper";
+import Buttons from "./Buttons";
 import { store } from "../store";
 export default {
   name: "FormWrap",
-  components: { Mapper },
+  components: { Mapper, Buttons },
   props: {
     settings: {
       type: Object,

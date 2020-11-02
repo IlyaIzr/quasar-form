@@ -65,11 +65,11 @@ export default {
         if (this.valueStore === noObserver.id)
           res = { label: noObserver.name, value: noObserver.id };
       });
-      if (!res)
-        console.log(
-          "option " + this.valueStore + "wasnt found in options",
-          this.localOptions
-        );
+      // if (!res)
+      //   console.log(
+      //     "option " + this.valueStore + "wasnt found in options",
+      //     this.localOptions
+      //   );
       return res;
     }
   },
