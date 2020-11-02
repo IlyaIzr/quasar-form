@@ -12,12 +12,12 @@ export const store = {
     if (this.debug) console.log('key ' + key + ' recieved with value ' + value)
     return this.state[key]
   },
-  resetStore() {
+  resetStore(exeptionKey = '') {
     if (this.debug) console.log('store was reseted')
     // let empty = {}
     for (const [key, value] of Object.entries(this.state)) {
       if (key === 'watcher') this.state.watcher = 'empty' + String(new Date)
-      else this.state[key] = ""
+      else if (key !== exeptionKey) this.state[key] = ""
     }
   }
 }

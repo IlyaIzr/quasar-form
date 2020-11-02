@@ -30,17 +30,25 @@ export default {
       required: false,
     },
   },
+  computed: {
+    valuesResponse() {
+      return { ...store.state };
+    },
+  },
   methods: {
     onSubmit(e) {
-      const valuesResponse = { ...store.state };
+      const valuesResponse = { ...this.valuesResponse };
       delete valuesResponse.watcher;
       if (this.form.onSubmit) {
-        this.form.onSubmit(this, valuesResponse)
+        this.form.onSubmit(this, valuesResponse);
       }
     },
     onReset() {
-      store.resetStore()
-      console.log('reseted')
+      let exeption;
+      if (this.form.onReset) {
+        exeption = this.form.onReset(this, { ...this.valuesResponse });
+      }
+      store.resetStore(exeption);
     },
   },
 };

@@ -111,6 +111,11 @@ export const config = {
       onSubmit(vNode, data) {        
         console.log('submited', vNode)
         console.log('submited', data)
+      },
+      onReset(vNode, data) {
+        console.log('reseted form', vNode)
+        const exeptionKey = 'sel1base' // don't reset firld with that key. One key only for now
+        return exeptionKey
       }
     },
 
