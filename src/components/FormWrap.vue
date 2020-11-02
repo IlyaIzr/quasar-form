@@ -42,30 +42,37 @@ export default {
     },
   },
   methods: {
-    onSubmit(e) {
+    async onSubmit(e) {
       const valuesResponse = { ...this.valuesResponse };
       delete valuesResponse.watcher;
       if (this.form.onSubmit) {
-        this.form.onSubmit(this, valuesResponse);
+        const cb = await this.form.onSubmit(this, valuesResponse);
+        if (cb && typeof cb === "function") cb(this);
       }
     },
     async onReset() {
       let exeption;
+      let cb;
       if (this.form.onReset) {
-        exeption = await this.form.onReset(this, { ...this.valuesResponse });
+        const res = await this.form.onReset(this, { ...this.valuesResponse });
+        exeption = res && res.exeption;
+        cb = res && res.cb;
       }
       store.resetStore(exeption);
+      if (cb && typeof cb === "function") cb(this);
     },
-    onValidate() {
+    async onValidate() {
       if (this.form.onValidate) {
-        this.form.onValidate(this, { ...this.valuesResponse });
+        const cb = await this.form.onValidate(this, { ...this.valuesResponse });
+        if (cb && typeof cb === "function") cb(this);
       }
     },
-    onError(err){
+    async onError(err) {
       if (this.form.onError) {
-        this.form.onError(this, { ...this.valuesResponse }, err);
+        const cb = await this.form.onError(this, { ...this.valuesResponse }, err);
+        if (cb && typeof cb === "function") cb(this);
       }
-    }
+    },
   },
 };
 </script>

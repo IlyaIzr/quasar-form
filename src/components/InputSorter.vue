@@ -96,10 +96,15 @@ export default {
     vNodeStore.setComponent(this.inputInfo.key, this);
   },
   methods: {
-    onInput(val) {
-      if (this.inputInfo.onChange) {
-        this.$nextTick(function () {
-          this.inputInfo.onChange(this.$children[0], vNodeStore)
+    async onInput(val) {
+      if (this.inputInfo.onInput) {
+        this.$nextTick(async function () {
+          const cb = await this.inputInfo.onInput(
+            this.$children[0],
+            val,
+            vNodeStore
+          );
+          if (cb && typeof cb === "function") cb(this);
         });
       }
     },

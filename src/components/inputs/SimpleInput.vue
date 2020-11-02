@@ -7,8 +7,8 @@
       :rest="rest"
       :name="keyName"
       :required="isRequired"
-      @focus="onFocusLocal"
-      @change="onChange"
+      @focus="onFocus"
+      @blur="onBlur"
       @input="onInput"
       :rules="rest.rules"
     />
@@ -51,14 +51,19 @@ export default {
     };
   },
   methods: {
-    onFocusLocal() {
-      const res = this.rest && this.rest.onFocus && this.rest.onFocus();
-      res && res(this);
+    async onFocus(e) {
+      if (this.rest.onFocus) {
+        const cb = await this.rest.onFocus(this, e);
+        if (cb && typeof cb === "function") cb(this);
+      }      
     },
-    onChange(e) {
-      // console.log("change event triggered");
+    async onBlur(e) {
+      if (this.rest.onBlur) {
+        const cb = await this.rest.onBlur(this, e);
+        if (cb && typeof cb === "function") cb(this);
+      }
     },
-    onInput(val) {
+    async onInput(val) {      
       store.updateKeyValue(this.keyName, val);
       this.valueStore = store.getValueByKey(this.keyName);
       this.$emit("input", val);
