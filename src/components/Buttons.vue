@@ -47,7 +47,6 @@ export default {
         if (btn.type === "reset") {
           !btn.color ? (btn.color = "primary") : null;
           res = { ...btn };
-          console.log(res);
         }
       });
       return res;

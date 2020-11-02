@@ -14,6 +14,7 @@
 </template>
 
 <script>
+import { store } from "../../store";
 export default {
   name: "SimpleInput",
   props: {
@@ -25,7 +26,7 @@ export default {
     label: {
       type: String,
       required: false,
-      default: '',
+      default: "",
     },
     keyName: {
       type: String,
@@ -42,7 +43,7 @@ export default {
   },
   data() {
     return {
-      valueStore: this.store.getValueByKey(this.keyName)
+      valueStore: store.getValueByKey(this.keyName),
     };
   },
   methods: {
@@ -57,11 +58,19 @@ export default {
       // console.log("change event triggered");
     },
     onInput(val) {
-      this.store.updateKeyValue(this.keyName, val);
-      this.valueStore = this.store.getValueByKey(this.keyName);
-      this.$emit('input', val)
+      store.updateKeyValue(this.keyName, val);
+      this.valueStore = store.getValueByKey(this.keyName);
+      this.$emit("input", val);
     },
-  }
+  },
+  watch: {
+    "store.state.watcher": function () {
+      const val = store.getValueByKey(this.keyName);
+      if (val !== this.valueStore) {
+        this.valueStore = val;
+      }
+    },
+  },
 };
 </script>
 

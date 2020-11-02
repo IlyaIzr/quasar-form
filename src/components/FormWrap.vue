@@ -4,8 +4,6 @@
 
     <Mapper :fields="settings.data.fields" :values="values" />
 
-    <!-- Buttons component to be here insted of -->
-    <!-- If no buttons provided, render DefSubButtons component -->
     <Buttons :buttons="settings.data.buttons" />
   </q-form>
 </template>
@@ -17,6 +15,11 @@ import { store } from "../store";
 export default {
   name: "FormWrap",
   components: { Mapper, Buttons },
+  data() {
+    return {
+      form: { ...this.settings.data.form },
+    };
+  },
   props: {
     settings: {
       type: Object,
@@ -31,17 +34,14 @@ export default {
     onSubmit(e) {
       const valuesResponse = { ...store.state };
       delete valuesResponse.watcher;
-      // const response = {};
-      for (const [key, value] of Object.entries(valuesResponse)) {
-        // if (typeof value === "object") {
-        //   let noObs = { ...value };
-        //   noObs = noObs.value ? noObs.value : "";
-        //   response[key] = noObs;
-        // } else response[key] = value;
+      if (this.form.onSubmit) {
+        this.form.onSubmit(this, valuesResponse)
       }
-      console.log(valuesResponse);
     },
-    onReset() {},
+    onReset() {
+      store.resetStore()
+      console.log('reseted')
+    },
   },
 };
 </script>

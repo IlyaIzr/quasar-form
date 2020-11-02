@@ -12,6 +12,7 @@
 </template>
 
 <script>
+import { store } from "../../store";
 export default {
   name: "SelectInput",
   props: {
@@ -93,8 +94,13 @@ export default {
       this.localOptions = options;
     },
   },
-  mounted() {
-    // console.log(this.valueStore);
+  watch: {
+    "store.state.watcher": function () {
+      const val = store.getValueByKey(this.keyName);
+      if (val !== this.valueStore) {
+        this.valueStore = val;
+      }
+    },
   },
 };
 </script>

@@ -41,7 +41,6 @@ export const config = {
         type: 'select', rowIndex: 2, key: 'sendersKey132', // required
         label: '@(Отправитель)',
         options: [],
-        renderIf: 'sel1base',
         onChange: () => {
           const updater = async (vNode, vNodeStore) => {
             const { value, rest } = vNode
@@ -69,7 +68,6 @@ export const config = {
         type: 'select', rowIndex: 3, key: 'recieverkey214', // required
         label: '@(Отправитель)',
         options: [],
-        renderIf: 'sel1base',
         onChange: () => {
           const updater = async (vNode, vNodeStore) => {
             const { value, rest } = vNode
@@ -101,7 +99,7 @@ export const config = {
 
 
     buttons: [  // buttons NOT required
-      { 
+      {
         type: 'submit', // required IF buttons declared
         label: 'отправить', color: 'primary', class: 'customClassName' //not required
       },
@@ -110,7 +108,10 @@ export const config = {
 
     form: {
       isModal: false,
-      //form methods like onSubmit
+      onSubmit(vNode, data) {        
+        console.log('submited', vNode)
+        console.log('submited', data)
+      }
     },
 
     title: 'Form title'
