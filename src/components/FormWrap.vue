@@ -1,5 +1,11 @@
 <template>
-  <q-form class="bg-white q-pa-md" @submit="onSubmit" @reset="onReset">
+  <q-form
+    class="bg-white q-pa-md"
+    @submit="onSubmit"
+    @reset="onReset"
+    @validation-success="onValidate"
+    @validation-error="onError"
+  >
     <div class="text-h6">{{ settings.data.title }}</div>
 
     <Mapper :fields="settings.data.fields" :values="values" />
@@ -50,6 +56,16 @@ export default {
       }
       store.resetStore(exeption);
     },
+    onValidate() {
+      if (this.form.onValidate) {
+        this.form.onValidate(this, { ...this.valuesResponse });
+      }
+    },
+    onError(err){
+      if (this.form.onError) {
+        this.form.onError(this, { ...this.valuesResponse }, err);
+      }
+    }
   },
 };
 </script>
