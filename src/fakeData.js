@@ -14,26 +14,16 @@ export const config = {
         label: '@(Группа)',
         options: db_data_group_options,
         value: '2aaaZ',
-        onChange: () => {
-          const updater = async (vNode, vNodeStore) => {
-            const { value, rest } = vNode
+        async onChange(vNode, vNodeStore) {
+          const { value, rest } = vNode
 
-            //Request
-            const { status, data, options } = await WS.send('transactions2', 'usersDataSenders', value)
-            if (status === 'OK') {
-              const vTarget = vNodeStore.getComponent('sendersKey132')
-              vTarget.onInput(data)
-              vTarget.setOptions(options)
-            }
-
-            const response = await WS.send('transactions2', 'usersDataRecipients', value)
-            if (response.status === 'OK') {
-              const vTarget = vNodeStore.getComponent('recieverkey214')
-              vTarget.onInput(response.data)
-              vTarget.setOptions(response.options)
-            }
+          //Request
+          const { status, data, options } = await WS.send('transactions2', 'usersDataSenders', value)
+          if (status === 'OK') {
+            const vTarget = vNodeStore.getComponent('sendersKey132')
+            vTarget.onInput(data)
+            vTarget.setOptions(options)
           }
-          return updater
         }
       },
       //2
@@ -41,20 +31,7 @@ export const config = {
         type: 'select', rowIndex: 2, key: 'sendersKey132', // required
         label: '@(Отправитель)',
         options: [],
-        onChange: () => {
-          const updater = async (vNode, vNodeStore) => {
-            const { value, rest } = vNode
-
-            // Request
-            const { status, data, options } = await WS.send('transactions2', 'accountsDataSender', value)
-            if (status === 'OK') {
-              const vTarget = vNodeStore.getComponent('accountsKey132')
-              vTarget.onInput(data)
-              vTarget.setOptions(options)
-            }
-          }
-          return updater
-        }
+        rules: [val => val || 'Please select option']
       },
       //3
       {
@@ -62,38 +39,17 @@ export const config = {
         label: '@(Счёт отправителя)',
         options: []
       },
-      //4
 
       {
-        type: 'select', rowIndex: 3, key: 'recieverkey214', // required
-        label: '@(Отправитель)',
-        options: [],
-        onChange: () => {
-          const updater = async (vNode, vNodeStore) => {
-            const { value, rest } = vNode
-
-            // Request
-            const { status, data, options } = await WS.send('transactions2', 'accountsDataRecipients', value)
-            if (status === 'OK') {
-              const vTarget = vNodeStore.getComponent('accountsKey422')
-              vTarget.onInput(data)
-              vTarget.setOptions(options)
-            }
-          }
-          return updater
-        }
-      },
-      //5
-      {
-        type: 'select', rowIndex: 3, key: 'accountsKey422', // required
-        label: '@(Счёт отправителя)',
-        options: []
-      },
-
-      {
-        type: 'email', rowIndex: 4, key: 'accountsKey42222', // required
+        type: 'email', rowIndex: 3, key: 'accountsKey42222', // required
         label: 'Mail',
-        options: []
+        isRequired: false //simple inputs only
+      },
+
+      {
+        type: 'text', rowIndex: 3, key: '2421as', // required
+        label: 'Test',
+        rules: [val => val.length <= 3 || "Please use maximum 3 characters"]  //array of functions of rules
       }
     ],
 
@@ -108,21 +64,21 @@ export const config = {
 
     form: {
       isModal: false,
-      onSubmit(vNode, data) {        
+      async onSubmit(vNode, data) {
         console.log('submited', vNode)
         console.log('submited', data)
-        vNode.onReset()
+        // vNode.onReset()
       },
-      onReset(vNode, data) {
+      async onReset(vNode, data) {
         console.log('reseted form', vNode)
         const exeptionKey = 'sel1base' // don't reset firld with that key. 1 key only for now
         return exeptionKey
       },
-      onValidate(vNode, data) {
+      async onValidate(vNode, data) {
         console.log('validated form')
       },
-      onError(vNode, data, errorComponent) {
-        console.log('validation error')
+      async onError(vNode, data, errorComponent) {
+        console.log('validation error', errorComponent)
       }
     },
 

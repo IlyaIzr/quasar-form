@@ -6,9 +6,11 @@
       :type="type"
       :rest="rest"
       :name="keyName"
+      :required="isRequired"
       @focus="onFocusLocal"
       @change="onChange"
       @input="onInput"
+      :rules="rest.rules"
     />
   </div>
 </template>
@@ -44,15 +46,14 @@ export default {
   data() {
     return {
       valueStore: store.getValueByKey(this.keyName),
+      isRequired:
+        this.rest.isRequired === undefined ? false : this.rest.isRequired,
     };
   },
   methods: {
     onFocusLocal() {
       const res = this.rest && this.rest.onFocus && this.rest.onFocus();
       res && res(this);
-    },
-    extraMethod() {
-      // console.log("extra called");
     },
     onChange(e) {
       // console.log("change event triggered");

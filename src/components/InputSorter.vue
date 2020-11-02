@@ -98,9 +98,8 @@ export default {
   methods: {
     onInput(val) {
       if (this.inputInfo.onChange) {
-        const onChange = this.inputInfo.onChange();
         this.$nextTick(function () {
-          onChange(this.$children[0], vNodeStore);
+          this.inputInfo.onChange(this.$children[0], vNodeStore)
         });
       }
     },

@@ -7,6 +7,7 @@
       :name="keyName"
       :label="label"
       :rest="rest"
+      :rules="rest.rules"
     />
   </div>
 </template>

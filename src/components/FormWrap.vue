@@ -49,10 +49,10 @@ export default {
         this.form.onSubmit(this, valuesResponse);
       }
     },
-    onReset() {
+    async onReset() {
       let exeption;
       if (this.form.onReset) {
-        exeption = this.form.onReset(this, { ...this.valuesResponse });
+        exeption = await this.form.onReset(this, { ...this.valuesResponse });
       }
       store.resetStore(exeption);
     },
