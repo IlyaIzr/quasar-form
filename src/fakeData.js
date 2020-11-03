@@ -5,7 +5,7 @@ export const config = {
       type: 'select', rowIndex: 2, key: 'sel1base',
       label: '@(Группа)',
       options: [{ name: 'Alpha', id: '114aZ' }, { name: 'Beta', id: '2aaaZ' },],
-      required: true
+      required: true,
     },
 
     {
@@ -24,26 +24,26 @@ export const config = {
       type: 'text', rowIndex: 3, key: '24assa21as',
       label: 'Event Handlers',
 
-      async onBlur(vNode, event, vNodeStore) {
+      async onBlur(vNode, event, methods, vNodeStore) {
         console.log('blur happend')
         let res = 'this was blurred'
-
         // optional
         return function (vNode) {
           console.log('callback function')
-          vNode.onInput(res)
+          vNode.input(res)
         }
       },
 
-      async onInput(vNode, value, vNodeStore) {
+      async onInput(vNode, value, methods, vNodeStore) {
         console.log('input happend')
         return function (vNode) {
           console.log('callback function')
         }
       },
 
-      async onFocus(vNode, value, vNodeStore) {
+      async onFocus(vNode, value, methods, vNodeStore) {
         console.log('focus happend')
+        console.log(vNode)
         return function (vNode) {
           console.log('callback function')
         }

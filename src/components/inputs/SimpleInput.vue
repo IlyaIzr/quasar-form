@@ -1,6 +1,7 @@
 <template>
   <div class="q-gutter-md">
     <q-input
+      ref="input"
       :value="valueStore"
       :label="label"
       :type="type"
@@ -51,17 +52,20 @@ export default {
     };
   },
   methods: {
-    async onFocus(e) {
+    onFocus(e) {
       this.$emit("focus", e);
     },
-    async onBlur(e) {
+    onBlur(e) {
       this.$emit("blur", e);
     },
-    async onInput(val) {      
-      store.updateKeyValue(this.keyName, val);
-      this.valueStore = store.getValueByKey(this.keyName);
+    onInput(val) {      
+      this.input(val)
       this.$emit("input", val);
     },
+    input(val){
+      store.updateKeyValue(this.keyName, val);
+      this.valueStore = store.getValueByKey(this.keyName);
+    }
   },
   watch: {
     "store.state.watcher": function () {

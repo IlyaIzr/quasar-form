@@ -1,6 +1,7 @@
 <template>
   <div class="q-gutter-md">
     <q-select
+      ref="input"
       :value="parsedValue"
       :options="parsedOptions"
       @input="onInput"
@@ -51,7 +52,7 @@ export default {
     return {
       valueStore: this.store.getValueByKey(this.keyName),
       localOptions: this.options,
-      rules: this.checkRules(this.rest.rules, this.rest.required)
+      rules: this.checkRules(this.rest.rules, this.rest.required),
     };
   },
   computed: {
@@ -80,7 +81,7 @@ export default {
     },
   },
   methods: {
-    onInput(val) {
+    input(val) {
       // console.log("val of", val);
       let noObserver = val && typeof val === "object" ? { ...val } : "";
       if (noObserver.value) {
@@ -92,7 +93,16 @@ export default {
 
       this.store.updateKeyValue(this.keyName, noObserver);
       this.valueStore = this.store.getValueByKey(this.keyName);
+    },
+    onInput(val) {
+      this.input(val);
       this.$emit("input", val);
+    },
+    onFocus(e) {
+      this.$emit("focus", e);
+    },
+    onBlur(e) {
+      this.$emit("blur", e);
     },
     checkRules(rules, required) {
       let res;
@@ -102,16 +112,6 @@ export default {
         } else res = [(val) => val || "Please select option"];
       } else res = this.rest.rules;
       return res;
-    },
-    async onFocus(e) {
-      this.$emit("focus", e);
-    },
-    async onBlur(e) {
-      this.$emit("blur", e);
-    },
-
-    setOptions(options) {
-      this.localOptions = options;
     },
   },
   watch: {

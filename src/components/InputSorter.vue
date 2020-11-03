@@ -106,6 +106,7 @@ export default {
           const cb = await this.inputInfo.onInput(
             this.$children[0],
             val,
+            this.$children[0].$refs.input,
             vNodeStore
           );
           if (cb && typeof cb === "function") cb(this.$children[0]);
@@ -119,6 +120,7 @@ export default {
           const cb = await this.inputInfo.onBlur(
             this.$children[0],
             e,
+            this.$children[0].$refs.input,
             vNodeStore
           );
           if (cb && typeof cb === "function") cb(this.$children[0]);
@@ -132,6 +134,7 @@ export default {
           const cb = await this.inputInfo.onFocus(
             this.$children[0],
             e,
+            this.$children[0].$refs.input,
             vNodeStore
           );
           if (cb && typeof cb === "function") cb(this.$children[0]);
