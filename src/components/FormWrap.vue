@@ -6,11 +6,11 @@
     @validation-success="onValidate"
     @validation-error="onError"
   >
-    <div class="text-h6">{{ settings.data.title }}</div>
+    <div class="text-h6">{{ settings.title }}</div>
 
-    <FieldMapper :fields="settings.data.fields" :values="values" />
+    <FieldMapper :fields="settings.fields" :values="values" />
 
-    <Buttons :buttons="settings.data.buttons" />
+    <Buttons :buttons="settings.buttons" />
   </q-form>
 </template>
 
@@ -23,7 +23,7 @@ export default {
   components: { FieldMapper, Buttons },
   data() {
     return {
-      form: { ...this.settings.data.form },
+      form: { ...this.settings.form },
     };
   },
   props: {

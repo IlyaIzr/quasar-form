@@ -1,7 +1,7 @@
 <template>
-  <div id="q-app" v-on:change="onChange">
+  <div id="q-app">
     <FormWrap
-      v-if="globalConfig.data"
+      v-if="globalConfig"
       :settings="globalConfig"
       :values="globalValues"
     />
@@ -20,10 +20,8 @@ export default {
     };
   },
   components: { FormWrap },
-  methods: {
-    onChange(e){
-      // console.log(this)
-    }
-  },
+  beforeMount(){
+    if (!this.globalConfig) console.log('no config provided to form constructor')
+  }
 };
 </script>
