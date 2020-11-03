@@ -1,5 +1,5 @@
 <template>
-  <div class="row q-col-gutter-x-md q-col-gutter-y-lg">
+  <div v-if="row" class="row q-col-gutter-x-md q-col-gutter-y-lg">
     <div v-for="item in row" v-bind:key="item.key" class="col">
       <InputSorter :inputInfo="item"/>
     </div>
@@ -15,7 +15,7 @@ export default {
   },
   props: {
     row: {
-      type: Array,
+      type: Array || undefined,
       required: true,
     },
   },

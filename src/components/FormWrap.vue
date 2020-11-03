@@ -8,19 +8,19 @@
   >
     <div class="text-h6">{{ settings.data.title }}</div>
 
-    <Mapper :fields="settings.data.fields" :values="values" />
+    <FieldMapper :fields="settings.data.fields" :values="values" />
 
     <Buttons :buttons="settings.data.buttons" />
   </q-form>
 </template>
 
 <script>
-import Mapper from "./Mapper";
+import FieldMapper from "./FieldMapper";
 import Buttons from "./Buttons";
 import { store } from "../store";
 export default {
   name: "FormWrap",
-  components: { Mapper, Buttons },
+  components: { FieldMapper, Buttons },
   data() {
     return {
       form: { ...this.settings.data.form },

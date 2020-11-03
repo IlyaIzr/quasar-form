@@ -17,24 +17,12 @@
   <link rel="icon" type="image/png" sizes="16x16" href="icons/favicon-16x16.png">
   <link rel="icon" type="image/ico" href="favicon.ico">
 
-  <!-- WS Library -->
-  <script src="http://localhost:5555/websocket-as-promised.min.js"></script>
 </head>
 
 <body>
   <!-- DO NOT touch the following DIV -->
   <div id="q-app"></div>
 
-  <!-- Init WS -->
-  <script>
-    let WS = new WebsocketPromiseLiteClient({
-      url: 'ws://localhost:5555'
-    })
-    async function a () {      
-      await WS.connectionEstablished()
-    }
-    a()
-  </script>
 </body>
 
 </html>

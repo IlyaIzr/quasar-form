@@ -1,0 +1,14 @@
+default type = text
+rowIndex sort
+isRequired to required
+required default rule for select
+add methods along with onEvent handlers
+reset - restore default values
+onError replace with onValidationError
+
+try catch for callForm
+
+more buttons (clear, close)
+
+multiple fields
+checkbox,https://quasar.dev/vue-components/date#With-QInput
