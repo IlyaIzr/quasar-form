@@ -71,7 +71,7 @@ export const config = {
         console.log('callback function')
       }
     },
-    async onReset(vNode, data, formMethods) {
+    async onClear(vNode, data, formMethods) {
       console.log('reseted form', vNode)
       const exeptionKey = 'sel1base' // don't reset firld with that key. 1 key only for now
 

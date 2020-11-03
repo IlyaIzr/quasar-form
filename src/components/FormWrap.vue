@@ -55,8 +55,8 @@ export default {
     async onReset() {
       let exeption;
       let cb;
-      if (this.form.onReset) {
-        const res = await this.form.onReset(this, { ...this.valuesResponse }, this.$refs.form);
+      if (this.form.onClear) {
+        const res = await this.form.onClear(this, { ...this.valuesResponse }, this.$refs.form);
         exeption = res && res.exeption;
         cb = res && res.cb;
       }
