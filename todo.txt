@@ -1,7 +1,3 @@
-default type = text
-rowIndex sort
-isRequired to required
-required default rule for select
 add methods along with onEvent handlers
 reset - restore default values
 onError replace with onValidationError

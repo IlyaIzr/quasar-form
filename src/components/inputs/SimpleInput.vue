@@ -6,7 +6,7 @@
       :type="type"
       :rest="rest"
       :name="keyName"
-      :required="isRequired"
+      :required="required"
       @focus="onFocus"
       @blur="onBlur"
       @input="onInput"
@@ -46,8 +46,8 @@ export default {
   data() {
     return {
       valueStore: store.getValueByKey(this.keyName),
-      isRequired:
-        this.rest.isRequired === undefined ? false : this.rest.isRequired,
+      required:
+        this.rest.required === undefined ? false : this.rest.required,
     };
   },
   methods: {

@@ -2,17 +2,15 @@ export const config = {
   fields: [
     //1
     {
-      type: 'select', rowIndex: 1, key: 'sel1base', // required properties
+      type: 'select', rowIndex: 1, key: 'sel1base',
       label: '@(Группа)',
       options: [{ name: 'Alpha', id: '114aZ' }, { name: 'Beta', id: '2aaaZ' },],
-      value: '2aaaZ',
-      rules: [val => val || 'Please select option']
+      required: true
     },
 
     {
-      type: 'email', rowIndex: 8, key: 'accountsKey42222', // required
+      type: 'email', rowIndex: 8, key: 'accountsKey42222',
       label: 'Mail',
-      isRequired: false, //simple inputs only
     },
 
     {

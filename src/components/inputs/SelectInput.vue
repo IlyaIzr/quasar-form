@@ -9,7 +9,7 @@
       :name="keyName"
       :label="label"
       :rest="rest"
-      :rules="rest.rules"
+      :rules="rules"
     />
   </div>
 </template>
@@ -51,6 +51,7 @@ export default {
     return {
       valueStore: this.store.getValueByKey(this.keyName),
       localOptions: this.options,
+      rules: this.checkRules(this.rest.rules, this.rest.required)
     };
   },
   computed: {
@@ -92,6 +93,15 @@ export default {
       this.store.updateKeyValue(this.keyName, noObserver);
       this.valueStore = this.store.getValueByKey(this.keyName);
       this.$emit("input", val);
+    },
+    checkRules(rules, required) {
+      let res;
+      if (required) {
+        if (typeof rules === "object") {
+          res = [(val) => val || "Please select option", ...this.rest.rules];
+        } else res = [(val) => val || "Please select option"];
+      } else res = this.rest.rules;
+      return res;
     },
     async onFocus(e) {
       this.$emit("focus", e);
