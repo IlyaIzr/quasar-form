@@ -1,10 +1,11 @@
 <template>
   <q-form
     class="bg-white q-pa-md"
+    ref="form"
     @submit="onSubmit"
     @reset="onReset"
-    @validation-success="onValidate"
-    @validation-error="onError"
+    @validation-success="onValidateSuccess"
+    @validation-error="onValidateError"
   >
     <div class="text-h6">{{ settings.title }}</div>
 
@@ -42,11 +43,12 @@ export default {
     },
   },
   methods: {
+    // Event Handlers
     async onSubmit(e) {
       const valuesResponse = { ...this.valuesResponse };
       delete valuesResponse.watcher;
       if (this.form.onSubmit) {
-        const cb = await this.form.onSubmit(this, valuesResponse);
+        const cb = await this.form.onSubmit(this, valuesResponse, this.$refs.form);
         if (cb && typeof cb === "function") cb(this);
       }
     },
@@ -54,25 +56,32 @@ export default {
       let exeption;
       let cb;
       if (this.form.onReset) {
-        const res = await this.form.onReset(this, { ...this.valuesResponse });
+        const res = await this.form.onReset(this, { ...this.valuesResponse }, this.$refs.form);
         exeption = res && res.exeption;
         cb = res && res.cb;
       }
       store.resetStore(exeption);
       if (cb && typeof cb === "function") cb(this);
     },
-    async onValidate() {
-      if (this.form.onValidate) {
-        const cb = await this.form.onValidate(this, { ...this.valuesResponse });
+    async onValidateSuccess() {
+      if (this.form.onValidateSuccess) {
+        const cb = await this.form.onValidateSuccess(this, { ...this.valuesResponse }, this.$refs.form);
         if (cb && typeof cb === "function") cb(this);
       }
     },
-    async onError(err) {
-      if (this.form.onError) {
-        const cb = await this.form.onError(this, { ...this.valuesResponse }, err);
+    async onValidateError(err) {
+      if (this.form.onValidateError) {
+        const cb = await this.form.onValidateError(this, { ...this.valuesResponse }, this.$refs.form, err);
         if (cb && typeof cb === "function") cb(this);
       }
     },
+  },
+
+  async mounted() {
+    if (this.form.onMount) {
+      const cb = await this.form.onMount(this, this.$refs.form)
+      if (cb && typeof cb === "function") cb(this);
+    }    
   },
 };
 </script>

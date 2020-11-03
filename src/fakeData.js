@@ -2,14 +2,14 @@ export const config = {
   fields: [
     //1
     {
-      type: 'select', rowIndex: 1, key: 'sel1base',
+      type: 'select', rowIndex: 2, key: 'sel1base',
       label: '@(Группа)',
       options: [{ name: 'Alpha', id: '114aZ' }, { name: 'Beta', id: '2aaaZ' },],
       required: true
     },
 
     {
-      type: 'email', rowIndex: 8, key: 'accountsKey42222',
+      type: 'email', rowIndex: 1, key: 'accountsKey42222',
       label: 'Mail',
     },
 
@@ -62,7 +62,8 @@ export const config = {
 
   form: {
     isModal: false,
-    async onSubmit(vNode, data) {
+    //Form events
+    async onSubmit(vNode, data, formMethods) {
       console.log('submited', vNode)
       console.log('submited', data)
       // vNode.onReset()
@@ -70,7 +71,7 @@ export const config = {
         console.log('callback function')
       }
     },
-    async onReset(vNode, data) {
+    async onReset(vNode, data, formMethods) {
       console.log('reseted form', vNode)
       const exeptionKey = 'sel1base' // don't reset firld with that key. 1 key only for now
 
@@ -79,17 +80,24 @@ export const config = {
       }
       return { exeptionKey, cb }
     },
-    async onValidate(vNode, data) {
+    async onValidateSuccess(vNode, data, formMethods) {
       console.log('validated form')
       // return function (vNode) {
       //   console.log('callback function')
       // }
     },
-    async onError(vNode, data, errorComponent) {
+    async onValidateError(vNode, data, formMethods, errorComponent) {
       console.log('validation error', errorComponent)
       // return function (vNode) {
       //   console.log('callback function')
       // }
+    },
+    // Component lifecycle method
+    async onMount(vNode, formMethods){
+      formMethods.focus()
+      return function (vNode) {
+        console.log('callback function')
+      }
     }
   },
 
