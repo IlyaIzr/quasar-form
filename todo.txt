@@ -1,7 +1,5 @@
 reset - restore default values
 
-try catch for callForm
-
 more buttons (clear, close)
 
 multiple fields

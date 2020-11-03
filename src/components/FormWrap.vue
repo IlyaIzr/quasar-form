@@ -1,18 +1,26 @@
 <template>
-  <q-form
-    class="bg-white q-pa-md"
-    ref="form"
-    @submit="onSubmit"
-    @reset="onReset"
-    @validation-success="onValidateSuccess"
-    @validation-error="onValidateError"
-  >
-    <div class="text-h6">{{ settings.title }}</div>
+  <q-card>
+    <q-bar v-if="settings.modal">
+      <q-space />
+      <q-btn dense flat icon="close" v-close-popup>
+        <q-tooltip content-class="bg-white text-primary">Close</q-tooltip>
+      </q-btn>
+    </q-bar>
+    <q-form
+      class="bg-white q-pa-md"
+      ref="form"
+      @submit="onSubmit"
+      @reset="onReset"
+      @validation-success="onValidateSuccess"
+      @validation-error="onValidateError"
+    >
+      <div class="text-h6">{{ settings.title }}</div>
 
-    <FieldMapper :fields="settings.fields" :values="values" />
+      <FieldMapper :fields="settings.fields" :values="values" />
 
-    <Buttons :buttons="settings.buttons" />
-  </q-form>
+      <Buttons :buttons="settings.buttons" :modal="settings.modal"/>
+    </q-form>
+  </q-card>
 </template>
 
 <script>
@@ -48,7 +56,11 @@ export default {
       const valuesResponse = { ...this.valuesResponse };
       delete valuesResponse.watcher;
       if (this.form.onSubmit) {
-        const cb = await this.form.onSubmit(this, valuesResponse, this.$refs.form);
+        const cb = await this.form.onSubmit(
+          this,
+          valuesResponse,
+          this.$refs.form
+        );
         if (cb && typeof cb === "function") cb(this);
       }
     },
@@ -56,7 +68,11 @@ export default {
       let exeption;
       let cb;
       if (this.form.onClear) {
-        const res = await this.form.onClear(this, { ...this.valuesResponse }, this.$refs.form);
+        const res = await this.form.onClear(
+          this,
+          { ...this.valuesResponse },
+          this.$refs.form
+        );
         exeption = res && res.exeption;
         cb = res && res.cb;
       }
@@ -65,13 +81,22 @@ export default {
     },
     async onValidateSuccess() {
       if (this.form.onValidateSuccess) {
-        const cb = await this.form.onValidateSuccess(this, { ...this.valuesResponse }, this.$refs.form);
+        const cb = await this.form.onValidateSuccess(
+          this,
+          { ...this.valuesResponse },
+          this.$refs.form
+        );
         if (cb && typeof cb === "function") cb(this);
       }
     },
     async onValidateError(err) {
       if (this.form.onValidateError) {
-        const cb = await this.form.onValidateError(this, { ...this.valuesResponse }, this.$refs.form, err);
+        const cb = await this.form.onValidateError(
+          this,
+          { ...this.valuesResponse },
+          this.$refs.form,
+          err
+        );
         if (cb && typeof cb === "function") cb(this);
       }
     },
@@ -79,9 +104,9 @@ export default {
 
   async mounted() {
     if (this.form.onMount) {
-      const cb = await this.form.onMount(this, this.$refs.form)
+      const cb = await this.form.onMount(this, this.$refs.form);
       if (cb && typeof cb === "function") cb(this);
-    }    
+    }
   },
 };
 </script>

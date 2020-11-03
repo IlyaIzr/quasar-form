@@ -5,13 +5,24 @@
       :label="resBtn.label"
       type="reset"
       :color="resBtn.color"
+      :text-color="resBtn.textColor"
       :class="resBtn.class"
     />
     <q-btn
       :label="subBtn.label"
       type="submit"
       :color="subBtn.color"
+      :text-color="subBtn.textColor"
       :class="subBtn.class"
+    />
+    <q-btn
+      v-if="closeBtn.type && modal"
+      v-close-popup
+      :label="closeBtn.label"
+      type="button"
+      :color="closeBtn.color"
+      :text-color="closeBtn.textColor"
+      :class="closeBtn.class"
     />
   </div>
 </template>
@@ -28,6 +39,10 @@ export default {
         { type: "reset", label: "Сбросить" },
       ],
     },
+    modal: {
+      type: Object || undefined,
+      required: false,
+    },
   },
   computed: {
     subBtn() {
@@ -42,10 +57,21 @@ export default {
       return res;
     },
     resBtn() {
-      let res = false;
+      let res = {};
       this.buttons.map((btn) => {
         if (btn.type === "reset") {
           !btn.color ? (btn.color = "primary") : null;
+          res = { ...btn };
+        }
+      });
+      return res;
+    },
+    closeBtn() {
+      let res = {};
+      this.buttons.map((btn) => {
+        if (btn.type === "closeModal" || btn.type === "close") {
+          !btn.color ? (btn.color = "warning") : null;
+          btn.class += " q-ml-sm";
           res = { ...btn };
         }
       });

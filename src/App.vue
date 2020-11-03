@@ -1,6 +1,6 @@
 <template>
   <div id="q-app">
-    <FormWrap
+    <ModalWrapper
       v-if="globalConfig"
       :settings="globalConfig"
       :values="globalValues"
@@ -10,7 +10,7 @@
 
 <script>
 import { config, values } from "./fakeData";
-import FormWrap from "./components/FormWrap";
+import ModalWrapper from "./components/ModalWrapper";
 export default {
   name: "App",
   data() {
@@ -19,7 +19,7 @@ export default {
       globalValues: values,
     };
   },
-  components: { FormWrap },
+  components: { ModalWrapper },
   beforeMount(){
     if (!this.globalConfig) console.log('no config provided to form constructor')
   }
