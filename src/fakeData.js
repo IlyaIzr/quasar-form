@@ -44,11 +44,6 @@ export const config = {
       }
     },
     
-    { //onInput event only
-      type: 'checkbox', key: 'testCheckBox',
-      label: 'Agreed?',
-      value: true
-    },
 
     { //no onFocus event
       type: 'slider', key: 'slid1e31',
@@ -56,6 +51,10 @@ export const config = {
       value: 50, max: 100, min: 1,
       showValue: false
     },
+    {
+      type: 'date', key: 'afs', rowIndex: 8,
+      label: 'some cal', mini: true
+    }
   ],
 
 

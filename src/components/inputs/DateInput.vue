@@ -1,34 +1,36 @@
 <template>
   <div class="q-gutter-md">
-    <q-field borderless  :label="label">
-      <q-slider
-        ref="input"
-        :value="valueStore"
-        :name="keyName"
-        :min="rest.min"
-        :max="rest.max"
-        :label="rest.showValue"
-        :step="0.01 && rest.step"
-        :reverse="rest.reverse"
-        :vertical="rest.vertical"
-        :disable="rest.disable"
-        :readonly="rest.readonly"
-        :color="rest.color"
-        :label-color="rest.labelColor"
-        :label-text-color="rest.labelTextColor"
-        @change="onChange"
-        @input="onInput"
-        :rules="rest.rules"
-      />
-    </q-field>
+    <p class="text-subtitle1 q-mb-none">{{label}}</p>
+    <q-date
+      ref="input"
+      :value="valueStore"
+      :type="type"
+      :rest="rest"
+      :name="keyName"
+      :required="required"
+      :minimal="rest.mini"
+      :color="rest.color"
+      :text-color="rest.textColor"
+      default-year-month="2020/06"
+      today-btn
+      @focus="onFocus"
+      @blur="onBlur"
+      @input="onInput"
+      :rules="rest.rules"
+    />
   </div>
 </template>
 
 <script>
 import { store } from "../../store";
 export default {
-  name: "Slider",
+  name: "DateInput",
   props: {
+    type: {
+      type: String,
+      required: false,
+      default: "text",
+    },
     label: {
       type: String,
       required: false,
@@ -54,7 +56,10 @@ export default {
     };
   },
   methods: {
-    onChange(e) {
+    onFocus(e) {
+      this.$emit("focus", e);
+    },
+    onBlur(e) {
       this.$emit("blur", e);
     },
     onInput(val) {

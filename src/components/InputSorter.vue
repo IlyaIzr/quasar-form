@@ -45,6 +45,15 @@
       @input="onInput"
       @blur="onBlur"
     />
+    <DateInput
+      v-if="inputType === 'date'"
+      :value="inputInfo.value"
+      :label="inputInfo.label"
+      :keyName="inputInfo.key"
+      :rest="inputInfo"
+      :store="store"
+      @input="onInput"
+    />
   </div>
 </template>
 
@@ -53,6 +62,7 @@ import SimpleInput from "./inputs/SimpleInput";
 import SelectInput from "./inputs/SelectInput";
 import CheckBox from "./inputs/CheckBox";
 import Slider from './inputs/Slider'
+import DateInput from './inputs/DateInput'
 import { store, vNodeStore } from "../store";
 
 export default {
@@ -74,7 +84,7 @@ export default {
     SimpleInput,
     SelectInput,
     CheckBox,
-    Slider
+    Slider, DateInput
   },
   computed: {
     inputType: function () {
@@ -107,6 +117,10 @@ export default {
             break;
           case "slider":
             inputType = "slider";
+            return inputType;
+            break;
+          case "date":
+            inputType = "date";
             return inputType;
             break;
 
