@@ -1,6 +1,11 @@
 export const config = {
   fields: [
-    //1
+    {
+      type: 'text', rowIndex: 2, key: '2421as',
+      label: 'Test',
+      rules: [val => val.length <= 3 || "Please use maximum 3 characters"]  //array of functions of rules
+    }, 
+
     {
       type: 'select', rowIndex: 2, key: 'sel1base',
       label: '@(Группа)',
@@ -9,14 +14,9 @@ export const config = {
     },
 
     {
-      type: 'email', rowIndex: 1, key: 'accountsKey42222',
-      label: 'Mail',
-    },
-
-    {
-      type: 'text', rowIndex: 2, key: '2421as',
-      label: 'Test',
-      rules: [val => val.length <= 3 || "Please use maximum 3 characters"]  //array of functions of rules
+      type: 'checkbox', key: 'testCheckBox',
+      label: 'Agreed?',
+      value: true
     },
 
     // Universal event handlers

@@ -59,7 +59,14 @@ export const config = {
           console.log('callback function')
         }
       }
-    }
+    },
+    // CHeckbox
+    {
+      type: 'checkbox', key: 'testCheckBox',
+      label: 'Agreed?',
+      value: true
+    },
+
   ],
 
 

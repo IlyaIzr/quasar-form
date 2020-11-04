@@ -1,13 +1,12 @@
 <template>
   <div class="q-gutter-md">
-    <q-input
+    <q-checkbox
       ref="input"
       :value="valueStore"
       :label="label"
-      :type="type"
-      :rest="rest"
       :name="keyName"
       :required="required"
+      :rest="rest"
       @focus="onFocus"
       @blur="onBlur"
       @input="onInput"
@@ -19,13 +18,8 @@
 <script>
 import { store } from "../../store";
 export default {
-  name: "SimpleInput",
+  name: "CheckBox",
   props: {
-    type: {
-      type: String,
-      required: false,
-      default: "text",
-    },
     label: {
       type: String,
       required: false,
@@ -62,6 +56,7 @@ export default {
       this.$emit("input", val);
     },
     input(val) {
+      console.log(val);
       store.updateKeyValue(this.keyName, val);
       this.valueStore = store.getValueByKey(this.keyName);
     },

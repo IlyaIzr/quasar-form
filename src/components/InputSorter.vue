@@ -24,12 +24,26 @@
       @blur="onBlur"
       @focus="onFocus"
     />
+    <CheckBox
+      v-if="inputType === 'checkbox'"
+      :value="inputInfo.value"
+      :label="inputInfo.label"
+      :options="inputInfo.options"
+      :keyName="inputInfo.key"
+      :rest="inputInfo"
+      :store="store"
+      @input="onInput"
+      @blur="onBlur"
+      @focus="onFocus"
+    />
+
   </div>
 </template>
 
 <script>
 import SimpleInput from "./inputs/SimpleInput";
 import SelectInput from "./inputs/SelectInput";
+import CheckBox from "./inputs/CheckBox";
 import { store, vNodeStore } from "../store";
 
 export default {
@@ -50,6 +64,7 @@ export default {
   components: {
     SimpleInput,
     SelectInput,
+    CheckBox,
   },
   computed: {
     inputType: function () {
@@ -70,10 +85,23 @@ export default {
       if (simpleTypes.find((value) => value === type)) {
         inputType = "simple";
         return inputType;
-      } else if (type === "select") {
-        inputType = "select";
-        return inputType;
-      }
+      } else
+        switch (type) {
+          case "select":
+            inputType = "select";
+            return inputType;
+            break;
+
+          case "checkbox":
+            inputType = "checkbox";
+            return inputType;
+            break;
+
+          default:
+            inputType = "text";
+            return inputType;
+            break;
+        }
     },
   },
   watch: {
