@@ -82,7 +82,11 @@ export const config = {
       label: 'some cal', mini: false,
       color: 'orange',
       withInput: true, // true by default
-      localization: 'ru' // 'ru' or 'en' or {} of localisation. See https://quasar.dev/vue-components/date#Custom-ad-hoc-locale
+      localization: 'ru', // 'ru' or 'en' or {} of localisation. See https://quasar.dev/vue-components/date#Custom-ad-hoc-locale
+      range: false,
+      value: '2012/12/12',      
+      // range: true,
+      // value: {from: '2012/12/12', to: '2012/12/13'}
     },
   ],
 

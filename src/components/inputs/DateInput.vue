@@ -4,29 +4,24 @@
     class="q-gutter-md"
   >
     <p class="text-subtitle1 q-mb-none">{{ label }}</p>
-    <q-date
-      ref="input"
+    <DateInp
       :value="valueStore"
-      :name="keyName"
-      :minimal="rest.mini"
-      :color="rest.color"
-      :text-color="rest.textColor"
-      :locale="locale"
-      default-year-month="2020/06"
-      today-btn
+      :label="label"
+      :keyName="keyName"
+      :rest="rest"
+      :store="store"
+      :hasInput="hasInput"
+      @input="onInput"
       @focus="onFocus"
       @blur="onBlur"
-      @input="onInput"
-      :rules="rest.rules"
     />
   </div>
   <div v-else class="q-gutter-md">
     <q-input
-      filled
-      :value="valueStore"
+      :value="rest.range ? String(valueStore.from) + String(valueStore.to) : valueStore"
       @input="onInput"
-      mask="date"
-      :rules="['date', ...rest.rules]"
+      :mask="rest.range ? '####/##/## - ####/##/##' : '####/##/##'"
+      :rules="rest.range ? rest.rules : ['date', ...rest.rules]"
       ref="input"
     >
       <template v-slot:append>
@@ -36,23 +31,17 @@
             transition-show="scale"
             transition-hide="scale"
           >
-            <q-date
-              :value="valueStore"
-              :color="rest.color"
-              :text-color="rest.textColor"
-              :minimal="rest.mini"
-              :locale="locale"
-              default-year-month="2020/06"
-              today-btn
+            <DateInp
+              :value="value"
+              :label="label"
+              :keyName="keyName"
+              :rest="rest"
+              :store="store"
+              :hasInput="hasInput"
               @input="onInput"
               @focus="onFocus"
               @blur="onBlur"
-              :rules="rest.rules"
-            >
-              <div class="row items-center justify-end">
-                <q-btn v-close-popup label="Close" color="primary" flat />
-              </div>
-            </q-date>
+            />
           </q-popup-proxy>
         </q-icon>
       </template>
@@ -62,8 +51,12 @@
 
 <script>
 import { store } from "../../store";
+import DateInp from "./Date";
 export default {
   name: "DateInput",
+  components: {
+    DateInp,
+  },
   props: {
     type: {
       type: String,
@@ -72,6 +65,11 @@ export default {
     },
     label: {
       type: String,
+      required: false,
+      default: "",
+    },
+    value: {
+      type: String || Object || undefined,
       required: false,
       default: "",
     },
@@ -90,51 +88,10 @@ export default {
   },
   data() {
     return {
-      valueStore: store.getValueByKey(this.keyName),
-      required: this.rest.required === undefined ? false : this.rest.required,
+      hasInput:
+        this.rest.withInput || this.rest.withInput === undefined ? true : false,
+      valueStore: this.store.getValueByKey(this.keyName),
     };
-  },
-  computed: {
-    locale() {
-      let res = {
-        days: [],
-        daysShort: ["Вс", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб"],
-        months: [
-          "Январь",
-          "Февраль",
-          "Март",
-          "Апрель",
-          "Май",
-          "Июнь",
-          "Июль",
-          "Август",
-          "Сентябрь",
-          "Октябрь",
-          "Ноябрь",
-          "Декабрь",
-        ],
-        monthsShort: [
-          "Янв",
-          "Фев",
-          "Мар",
-          "Апр",
-          "Май",
-          "Июн",
-          "Июл",
-          "Авг",
-          "Сен",
-          "Окт",
-          "Ноя",
-          "Дек",
-        ],
-        firstDayOfWeek: 1,
-      };
-      if (this.rest.localization === "ru") return res;
-      else if (this.rest.localization === "en") return null;
-      else if (typeof this.rest.localization === "object")
-        res = this.rest.localization;
-      return res;
-    },
   },
   methods: {
     onFocus(e) {
@@ -144,12 +101,20 @@ export default {
       this.$emit("blur", e);
     },
     onInput(val) {
-      this.input(val);
-      this.$emit("input", val);
+      let finalVal = val;
+      if (typeof val === "object") {
+        finalVal = { ...val };
+        this.input(finalVal);
+        finalVal = { ...val };
+        this.$emit("input", finalVal);
+        // console.log("emited val", finalVal);
+      } else {
+        this.input(val);
+        this.$emit("input", val);
+      }
     },
     input(val) {
       store.updateKeyValue(this.keyName, val);
-      this.valueStore = store.getValueByKey(this.keyName);
     },
   },
   watch: {

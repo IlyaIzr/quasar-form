@@ -5,6 +5,7 @@ export const store = {
   },
   updateKeyValue(key, value) {
     if (this.debug) console.log('key ' + key + ' updated with value ' + value)
+    if (typeof value === 'object' && value) value = { ...value }  //skip observer
     this.state[key] = value
     this.state.watcher = value + String(new Date)
   },

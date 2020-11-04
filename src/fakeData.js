@@ -4,14 +4,8 @@ export const config = {
       type: 'text', rowIndex: 2, key: '2421as',
       label: 'Test',
       rules: [val => val.length <= 3 || "Please use maximum 3 characters"]  //array of functions of rules
-    }, 
-
-    {
-      type: 'select', rowIndex: 2, key: 'sel1base',
-      label: '@(Группа)',
-      options: [{ name: 'Alpha', id: '114aZ' }, { name: 'Beta', id: '2aaaZ' },],
-      required: true,
     },
+
 
     // Universal event handlers
     {
@@ -43,25 +37,15 @@ export const config = {
         }
       }
     },
-    
-    { //onInput event only
-      type: 'checkbox', key: 'testCheckBox',
-      label: 'Agreed?',
-      value: true
-    },
 
-    { //no onFocus event
-      type: 'slider', key: 'slid1e31',
-      label: 'Do be do',
-      value: 50, max: 100, min: 1,
-      showValue: false
-    },
     {
       type: 'date', key: 'afs', rowIndex: 8,
       label: 'some cal', mini: false,
       color: 'orange',
       withInput: true, // true by default
-      localization: 'ru' // 'ru' or 'en' or {} of localisation. See https://quasar.dev/vue-components/date#Custom-ad-hoc-locale
+      localization: 'ru', // 'ru' or 'en' or {} of localisation. See https://quasar.dev/vue-components/date#Custom-ad-hoc-locale
+      range: true,
+      value: { from: '2012/12/12', to: '2012/12/13' }
     },
   ],
 
