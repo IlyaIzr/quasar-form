@@ -112,7 +112,8 @@ export default {
         console.log("ranged values", res);
         return res;
       } else if (typeof this.valueStore === "object") {
-        return {...this.valueStore}
+        res = { ...this.valueStore };
+        return res;
       } else return res;
     },
   },
