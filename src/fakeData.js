@@ -44,6 +44,11 @@ export const config = {
       }
     },
     
+    { //onInput event only
+      type: 'checkbox', key: 'testCheckBox',
+      label: 'Agreed?',
+      value: true
+    },
 
     { //no onFocus event
       type: 'slider', key: 'slid1e31',
@@ -55,7 +60,8 @@ export const config = {
       type: 'date', key: 'afs', rowIndex: 8,
       label: 'some cal', mini: false,
       color: 'orange',
-      withInput: true
+      withInput: true, // true by default
+      localization: 'ru' // 'ru' or 'en' or {} of localisation. See https://quasar.dev/vue-components/date#Custom-ad-hoc-locale
     },
   ],
 

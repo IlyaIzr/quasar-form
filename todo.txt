@@ -1,6 +1,5 @@
 reset - restore default values
 
-more buttons (clear, close)
+more buttons (clear)
 
 multiple fields
-checkbox,https://quasar.dev/vue-components/date#With-QInput

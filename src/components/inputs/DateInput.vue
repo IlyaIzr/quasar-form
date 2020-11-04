@@ -1,5 +1,8 @@
 <template>
-  <div v-if="!rest.withInput" class="q-gutter-md">
+  <div
+    v-if="!rest.withInput && rest.withInput !== undefined"
+    class="q-gutter-md"
+  >
     <p class="text-subtitle1 q-mb-none">{{ label }}</p>
     <q-date
       ref="input"
@@ -8,6 +11,7 @@
       :minimal="rest.mini"
       :color="rest.color"
       :text-color="rest.textColor"
+      :locale="locale"
       default-year-month="2020/06"
       today-btn
       @focus="onFocus"
@@ -36,6 +40,8 @@
               :value="valueStore"
               :color="rest.color"
               :text-color="rest.textColor"
+              :minimal="rest.mini"
+              :locale="locale"
               default-year-month="2020/06"
               today-btn
               @input="onInput"
@@ -87,6 +93,48 @@ export default {
       valueStore: store.getValueByKey(this.keyName),
       required: this.rest.required === undefined ? false : this.rest.required,
     };
+  },
+  computed: {
+    locale() {
+      let res = {
+        days: [],
+        daysShort: ["Вс", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб"],
+        months: [
+          "Январь",
+          "Февраль",
+          "Март",
+          "Апрель",
+          "Май",
+          "Июнь",
+          "Июль",
+          "Август",
+          "Сентябрь",
+          "Октябрь",
+          "Ноябрь",
+          "Декабрь",
+        ],
+        monthsShort: [
+          "Янв",
+          "Фев",
+          "Мар",
+          "Апр",
+          "Май",
+          "Июн",
+          "Июл",
+          "Авг",
+          "Сен",
+          "Окт",
+          "Ноя",
+          "Дек",
+        ],
+        firstDayOfWeek: 1,
+      };
+      if (this.rest.localization === "ru") return res;
+      else if (this.rest.localization === "en") return null;
+      else if (typeof this.rest.localization === "object")
+        res = this.rest.localization;
+      return res;
+    },
   },
   methods: {
     onFocus(e) {
