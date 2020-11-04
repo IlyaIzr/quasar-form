@@ -75,7 +75,14 @@ export const config = {
       value: 50, max: 100, min: 1,
       showValue: false
     },
-
+    
+    // Date    
+    { 
+      type: 'date', key: 'afs', rowIndex: 8,
+      label: 'some cal', mini: false,
+      color: 'orange',
+      withInput: true
+    },
   ],
 
 

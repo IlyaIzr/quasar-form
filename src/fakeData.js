@@ -53,8 +53,10 @@ export const config = {
     },
     {
       type: 'date', key: 'afs', rowIndex: 8,
-      label: 'some cal', mini: true
-    }
+      label: 'some cal', mini: false,
+      color: 'orange',
+      withInput: true
+    },
   ],
 
 

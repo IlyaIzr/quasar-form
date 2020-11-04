@@ -1,13 +1,10 @@
 <template>
-  <div class="q-gutter-md">
-    <p class="text-subtitle1 q-mb-none">{{label}}</p>
+  <div v-if="!rest.withInput" class="q-gutter-md">
+    <p class="text-subtitle1 q-mb-none">{{ label }}</p>
     <q-date
       ref="input"
       :value="valueStore"
-      :type="type"
-      :rest="rest"
       :name="keyName"
-      :required="required"
       :minimal="rest.mini"
       :color="rest.color"
       :text-color="rest.textColor"
@@ -18,6 +15,42 @@
       @input="onInput"
       :rules="rest.rules"
     />
+  </div>
+  <div v-else class="q-gutter-md">
+    <q-input
+      filled
+      :value="valueStore"
+      @input="onInput"
+      mask="date"
+      :rules="['date', ...rest.rules]"
+      ref="input"
+    >
+      <template v-slot:append>
+        <q-icon name="event" class="cursor-pointer">
+          <q-popup-proxy
+            ref="qDateProxy"
+            transition-show="scale"
+            transition-hide="scale"
+          >
+            <q-date
+              :value="valueStore"
+              :color="rest.color"
+              :text-color="rest.textColor"
+              default-year-month="2020/06"
+              today-btn
+              @input="onInput"
+              @focus="onFocus"
+              @blur="onBlur"
+              :rules="rest.rules"
+            >
+              <div class="row items-center justify-end">
+                <q-btn v-close-popup label="Close" color="primary" flat />
+              </div>
+            </q-date>
+          </q-popup-proxy>
+        </q-icon>
+      </template>
+    </q-input>
   </div>
 </template>
 
