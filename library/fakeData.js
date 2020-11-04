@@ -60,11 +60,20 @@ export const config = {
         }
       }
     },
-    // CHeckbox
-    {
+
+    // Checkbox
+    { //onInput event only
       type: 'checkbox', key: 'testCheckBox',
       label: 'Agreed?',
       value: true
+    },
+
+    // Slider
+    { //no onFocus event
+      type: 'slider', key: 'slid1e31',
+      label: 'Do be do',
+      value: 50, max: 100, min: 1,
+      showValue: false
     },
 
   ],

@@ -13,12 +13,6 @@ export const config = {
       required: true,
     },
 
-    {
-      type: 'checkbox', key: 'testCheckBox',
-      label: 'Agreed?',
-      value: true
-    },
-
     // Universal event handlers
     {
       type: 'text', rowIndex: 3, key: '24assa21as',
@@ -48,7 +42,20 @@ export const config = {
           console.log('callback function')
         }
       }
-    }
+    },
+    
+    { //onInput event only
+      type: 'checkbox', key: 'testCheckBox',
+      label: 'Agreed?',
+      value: true
+    },
+
+    { //no onFocus event
+      type: 'slider', key: 'slid1e31',
+      label: 'Do be do',
+      value: 50, max: 100, min: 1,
+      showValue: false
+    },
   ],
 
 

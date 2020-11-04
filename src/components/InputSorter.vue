@@ -28,15 +28,23 @@
       v-if="inputType === 'checkbox'"
       :value="inputInfo.value"
       :label="inputInfo.label"
-      :options="inputInfo.options"
       :keyName="inputInfo.key"
       :rest="inputInfo"
       :store="store"
       @input="onInput"
       @blur="onBlur"
       @focus="onFocus"
+    />    
+    <Slider
+      v-if="inputType === 'slider'"
+      :value="inputInfo.value"
+      :label="inputInfo.label"
+      :keyName="inputInfo.key"
+      :rest="inputInfo"
+      :store="store"
+      @input="onInput"
+      @blur="onBlur"
     />
-
   </div>
 </template>
 
@@ -44,6 +52,7 @@
 import SimpleInput from "./inputs/SimpleInput";
 import SelectInput from "./inputs/SelectInput";
 import CheckBox from "./inputs/CheckBox";
+import Slider from './inputs/Slider'
 import { store, vNodeStore } from "../store";
 
 export default {
@@ -65,6 +74,7 @@ export default {
     SimpleInput,
     SelectInput,
     CheckBox,
+    Slider
   },
   computed: {
     inputType: function () {
@@ -91,9 +101,12 @@ export default {
             inputType = "select";
             return inputType;
             break;
-
           case "checkbox":
             inputType = "checkbox";
+            return inputType;
+            break;
+          case "slider":
+            inputType = "slider";
             return inputType;
             break;
 
