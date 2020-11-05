@@ -1,17 +1,28 @@
 export const store = {
-  debug: false,
+  debug: true,
   state: {
     watcher: 'a'
   },
-  updateKeyValue(key, value) {
-    if (this.debug) console.log('key ' + key + ' updated with value ' + value)
+  updateKeyValue(key, value, multiKey = "", fieldNumber = "") {
     if (typeof value === 'object' && value) value = { ...value }  //skip observer
-    this.state[key] = value
+    if (!multiKey) {
+      // console.log('simple case with key ', key)
+      this.state[key] = value
+    } else {
+      // console.log('multy case with args ', arguments)
+      this.state[multiKey] = {...this.state[multiKey]}
+      this.state[multiKey][fieldNumber] = {...this.state[multiKey][fieldNumber]}
+      this.state[multiKey][fieldNumber][key] = value      
+    }
     this.state.watcher = value + String(new Date)
   },
-  getValueByKey(key, value) {
-    if (this.debug) console.log('key ' + key + ' recieved with value ' + value)
-    return this.state[key]
+  getValueByKey(key, multiKey = "", fieldNumber = "") {
+    // if (this.debug) console.log('key ' + key + ' request recieved ')
+    if (!multiKey) {
+      return this.state[key]
+    } else {
+      return this.state[multiKey] && this.state[multiKey][fieldNumber] && this.state[multiKey][fieldNumber][key]
+    }
   },
   resetStore(exeptionKey = '') {
     if (this.debug) console.log('store was reseted')

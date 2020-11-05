@@ -29,7 +29,11 @@ import Buttons from "./Buttons";
 import { store } from "../store";
 export default {
   name: "FormWrap",
-  components: { FieldMapper, Buttons },
+  components: {
+    FieldMapper,
+    // FieldMapper: ()=> import('./FieldMapper.vue'),
+    Buttons,
+  },
   data() {
     return {
       form: { ...this.settings.form },

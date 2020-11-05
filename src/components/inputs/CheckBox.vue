@@ -40,7 +40,7 @@ export default {
   },
   data() {
     return {
-      valueStore: store.getValueByKey(this.keyName),
+      valueStore: this.getStoreValue(),
       required: this.rest.required === undefined ? false : this.rest.required,
     };
   },
@@ -56,14 +56,30 @@ export default {
       this.$emit("input", val);
     },
     input(val) {
-      console.log(val);
-      store.updateKeyValue(this.keyName, val);
-      this.valueStore = store.getValueByKey(this.keyName);
+      if (this.rest.multiKey)
+        store.updateKeyValue(
+          this.keyName,
+          val,
+          this.rest.multiKey,
+          this.rest.multiIndex
+        );
+      else store.updateKeyValue(this.keyName, val);
+    },
+    getStoreValue() {
+      let res;
+      if (this.rest.multiKey)
+        res = store.getValueByKey(
+          this.keyName,
+          this.rest.multiKey,
+          this.rest.multiIndex
+        );
+      else res = store.getValueByKey(this.keyName);
+      return res;
     },
   },
   watch: {
     "store.state.watcher": function () {
-      const val = store.getValueByKey(this.keyName);
+      const val = this.getStoreValue();
       if (val !== this.valueStore) {
         this.valueStore = val;
       }

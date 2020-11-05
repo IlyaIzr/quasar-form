@@ -1,57 +1,30 @@
 export const config = {
   fields: [
-    {
-      type: 'text', rowIndex: 2, key: '2421as',
-      label: 'Test',
-      rules: [val => val.length <= 3 || "Please use maximum 3 characters"]  //array of functions of rules
-    },
+    // {
+    //   type: 'text', rowIndex: 1, key: 'texto124',
+    //   label: 'Test'
+    // },
 
 
-    // Universal event handlers
-    {
-      type: 'text', rowIndex: 3, key: '24assa21as',
-      label: 'Event Handlers',
-
-      async onBlur(vNode, event, methods, vNodeStore) {
-        console.log('blur happend')
-        let res = 'this was blurred'
-        // optional
-        return function (vNode) {
-          console.log('callback function')
-          vNode.input(res)
-        }
-      },
-
-      async onInput(vNode, value, methods, vNodeStore) {
-        console.log('input happend')
-        return function (vNode) {
-          console.log('callback function')
-        }
-      },
-
-      async onFocus(vNode, value, methods, vNodeStore) {
-        console.log('focus happend')
-        console.log(vNode)
-        return function (vNode) {
-          console.log('callback function')
-        }
-      }
-    },
-
-    {
-      type: 'date', key: 'afs', rowIndex: 8,
-      label: 'some cal', mini: false,
-      color: 'orange',
-      withInput: false, // true by default
-      localization: 'ru', // 'ru' or 'en' or {} of localisation. See https://quasar.dev/vue-components/date#Custom-ad-hoc-locale
-      range: true,
-      value: '2012/12/11 - 2012/12/12',
-      defaultYearMonth: '2020/10',
-      defaultView: 'Calendar', // 'Calendar' | 'Months' |'Years'
-      navigationMinYearMonth: '2010/01',
-      navigationMaxYearMonth: '2030/01',
-      readonly: false,
-      disable: false
+    { //Multiple fields
+      type: 'multiple', key: 'multi21', rowIndex: 4,
+      value: [
+        { 'field1key': 'Peter', select12: 'option2', dateKey: '2012/12/12' },
+        { 'field1key': 'Lois', select12: 'option1', dateKey: '2020/12/12' }
+      ],
+      fields: [
+        { type: 'text', rowIndex: 1, key: 'field1key', label: 'Name' },
+        {
+          type: 'select', rowIndex: 2, key: 'select12', label: 'Choose',
+          options: [
+            { id: 'option1', name: 'Your kinds go to college' },
+            { id: 'option2', name: 'Batman glass' },
+            { id: 'option3', name: 'Meg' }
+          ]
+        },
+        { type: 'date', rowIndex: 1, key: 'dateKey', label: 'When?' }
+      ],
+      label: 'Multy fields!'
     },
   ],
 
@@ -98,9 +71,9 @@ export const config = {
     // Component lifecycle method
     async onMount(vNode, formMethods) {
       formMethods.focus()
-      return function (vNode) {
-        console.log('callback function')
-      }
+      // return function (vNode) {
+      //   console.log('callback function')
+      // }
     }
   },
 

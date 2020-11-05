@@ -50,7 +50,7 @@ export default {
   },
   data() {
     return {
-      valueStore: this.store.getValueByKey(this.keyName),
+      valueStore: this.getStoreValue(),
       localOptions: this.options,
       rules: this.checkRules(this.rest.rules, this.rest.required),
     };
@@ -72,27 +72,31 @@ export default {
           if (this.valueStore === noObserver.id)
             res = { label: noObserver.name, value: noObserver.id };
         });
-      // if (!res)
-      //   console.log(
-      //     "option " + this.valueStore + "wasnt found in options",
-      //     this.localOptions
-      //   );
+      if (!res)
+        console.log(
+          "option " + this.valueStore + "wasnt found in options",
+          this.localOptions
+        );
       return res;
     },
   },
   methods: {
     input(val) {
-      // console.log("val of", val);
       let noObserver = val && typeof val === "object" ? { ...val } : "";
       if (noObserver.value) {
         noObserver = noObserver.value;
       }
       // handle string
       if (typeof val === "string") noObserver = val;
-      // console.log("returned reselut of ", noObserver);
-
-      this.store.updateKeyValue(this.keyName, noObserver);
-      this.valueStore = this.store.getValueByKey(this.keyName);
+      
+      if (this.rest.multiKey)
+        store.updateKeyValue(
+          this.keyName,
+          noObserver,
+          this.rest.multiKey,
+          this.rest.multiIndex
+        );
+      else this.store.updateKeyValue(this.keyName, noObserver);      
     },
     onInput(val) {
       this.input(val);
@@ -112,11 +116,22 @@ export default {
         } else res = [(val) => val || "Please select option"];
       } else res = this.rest.rules;
       return res;
+    },    
+    getStoreValue() {
+      let res;
+      if (this.rest.multiKey)
+        res = store.getValueByKey(
+          this.keyName,
+          this.rest.multiKey,
+          this.rest.multiIndex
+        );
+      else res = store.getValueByKey(this.keyName);
+      return res;
     },
   },
   watch: {
     "store.state.watcher": function () {
-      const val = store.getValueByKey(this.keyName);
+      const val = this.getStoreValue();
       if (val !== this.valueStore) {
         this.valueStore = val;
       }

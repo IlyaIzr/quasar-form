@@ -34,7 +34,7 @@
       @input="onInput"
       @blur="onBlur"
       @focus="onFocus"
-    />    
+    />
     <Slider
       v-if="inputType === 'slider'"
       :value="inputInfo.value"
@@ -54,6 +54,15 @@
       :store="store"
       @input="onInput"
     />
+    <Multiple
+      v-if="inputType === 'multiple'"
+      :value="inputInfo.value"
+      :label="inputInfo.label"
+      :multiKey="inputInfo.key"
+      :rest="inputInfo"
+      :store="store"
+      @input="onInput"
+    />
   </div>
 </template>
 
@@ -61,8 +70,9 @@
 import SimpleInput from "./inputs/SimpleInput";
 import SelectInput from "./inputs/SelectInput";
 import CheckBox from "./inputs/CheckBox";
-import Slider from './inputs/Slider'
-import DateInput from './inputs/DateInput'
+import Slider from "./inputs/Slider";
+import DateInput from "./inputs/DateInput";
+import Multiple from "./inputs/Multiple";
 import { store, vNodeStore } from "../store";
 
 export default {
@@ -84,7 +94,9 @@ export default {
     SimpleInput,
     SelectInput,
     CheckBox,
-    Slider, DateInput
+    Slider,
+    DateInput,
+    Multiple,
   },
   computed: {
     inputType: function () {
@@ -123,6 +135,10 @@ export default {
             inputType = "date";
             return inputType;
             break;
+          case "multiple":
+            inputType = "multiple";
+            return inputType;
+            break;
 
           default:
             inputType = "text";
@@ -142,14 +158,26 @@ export default {
   },
   beforeMount() {
     // store.updateKeyValue(this.inputInfo.key, this.inputInfo.value);  //set value even if field invisible
+    const multiKey = this.inputInfo.multiKey ? this.inputInfo.multiKey : "";
 
     if (this.inputInfo.renderIf) {
       if (store.getValueByKey(this.inputInfo.renderIf)) {
         this.isRendered = true;
       } else this.isRendered = false;
     } else this.isRendered = true;
-    if (this.isRendered)
-      store.updateKeyValue(this.inputInfo.key, this.inputInfo.value); //don't set value unless field is visible
+    if (this.isRendered) {
+      if (multiKey) {
+        // console.log('send value ' + this.inputInfo.value + ' at key ' + this.inputInfo.key)
+        store.updateKeyValue(
+          this.inputInfo.key,
+          this.inputInfo.value,
+          multiKey,
+          this.inputInfo.multiIndex
+        );
+      } else {
+        store.updateKeyValue(this.inputInfo.key, this.inputInfo.value);
+      } //don't set value unless field is visible
+    }
   },
   mounted() {
     vNodeStore.setComponent(this.inputInfo.key, this);

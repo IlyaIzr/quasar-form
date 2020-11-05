@@ -64,7 +64,7 @@ export default {
   data() {
     return {
       required: this.rest.required === undefined ? false : this.rest.required,
-      valueStore: this.store.getValueByKey(this.keyName),
+      valueStore: this.getStoreValue(),
     };
   },
   computed: {
@@ -129,11 +129,22 @@ export default {
     },
     onInput(val) {
       this.$emit("input", val);
+    },    
+    getStoreValue() {
+      let res;
+      if (this.rest.multiKey)
+        res = store.getValueByKey(
+          this.keyName,
+          this.rest.multiKey,
+          this.rest.multiIndex
+        );
+      else res = store.getValueByKey(this.keyName);
+      return res;
     },
   },
   watch: {
     "store.state.watcher": function () {
-      const val = store.getValueByKey(this.keyName);
+      const val = this.getStoreValue();
       if (val !== this.valueStore) {
         this.valueStore = val;
       }

@@ -17,11 +17,7 @@
   </div>
   <div v-else class="q-gutter-md">
     <q-input
-      :value="
-        rest.range
-          ? rangeInputValue
-          : valueStore
-      "
+      :value="rest.range ? rangeInputValue : valueStore"
       @input="onInput"
       :mask="rest.range ? '####/##/## - ####/##/##' : '####/##/##'"
       :rules="rest.range ? rest.rules : ['date', ...rest.rules]"
@@ -92,18 +88,18 @@ export default {
     return {
       hasInput:
         this.rest.withInput || this.rest.withInput === undefined ? true : false,
-      valueStore: this.store.getValueByKey(this.keyName),
+      valueStore: this.getStoreValue(),
     };
   },
   computed: {
     rangeInputValue() {
-      let res = {}
+      let res = {};
       res = this.valueStore;
-      console.log('input value range checked with val', res)
+      console.log("input value range checked with val", res);
       if (typeof res === "object" && res.from && res.to) {
-        res = String(res.from) + String(res.to)
+        res = String(res.from) + String(res.to);
       }
-      return res
+      return res;
     },
   },
   methods: {
@@ -126,13 +122,31 @@ export default {
         this.$emit("input", val);
       }
     },
-    input(val) {
-      store.updateKeyValue(this.keyName, val);
+    input(val) {      
+      if (this.rest.multiKey)
+        store.updateKeyValue(
+          this.keyName,
+          val,
+          this.rest.multiKey,
+          this.rest.multiIndex
+        );
+      else store.updateKeyValue(this.keyName, val);
+    },
+    getStoreValue() {
+      let res;
+      if (this.rest.multiKey)
+        res = store.getValueByKey(
+          this.keyName,
+          this.rest.multiKey,
+          this.rest.multiIndex
+        );
+      else res = store.getValueByKey(this.keyName);
+      return res;
     },
   },
   watch: {
     "store.state.watcher": function () {
-      const val = store.getValueByKey(this.keyName);
+      const val = this.getStoreValue();
       if (val !== this.valueStore) {
         this.valueStore = val;
       }
