@@ -9,7 +9,7 @@ export const store = {
       // console.log('simple case with key ', key)
       this.state[key] = value
     } else {
-      // console.log('multy case with args ', arguments)
+      // this thingy stops from making observer
       this.state[multiKey] = {...this.state[multiKey]}
       this.state[multiKey][fieldNumber] = {...this.state[multiKey][fieldNumber]}
       this.state[multiKey][fieldNumber][key] = value      
@@ -23,6 +23,14 @@ export const store = {
     } else {
       return this.state[multiKey] && this.state[multiKey][fieldNumber] && this.state[multiKey][fieldNumber][key]
     }
+  },
+  deleteMultiField(multiKey, fieldNumber){
+    const n = {...this.state[multiKey]}
+    n[fieldNumber] = undefined
+    delete n[fieldNumber]
+    console.log(n)
+    this.state[multiKey] = n
+    this.state.watcher = 'deleted' + multiKey + String(new Date)
   },
   resetStore(exeptionKey = '') {
     if (this.debug) console.log('store was reseted')

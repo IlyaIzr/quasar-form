@@ -8,12 +8,15 @@
         :values="rest.value[index]"
         :rowIndexMultiple="Number(index)"
       />
+      <q-btn label="x" color="red" @click="deleteField(index)" />
     </div>
+    <q-btn label="Add" color="teal" @click="addField"/>
   </div>
 </template>
 
 <script>
 import FieldMapper from "../FieldMapper";
+import { store } from "../../store";
 export default {
   name: "Multiple",
   components: {
@@ -44,6 +47,34 @@ export default {
       // rules: this.checkRules(this.rest.rules, this.rest.required),
     };
   },
+  methods: {
+    deleteField(index) {
+      let res = this.valueStore
+      res[index] = undefined
+      delete res[index]
+      this.valueStore = res
+      store.deleteMultiField(this.multiKey, index)
+    },
+    addField(){
+      let fields = Array(this.valueStore) 
+      let res = {}
+      for (const [key, value] of Object.entries(this.rest.value[0])) {
+        res[key] = ''
+      }
+      // fields.push(res)
+      // this.valueStore = fields 
+      // store.updateKeyValue(this.multiKey, fields)
+    }
+  },
+  // watch: {
+  //   "store.state.watcher": function () {
+  //     const val = this.store.getValueByKey(this.multiKey);
+  //       console.log('now val is', val)
+  //     if (val !== this.valueStore) {
+  //       this.valueStore = val;
+  //     }
+  //   },
+  // },
 };
 </script>
 
