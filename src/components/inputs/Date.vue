@@ -105,11 +105,9 @@ export default {
     },
     rangeValues() {
       let res = {};
-      console.log(this.valueStore);
       if (typeof this.valueStore === "string") {
         const dates = this.valueStore.split(" - "); //2 dates always
         res = { from: dates[0], to: dates[1] };
-        console.log("ranged values", res);
         return res;
       } else if (typeof this.valueStore === "object") {
         res = { ...this.valueStore };

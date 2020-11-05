@@ -5,7 +5,6 @@
   >
     <p class="text-subtitle1 q-mb-none">{{ label }}</p>
     <DateInp
-      :value="valueStore"
       :label="label"
       :keyName="keyName"
       :rest="rest"
@@ -18,7 +17,11 @@
   </div>
   <div v-else class="q-gutter-md">
     <q-input
-      :value="rest.range ? String(valueStore.from) + String(valueStore.to) : valueStore"
+      :value="
+        rest.range
+          ? rangeInputValue
+          : valueStore
+      "
       @input="onInput"
       :mask="rest.range ? '####/##/## - ####/##/##' : '####/##/##'"
       :rules="rest.range ? rest.rules : ['date', ...rest.rules]"
@@ -32,7 +35,6 @@
             transition-hide="scale"
           >
             <DateInp
-              :value="value"
               :label="label"
               :keyName="keyName"
               :rest="rest"
@@ -92,6 +94,16 @@ export default {
         this.rest.withInput || this.rest.withInput === undefined ? true : false,
       valueStore: this.store.getValueByKey(this.keyName),
     };
+  },
+  computed: {
+    rangeInputValue() {
+      let res = {}
+      res = this.store.getValueByKey(this.keyName);
+      if (typeof res === "object" && res.from && res.to) {
+        res = String(res.from) + String(res.to)
+      }
+      return res
+    },
   },
   methods: {
     onFocus(e) {

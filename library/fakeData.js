@@ -86,7 +86,7 @@ export const config = {
       range: false,
       value: '2012/12/12',      
       // range: true,
-      // value: {from: '2012/12/12', to: '2012/12/13'}
+      // value: '2012/12/11 - 2012/12/12' // (' - ') delimeter
     },
   ],
 
