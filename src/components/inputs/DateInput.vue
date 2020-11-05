@@ -98,7 +98,8 @@ export default {
   computed: {
     rangeInputValue() {
       let res = {}
-      res = this.store.getValueByKey(this.keyName);
+      res = this.valueStore;
+      console.log('input value range checked with val', res)
       if (typeof res === "object" && res.from && res.to) {
         res = String(res.from) + String(res.to)
       }

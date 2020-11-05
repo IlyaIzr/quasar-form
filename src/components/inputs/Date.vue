@@ -6,7 +6,12 @@
     :minimal="rest.mini"
     :locale="locale"
     :range="rest.range ? true : false"
-    default-year-month="2020/06"
+    :default-year-month="rest.defaultYearMonth ? rest.defaultYearMonth : '2020/03'"
+    :default-view="rest.defaultView"
+    :navigation-min-year-month="rest.navigationMinYearMonth"
+    :navigation-max-year-month="rest.navigationMaxYearMonth"
+    :readonly="rest.readonly"
+    :disable="rest.disable"
     today-btn
     @input="onInput"
     @focus="onFocus"

@@ -87,6 +87,12 @@ export const config = {
       value: '2012/12/12',      
       // range: true,
       // value: '2012/12/11 - 2012/12/12' // (' - ') delimeter
+      defaultYearMonth: '2020/10',
+      defaultView: 'Calendar', // 'Calendar' | 'Months' |'Years'
+      navigationMinYearMonth: '2010/01',
+      navigationMaxYearMonth: '2030/01',
+      readonly: false,
+      disable: false
     },
   ],
 

@@ -18,7 +18,7 @@
 
       <FieldMapper :fields="settings.fields" :values="values" />
 
-      <Buttons :buttons="settings.buttons" :modal="settings.modal"/>
+      <Buttons :buttons="settings.buttons" :modal="settings.modal" />
     </q-form>
   </q-card>
 </template>
@@ -55,6 +55,12 @@ export default {
     async onSubmit(e) {
       const valuesResponse = { ...this.valuesResponse };
       delete valuesResponse.watcher;
+      // Check for calndar range object
+      for (const [key, value] of Object.entries(valuesResponse)) {
+        if (typeof value === "object" && value.from && value.to) {
+          valuesResponse[key] = String(value.from) + " - " + String(value.to);
+        }
+      }
       if (this.form.onSubmit) {
         const cb = await this.form.onSubmit(
           this,
