@@ -5,7 +5,7 @@
       <FieldMapper
         :fields="rest.fields"
         :multiKey="multiKey"
-        :values="rest.value[index]"
+        :values="valueStore[index]"
         :rowIndexMultiple="Number(index)"
       />
       <q-btn label="x" color="red" @click="deleteField(index)" />

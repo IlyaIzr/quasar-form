@@ -19,10 +19,9 @@ export const store = {
     this.state.watcher = value + String(new Date)
   },
   getValueByKey(key, multiKey = "", fieldNumber = "") {
-    if (this.debug) console.log('key ' + key + ' request recieved ')
+    if (this.debug) console.log('key ' + key + ' request recieved. Its value ', value)
     if (!multiKey) {
       const value = this.state[key]
-      console.log('store ', value)
       return value
     } else {
       return this.state[multiKey] && this.state[multiKey][fieldNumber] && this.state[multiKey][fieldNumber][key]
@@ -36,7 +35,6 @@ export const store = {
     if (this.debug) console.log(`field ${fieldNumber} was deleted from multikey ${multiKey}`)
     const n = [ ...this.state[multiKey] ]
     n.splice(fieldNumber, 1)
-    console.log(n)
     this.state[multiKey] = n
     this.state.watcher = 'deleted' + multiKey + String(new Date)
   },

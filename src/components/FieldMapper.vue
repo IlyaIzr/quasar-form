@@ -64,9 +64,9 @@ export default {
           //Put fields in array by they order. Make several fields share similar index
           const cell = res[field.rowIndex - 1];
           if (cell) {
-            res[field.rowIndex - 1] = [...cell, {...field}];  //fucking observers
+            res[field.rowIndex - 1] = [...cell, { ...field }]; //fucking observers
           } else {
-            res[field.rowIndex - 1] = [{...field}];
+            res[field.rowIndex - 1] = [{ ...field }];
           }
         }
       });
