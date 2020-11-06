@@ -72,11 +72,11 @@ export default {
           if (this.valueStore === noObserver.id)
             res = { label: noObserver.name, value: noObserver.id };
         });
-      if (!res)
-        console.log(
-          "option " + this.valueStore + "wasnt found in options",
-          this.localOptions
-        );
+      // if (!res)
+      //   console.log(
+      //     "option " + this.valueStore + "wasnt found in options",
+      //     this.localOptions
+      //   );
       return res;
     },
   },
@@ -88,7 +88,7 @@ export default {
       }
       // handle string
       if (typeof val === "string") noObserver = val;
-      
+
       if (this.rest.multiKey)
         store.updateKeyValue(
           this.keyName,
@@ -96,7 +96,7 @@ export default {
           this.rest.multiKey,
           this.rest.multiIndex
         );
-      else this.store.updateKeyValue(this.keyName, noObserver);      
+      else this.store.updateKeyValue(this.keyName, noObserver);
     },
     onInput(val) {
       this.input(val);
@@ -116,7 +116,7 @@ export default {
         } else res = [(val) => val || "Please select option"];
       } else res = this.rest.rules;
       return res;
-    },    
+    },
     getStoreValue() {
       let res;
       if (this.rest.multiKey)

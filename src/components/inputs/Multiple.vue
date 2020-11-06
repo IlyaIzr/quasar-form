@@ -3,7 +3,7 @@
     <p class="text-subtitle1 q-mb-none">{{ label }}</p>
     <div v-for="(item, index) in valueStore" v-bind:key="item.key" class="col">
       <FieldMapper
-        :fields="rest.fields"
+        :fields="rest.fields || []"
         :multiKey="multiKey"
         :values="valueStore[index]"
         :rowIndexMultiple="Number(index)"
@@ -76,9 +76,17 @@ export default {
     addField() {
       let fields = this.valueStore;
       let res = {};
-      for (const [key, value] of Object.entries(this.rest.value[0])) {
-        res[key] = "";
+      //shouldAddPreviousValue ?
+      if (!this.rest.shouldAddPreviousValue && this.rest.value[0]) {
+        for (const [key, value] of Object.entries(this.rest.value[0])) {
+          res[key] = "";
+        }
+      } else {
+        this.rest.fields.forEach((field, index) => {
+          res[field.key] = field.value || "";
+        });
       }
+
       fields.push(res);
       this.valueStore = fields;
       store.updateKeyValue(this.multiKey, fields);

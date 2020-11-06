@@ -175,6 +175,7 @@ export default {
         this.inputInfo.multiIndex
       );
     } else if (this.isRendered && !multiKey) {
+      if (!this.inputInfo.value) this.inputInfo.value = [];
       store.updateKeyValue(this.inputInfo.key, this.inputInfo.value);
     }
   },

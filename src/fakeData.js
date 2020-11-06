@@ -27,8 +27,10 @@ export const config = {
       label: 'Multy fields!',
       buttons: {
         addField: { text: 'add', color: 'green', textColor: 'white' },
-        deleteField: { text: 'x', color: 'red', textColor: 'black', disabled: true }
-      }
+        deleteField: { text: 'x', color: 'red', textColor: 'black', disabled: false }
+      },
+      shouldAddPreviousValue: false,
+      // defaultAddValues: {} //TBD
     },
   ],
 

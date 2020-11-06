@@ -33,7 +33,6 @@ export const store = {
     if (typeof value === 'object' && value && value.length !== undefined) value = [ ...value ]  //skip arr observer
     if (!multiKey) {
       if (this.debug) console.log(`key ${key} recieved value`, value)     
-      console.log(`key ${key} recieved value`, value)      
       this.state[key] = value
     } else {
       if (this.debug) console.log(`multiKeys ${multiKey} field ${fieldNumber} updated key ${key} with `, value)
@@ -52,7 +51,7 @@ export const store = {
       value = this.state[multiKey] && this.state[multiKey][fieldNumber] && this.state[multiKey][fieldNumber][key]
     }    
     if (this.debug) console.log('key ' + key + ' request recieved. Its value ', value)
-    if (!multiKey) console.log('key ' + key + ' request recieved. Its value ', value)
+    // if (!multiKey) console.log('key ' + key + ' request recieved. Its value ', value)
     return value
   },
   getStore(){
