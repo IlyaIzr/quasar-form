@@ -8,9 +8,23 @@
         :values="valueStore[index]"
         :rowIndexMultiple="Number(index)"
       />
-      <q-btn label="x" color="red" @click="deleteField(index)" />
+      <div class="col text-right">
+        <q-btn
+          class="q-my-sm"
+          size="small"
+          :label="buttons.deleteField.text || 'x'"
+          :color="buttons.deleteField.color || 'red'"
+          :text-color="buttons.deleteField.textColor || 'white'"
+          @click="deleteField(index)"
+        />
+      </div>
     </div>
-    <q-btn label="Add" color="teal" @click="addField" />
+    <q-btn
+      :label="buttons.addField.text || '+'"
+      :color="buttons.addField.color || 'green'"
+      :text-color="buttons.addField.textColor"
+      @click="addField"
+    />
   </div>
 </template>
 
@@ -44,6 +58,9 @@ export default {
   data() {
     return {
       valueStore: this.store.getValueByKey(this.multiKey),
+      buttons: this.rest.buttons
+        ? this.rest.buttons
+        : { addField: {}, deleteField: {} },
       // rules: this.checkRules(this.rest.rules, this.rest.required),
     };
   },

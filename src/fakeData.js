@@ -24,7 +24,11 @@ export const config = {
         },
         { type: 'date', rowIndex: 1, key: 'dateKey', label: 'When?' }
       ],
-      label: 'Multy fields!'
+      label: 'Multy fields!',
+      buttons: {
+        addField: { text: 'add', color: 'green', textColor: 'white' },
+        deleteField: { text: 'x', color: 'red', textColor: 'black' }
+      }
     },
   ],
 
