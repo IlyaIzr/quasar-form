@@ -165,18 +165,17 @@ export default {
         this.isRendered = true;
       } else this.isRendered = false;
     } else this.isRendered = true;
-    if (this.isRendered) {
-      if (multiKey) {
-        // console.log('send value ' + this.inputInfo.value + ' at key ' + this.inputInfo.key)
-        store.updateKeyValue(
-          this.inputInfo.key,
-          this.inputInfo.value,
-          multiKey,
-          this.inputInfo.multiIndex
-        );
-      } else {
-        store.updateKeyValue(this.inputInfo.key, this.inputInfo.value);
-      } //don't set value unless field is visible
+
+    if (this.isRendered && multiKey) {
+      // console.log('send value ' + this.inputInfo.value + ' at key ' + this.inputInfo.key)
+      store.updateKeyValue(
+        this.inputInfo.key,
+        this.inputInfo.value,
+        multiKey,
+        this.inputInfo.multiIndex
+      );
+    } else if (this.isRendered && !multiKey) {
+      store.updateKeyValue(this.inputInfo.key, this.inputInfo.value);
     }
   },
   mounted() {

@@ -40,30 +40,30 @@ export const config = {
 
   form: {
     async onSubmit(vNode, data, formMethods) {
-      console.log('submited', vNode)
+      // console.log('submited', vNode)
       console.log('submited', data)
-      // vNode.onReset()
-      return function (vNode) {
-        console.log('callback function')
-      }
+      // // vNode.onReset()
+      // return function (vNode) {
+      //   console.log('callback function')
+      // }
     },
     async onClear(vNode, data, formMethods) {
-      console.log('reseted form', vNode)
-      const exeptionKey = 'sel1base' // don't reset firld with that key. 1 key only for now
+      // console.log('reseted form', vNode)
+      // const exeptionKey = 'sel1base' // don't reset firld with that key. 1 key only for now
 
-      function cb(vNode) {
-        console.log('callback function')
-      }
-      return { exeptionKey, cb }
+      // function cb(vNode) {
+      //   console.log('callback function')
+      // }
+      // return { exeptionKey, cb }
     },
     async onValidateSuccess(vNode, data, formMethods) {
-      console.log('validated form')
+      // console.log('validated form')
       // return function (vNode) {
       //   console.log('callback function')
       // }
     },
     async onValidateError(vNode, data, formMethods, errorComponent) {
-      console.log('validation error', errorComponent)
+      // console.log('validation error', errorComponent)
       // return function (vNode) {
       //   console.log('callback function')
       // }

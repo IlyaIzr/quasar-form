@@ -56,14 +56,15 @@ export default {
       store.deleteMultiField(this.multiKey, index)
     },
     addField(){
-      let fields = Array(this.valueStore) 
+      let fields = this.valueStore
       let res = {}
       for (const [key, value] of Object.entries(this.rest.value[0])) {
         res[key] = ''
       }
-      // fields.push(res)
-      // this.valueStore = fields 
-      // store.updateKeyValue(this.multiKey, fields)
+      fields.push(res)
+      console.log('res ', res)
+      this.valueStore = fields 
+      store.updateKeyValue(this.multiKey, fields)
     }
   },
   // watch: {

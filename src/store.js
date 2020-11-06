@@ -1,31 +1,40 @@
 export const store = {
-  debug: true,
+  debug: false,
   state: {
     watcher: 'a'
   },
   updateKeyValue(key, value, multiKey = "", fieldNumber = "") {
-    if (typeof value === 'object' && value) value = { ...value }  //skip observer
+    if (typeof value === 'object' && value && value.length === undefined) value = { ...value }  //skip obj observer
+    if (typeof value === 'object' && value && value.length !== undefined) value = [ ...value ]  //skip arr observer
     if (!multiKey) {
-      // console.log('simple case with key ', key)
+      if (this.debug) console.log(`key ${key} recieved value`, value)      
       this.state[key] = value
     } else {
-      // this thingy stops from making observer
-      this.state[multiKey] = {...this.state[multiKey]}
-      this.state[multiKey][fieldNumber] = {...this.state[multiKey][fieldNumber]}
-      this.state[multiKey][fieldNumber][key] = value      
+      if (this.debug) console.log(`multiKeys ${multiKey} field ${fieldNumber} updated key ${key} with `, value)
+      // this thingy stops from making observers
+      this.state[multiKey] = [ ...this.state[multiKey] ]
+      this.state[multiKey][fieldNumber] = { ...this.state[multiKey][fieldNumber] }
+      this.state[multiKey][fieldNumber][key] = value
     }
     this.state.watcher = value + String(new Date)
   },
   getValueByKey(key, multiKey = "", fieldNumber = "") {
-    // if (this.debug) console.log('key ' + key + ' request recieved ')
+    if (this.debug) console.log('key ' + key + ' request recieved ')
     if (!multiKey) {
-      return this.state[key]
+      const value = this.state[key]
+      console.log('store ', value)
+      return value
     } else {
       return this.state[multiKey] && this.state[multiKey][fieldNumber] && this.state[multiKey][fieldNumber][key]
     }
   },
-  deleteMultiField(multiKey, fieldNumber){
-    const n = {...this.state[multiKey]}
+  getStore(){
+    const res = this.state
+    return res
+  },
+  deleteMultiField(multiKey, fieldNumber) {
+    if (this.debug) console.log(`field ${fieldNumber} was deleted from multikey ${multiKey}`)
+    const n = { ...this.state[multiKey] }
     n[fieldNumber] = undefined
     delete n[fieldNumber]
     console.log(n)
