@@ -1,17 +1,26 @@
 <template>
   <div class="q-gutter-md">
-    <q-checkbox
-      ref="input"
+    <q-field
+      ref="checkbox"
       :value="valueStore"
-      :label="label"
-      :name="keyName"
-      :required="required"
-      :rest="rest"
-      @focus="onFocus"
-      @blur="onBlur"
-      @input="onInput"
       :rules="rest.rules"
-    />
+      borderless
+      dense
+    >
+      <template v-slot:control>
+        <q-checkbox
+          ref="input"
+          :value="valueStore"
+          :label="label"
+          :name="keyName"
+          :rest="rest"
+          @focus="onFocus"
+          @blur="onBlur"
+          @input="onInput"
+          :rules="rest.rules"
+        />
+      </template>
+    </q-field>
   </div>
 </template>
 
@@ -41,7 +50,6 @@ export default {
   data() {
     return {
       valueStore: this.getStoreValue(),
-      required: this.rest.required === undefined ? false : this.rest.required,
     };
   },
   methods: {
@@ -53,6 +61,7 @@ export default {
     },
     onInput(val) {
       this.input(val);
+      this.$refs.checkbox.validate()
       this.$emit("input", val);
     },
     input(val) {

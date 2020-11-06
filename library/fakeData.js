@@ -65,7 +65,8 @@ export const config = {
     { //onInput event only
       type: 'checkbox', key: 'testCheckBox',
       label: 'Agreed?',
-      value: true
+      value: true,
+      rules: [val => val || 'Error message']
     },
 
     // Slider

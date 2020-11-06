@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="q-my-md">
     <p class="text-subtitle1 q-mb-none">{{ label }}</p>
     <div v-for="(item, index) in valueStore" v-bind:key="item.key" class="col">
       <FieldMapper
@@ -33,8 +33,7 @@
       :rules="rest.rules"
       borderless
       dense
-      class="q-ma-none"
-      style="margin-top: -30px"
+      style="margin-top: -30px; height: 0.01px; padding-left: 75px"
     >
       <template v-slot:control>
         <!-- <q-checkbox :value="checkboxValue" disable /> -->
