@@ -1,3 +1,28 @@
+const killObservers = data => {
+  if (typeof data === 'object' && data && data.length === undefined) {  //case: object
+    data = { ...data }
+    delete data.__ob__
+    if (Object.keys(data).length > 0) {
+      Object.keys(data).forEach(key => {
+        let res = killObservers(data[key])
+        delete res.__ob__
+        data[key] = res
+      })
+    }
+  }
+  if (typeof data === 'object' && data && data.length !== undefined) {  //case: array
+    data = [...data]
+    delete data.__ob__
+    if (data.length > 0) {
+      data.forEach((arrItem, index) => {
+        let res = killObservers(arrItem)
+        delete res.__ob__
+        data[index] = res
+      })
+    }
+  }
+  return data
+}
 export const store = {
   debug: false,
   state: {
@@ -7,7 +32,8 @@ export const store = {
     if (typeof value === 'object' && value && value.length === undefined) value = { ...value }  //skip obj observer
     if (typeof value === 'object' && value && value.length !== undefined) value = [ ...value ]  //skip arr observer
     if (!multiKey) {
-      if (this.debug) console.log(`key ${key} recieved value`, value)      
+      if (this.debug) console.log(`key ${key} recieved value`, value)     
+      console.log(`key ${key} recieved value`, value)      
       this.state[key] = value
     } else {
       if (this.debug) console.log(`multiKeys ${multiKey} field ${fieldNumber} updated key ${key} with `, value)
@@ -19,16 +45,18 @@ export const store = {
     this.state.watcher = value + String(new Date)
   },
   getValueByKey(key, multiKey = "", fieldNumber = "") {
-    if (this.debug) console.log('key ' + key + ' request recieved. Its value ', value)
+    let value
     if (!multiKey) {
-      const value = this.state[key]
-      return value
+      value = this.state[key]
     } else {
-      return this.state[multiKey] && this.state[multiKey][fieldNumber] && this.state[multiKey][fieldNumber][key]
-    }
+      value = this.state[multiKey] && this.state[multiKey][fieldNumber] && this.state[multiKey][fieldNumber][key]
+    }    
+    if (this.debug) console.log('key ' + key + ' request recieved. Its value ', value)
+    if (!multiKey) console.log('key ' + key + ' request recieved. Its value ', value)
+    return value
   },
   getStore(){
-    const res = this.state
+    const res = killObservers(this.state)
     return res
   },
   deleteMultiField(multiKey, fieldNumber) {

@@ -51,7 +51,8 @@ export default {
   },
   computed: {
     valuesResponse() {
-      return { ...store.state };
+      let res = store.getStore()
+      return res
     },
   },
   methods: {
