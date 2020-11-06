@@ -15,6 +15,7 @@
           :label="buttons.deleteField.text || 'x'"
           :color="buttons.deleteField.color || 'red'"
           :text-color="buttons.deleteField.textColor || 'white'"
+          :disable="buttons.deleteField.disabled"
           @click="deleteField(index)"
         />
       </div>
@@ -23,6 +24,7 @@
       :label="buttons.addField.text || '+'"
       :color="buttons.addField.color || 'green'"
       :text-color="buttons.addField.textColor"
+      :disable="buttons.addField.disabled"
       @click="addField"
     />
   </div>
