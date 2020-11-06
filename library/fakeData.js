@@ -76,7 +76,7 @@ export const config = {
       value: 50, max: 100, min: 1,
       showValue: false
     },
-    
+
     // Date    
     {
       type: 'date', key: 'afs', rowIndex: 8,
@@ -85,7 +85,7 @@ export const config = {
       withInput: true, // true by default
       localization: 'ru', // 'ru' or 'en' or {} of localisation. See https://quasar.dev/vue-components/date#Custom-ad-hoc-locale
       range: false,
-      value: '2012/12/12',      
+      value: '2012/12/12',
       // range: true,
       // value: '2012/12/11 - 2012/12/12' // (' - ') delimeter
       defaultYearMonth: '2020/10',
@@ -94,6 +94,35 @@ export const config = {
       navigationMaxYearMonth: '2030/01',
       readonly: false,
       disable: false
+    },
+
+    //Multiple fields
+    {
+      type: 'multiple', key: 'multi21', rowIndex: 4,
+      value: [
+        { 'field1key': 'Peter', select12: 'option2', dateKey: '2012/12/12' },
+        { 'field1key': 'Lois', select12: 'option1', dateKey: '2020/12/12' }
+      ],
+      fields: [
+        { type: 'text', rowIndex: 1, key: 'field1key', label: 'Name' },
+        {
+          type: 'select', rowIndex: 2, key: 'select12', label: 'Choose',
+          options: [
+            { id: 'option1', name: 'Your kids go to college' },
+            { id: 'option2', name: 'Batman glass' },
+            { id: 'option3', name: 'Meg' }
+          ]
+        },
+        { type: 'date', rowIndex: 1, key: 'dateKey', label: 'When?' }
+      ],
+      label: 'Multy fields!',
+      buttons: {
+        addField: { text: 'add', color: 'green', textColor: 'white' },
+        deleteField: { text: 'x', color: 'red', textColor: 'black', disabled: false }
+      },
+      shouldAddPreviousValue: false,
+      // defaultAddValues: {} //TBD,
+      rules: [val => val >= 2 || 'Select at least 2 fields']
     },
   ],
 
@@ -146,7 +175,7 @@ export const config = {
       }
     }
   },
-  
+
   modal: {  //Nothing is required
     triggerButton: {
       label: 'run form', color: 'white', textColor: 'red'

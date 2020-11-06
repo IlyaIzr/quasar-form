@@ -33,9 +33,6 @@ export const config = {
       // defaultAddValues: {} //TBD,
       rules: [val => val >= 2 || 'Select at least 2 fields']
     },
-    {
-      type: 'checkbox', rules: [val => val || 'Push the button']
-    }
   ],
 
 
