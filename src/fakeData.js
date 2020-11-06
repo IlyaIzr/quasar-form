@@ -30,7 +30,8 @@ export const config = {
         deleteField: { text: 'x', color: 'red', textColor: 'black', disabled: false }
       },
       shouldAddPreviousValue: false,
-      // defaultAddValues: {} //TBD
+      // defaultAddValues: {} //TBD,
+      rules: [val => val >= 2 || 'Select at least 2 fields']
     },
   ],
 
@@ -63,13 +64,13 @@ export const config = {
       // return { exeptionKey, cb }
     },
     async onValidateSuccess(vNode, data, formMethods) {
-      // console.log('validated form')
+      console.log('validated form')
       // return function (vNode) {
       //   console.log('callback function')
       // }
     },
     async onValidateError(vNode, data, formMethods, errorComponent) {
-      // console.log('validation error', errorComponent)
+      console.log('validation error', errorComponent)
       // return function (vNode) {
       //   console.log('callback function')
       // }

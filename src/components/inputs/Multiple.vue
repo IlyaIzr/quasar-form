@@ -27,6 +27,19 @@
       :disable="buttons.addField.disabled"
       @click="addField"
     />
+    <q-field
+      ref="checkbox"
+      :value="valueStore.length"
+      :rules="rest.rules"
+      borderless
+      dense
+      class="q-ma-none"
+      style="margin-top: -30px"
+    >
+      <template v-slot:control>
+        <!-- <q-checkbox :value="checkboxValue" disable /> -->
+      </template>
+    </q-field>
   </div>
 </template>
 
@@ -63,9 +76,18 @@ export default {
       buttons: this.rest.buttons
         ? this.rest.buttons
         : { addField: {}, deleteField: {} },
-      // rules: this.checkRules(this.rest.rules, this.rest.required),
     };
   },
+  // computed: {
+  //   checkboxValue() {
+  //     let res = "";
+  //     const rulesArr = this.rest.rules;
+  //     const f = rulesArr[0];
+  //     res = f(this.valueStore.length);
+  //     if (typeof res !== "boolean") res = false;
+  //     return res;
+  //   },
+  // },
   methods: {
     deleteField(index) {
       let res = [...this.valueStore];
