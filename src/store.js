@@ -34,9 +34,8 @@ export const store = {
   },
   deleteMultiField(multiKey, fieldNumber) {
     if (this.debug) console.log(`field ${fieldNumber} was deleted from multikey ${multiKey}`)
-    const n = { ...this.state[multiKey] }
-    n[fieldNumber] = undefined
-    delete n[fieldNumber]
+    const n = [ ...this.state[multiKey] ]
+    n.splice(fieldNumber, 1)
     console.log(n)
     this.state[multiKey] = n
     this.state.watcher = 'deleted' + multiKey + String(new Date)
