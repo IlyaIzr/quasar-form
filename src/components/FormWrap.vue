@@ -51,8 +51,8 @@ export default {
   },
   computed: {
     valuesResponse() {
-      let res = store.getStore()
-      return res
+      let res = store.getStore();
+      return res;
     },
   },
   methods: {
@@ -63,7 +63,7 @@ export default {
       // Check for calndar range object
       for (const [key, value] of Object.entries(valuesResponse)) {
         if (typeof value === "object" && value.from && value.to) {
-          valuesResponse[key] = String(value.from) + " - " + String(value.to);
+          valuesResponse[key] = { start: value.from, finish: value.to };
         }
       }
       if (this.form.onSubmit) {

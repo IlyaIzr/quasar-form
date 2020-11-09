@@ -10,6 +10,7 @@
       :rest="rest"
       :store="store"
       :hasInput="hasInput"
+      :value="valueStore"
       @input="onInput"
       @focus="onFocus"
       @blur="onBlur"
@@ -17,7 +18,8 @@
   </div>
   <div v-else class="q-gutter-md">
     <q-input
-      :value="rest.range ? rangeInputValue : valueStore"
+      :key="rangeInputValue || 'someStringKeyval'"
+      :value="rangeInputValue"
       @input="onInput"
       :mask="rest.range ? '####/##/## - ####/##/##' : '####/##/##'"
       :rules="rest.range ? rest.rules : ['date', ...rest.rules]"
@@ -66,11 +68,6 @@ export default {
       required: false,
       default: "",
     },
-    value: {
-      type: String || Object || undefined,
-      required: false,
-      default: "",
-    },
     keyName: {
       type: String,
       required: true,
@@ -95,9 +92,10 @@ export default {
     rangeInputValue() {
       let res = {};
       res = this.valueStore;
-      console.log("input value range checked with val", res);
       if (typeof res === "object" && res.from && res.to) {
         res = String(res.from) + String(res.to);
+      } else if (typeof res === "object" && res.start && res.finish) {
+        res = String(res.start) + String(res.finish);
       }
       return res;
     },
@@ -112,17 +110,21 @@ export default {
     onInput(val) {
       let finalVal = val;
       if (typeof val === "object") {
-        finalVal = { ...val };
-        this.input(finalVal);
-        finalVal = { ...val };
-        this.$emit("input", finalVal);
-        // console.log("emited val", finalVal);
-      } else {
-        this.input(val);
-        this.$emit("input", val);
+        if (val && val.start && val.finish) {
+          finalVal = {
+            from: val.start,
+            to: val.finish,
+          };
+        }
+      } else if (typeof val === "string" && this.rest.range) {
+        // Single range input case
+        const dates = val.split(" - ");
+        finalVal = { from: dates[0], to: dates[1] };
       }
+      this.input(finalVal);
+      this.$emit("input", finalVal);
     },
-    input(val) {      
+    input(val) {
       if (this.rest.multiKey)
         store.updateKeyValue(
           this.keyName,
@@ -131,6 +133,7 @@ export default {
           this.rest.multiIndex
         );
       else store.updateKeyValue(this.keyName, val);
+      this.valueStore = val;
     },
     getStoreValue() {
       let res;

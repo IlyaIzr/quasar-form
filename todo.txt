@@ -3,3 +3,7 @@ reset - restore default values
 more buttons (clear)
 
 multiple fields
+
+date output - obj {start,finish}
+date input output dd.mm.yyyy
+submit message

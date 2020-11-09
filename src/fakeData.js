@@ -1,37 +1,22 @@
 export const config = {
   fields: [
-    // {
-    //   type: 'text', rowIndex: 1, key: 'texto124',
-    //   label: 'Test'
-    // },
-
-
-    { //Multiple fields
-      type: 'multiple', key: 'multi21', rowIndex: 4,
-      value: [
-        { 'field1key': 'Peter', select12: 'option2', dateKey: '2012/12/12' },
-        { 'field1key': 'Lois', select12: 'option1', dateKey: '2020/12/12' }
-      ],
-      fields: [
-        { type: 'text', rowIndex: 1, key: 'field1key', label: 'Name' },
-        {
-          type: 'select', rowIndex: 2, key: 'select12', label: 'Choose',
-          options: [
-            { id: 'option1', name: 'Your kinds go to college' },
-            { id: 'option2', name: 'Batman glass' },
-            { id: 'option3', name: 'Meg' }
-          ]
-        },
-        { type: 'date', rowIndex: 1, key: 'dateKey', label: 'When?' }
-      ],
-      label: 'Multy fields!',
-      buttons: {
-        addField: { text: 'add', color: 'green', textColor: 'white' },
-        deleteField: { text: 'x', color: 'red', textColor: 'black', disabled: false }
-      },
-      shouldAddPreviousValue: false,
-      // defaultAddValues: {} //TBD,
-      rules: [val => val >= 2 || 'Select at least 2 fields']
+    // Date    
+    {
+      type: 'date', key: 'afs', rowIndex: 8,
+      label: 'some cal', mini: false,
+      color: 'orange',
+      withInput: false, // true by default
+      localization: 'ru', // 'ru' or 'en' or {} of localisation. See https://quasar.dev/vue-components/date#Custom-ad-hoc-locale
+      // range: false,
+      // value: '2012/12/12',
+      range: true,
+      value: { start: '2012/12/11', finish: '2012/12/12' },
+      defaultYearMonth: '2020/10',
+      defaultView: 'Calendar', // 'Calendar' | 'Months' |'Years'
+      navigationMinYearMonth: '2010/01',
+      navigationMaxYearMonth: '2030/01',
+      readonly: false,
+      disable: false
     },
   ],
 

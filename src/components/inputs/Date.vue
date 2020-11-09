@@ -5,12 +5,14 @@
     :text-color="rest.textColor"
     :minimal="rest.mini"
     :locale="locale"
-    :range="rest.range ? true : false"
-    :default-year-month="rest.defaultYearMonth ? rest.defaultYearMonth : '2020/03'"
+    :default-year-month="
+      rest.defaultYearMonth ? rest.defaultYearMonth : '2020/03'
+    "
     :default-view="rest.defaultView"
     :navigation-min-year-month="rest.navigationMinYearMonth"
     :navigation-max-year-month="rest.navigationMaxYearMonth"
     :readonly="rest.readonly"
+    :range="rest.range ? true : false"
     :disable="rest.disable"
     today-btn
     @input="onInput"
@@ -36,10 +38,6 @@ export default {
     },
     label: {
       type: String,
-      required: false,
-      default: "",
-    },
-    value: {
       required: false,
       default: "",
     },
@@ -110,14 +108,12 @@ export default {
     },
     rangeValues() {
       let res = {};
-      if (typeof this.valueStore === "string") {
-        const dates = this.valueStore.split(" - "); //2 dates always
-        res = { from: dates[0], to: dates[1] };
-        return res;
-      } else if (typeof this.valueStore === "object") {
-        res = { ...this.valueStore };
-        return res;
-      } else return res;
+      if (typeof this.valueStore === "object" && this.valueStore) {
+        if (this.valueStore.start && this.valueStore.finish)
+          res = { from: this.valueStore.start, to: this.valueStore.finish };
+        else res = { ...this.valueStore };
+      }
+      return res;
     },
   },
   methods: {
@@ -129,7 +125,7 @@ export default {
     },
     onInput(val) {
       this.$emit("input", val);
-    },    
+    },
     getStoreValue() {
       let res;
       if (this.rest.multiKey)
