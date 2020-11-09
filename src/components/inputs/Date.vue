@@ -1,5 +1,6 @@
 <template>
   <q-date
+    ref="calendar"
     :value="rest.range ? rangeValues : valueStore"
     :color="rest.color"
     :text-color="rest.textColor"
@@ -14,6 +15,7 @@
     :readonly="rest.readonly"
     :range="rest.range ? true : false"
     :disable="rest.disable"
+    :mask="rest.mask || 'DD.MM.YYYY'"
     today-btn
     @input="onInput"
     @focus="onFocus"
@@ -124,6 +126,7 @@ export default {
       this.$emit("blur", e);
     },
     onInput(val) {
+      if (this.rest.range)console.log(this.$refs.calendar) 
       this.$emit("input", val);
     },
     getStoreValue() {

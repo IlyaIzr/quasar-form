@@ -18,12 +18,10 @@
   </div>
   <div v-else class="q-gutter-md">
     <q-input
-      :key="rangeInputValue || 'someStringKeyval'"
       :value="rangeInputValue"
-      @input="onInput"
-      :mask="rest.range ? '####/##/## - ####/##/##' : '####/##/##'"
+      @input="onSimpleInput"
+      :mask="rest.inputMask || textInputMask"
       :rules="rest.range ? rest.rules : ['date', ...rest.rules]"
-      ref="input"
     >
       <template v-slot:append>
         <q-icon name="event" class="cursor-pointer">
@@ -45,12 +43,14 @@
           </q-popup-proxy>
         </q-icon>
       </template>
-    </q-input>
+    </q-input>    
   </div>
 </template>
 
 <script>
 import { store } from "../../store";
+import { date } from "quasar";
+const { formatDate } = date;
 import DateInp from "./Date";
 export default {
   name: "DateInput",
@@ -90,14 +90,29 @@ export default {
   },
   computed: {
     rangeInputValue() {
+      console.log('fuken range did run')
       let res = {};
       res = this.valueStore;
       if (typeof res === "object" && res.from && res.to) {
-        res = String(res.from) + String(res.to);
+        res = String(res.from) + ' - ' + String(res.to);
       } else if (typeof res === "object" && res.start && res.finish) {
-        res = String(res.start) + String(res.finish);
+        res = String(res.start) + ' - ' + String(res.finish);
       }
+      console.log('valu calculated: ', res)
       return res;
+    },
+    textInputMask() {
+      let mask = "";
+      if (this.rest.range) {
+        mask = undefined
+        return mask // TODO go over this
+      }
+      mask = this.rest.range ? "##.##.#### - ##.##.####" : "##.##.####";
+      if (this.rest.localization === "ru") return mask;
+      else if (this.rest.localization === "en") {
+        mask = this.rest.range ? "####/##/## - ####/##/##" : "####/##/##";
+      }
+      return mask;
     },
   },
   methods: {
@@ -107,17 +122,22 @@ export default {
     onBlur(e) {
       this.$emit("blur", e);
     },
-    onInput(val) {
+    onInput(val) {      
+      console.log('calendae valye', val)
       let finalVal = val;
-      if (typeof val === "object") {
-        if (val && val.start && val.finish) {
-          finalVal = {
-            from: val.start,
-            to: val.finish,
-          };
-        }
-      } else if (typeof val === "string" && this.rest.range) {
-        // Single range input case
+      if (typeof val === "object" && val && val.start && val.finish) {
+        finalVal = {
+          from: val.start,
+          to: val.finish,
+        };
+      }
+      this.input(finalVal);
+      this.$emit("input", finalVal);
+      this.rangeInputValue
+    },
+    onSimpleInput(val) {
+      let finalVal = val;
+      if (this.rest.range) {
         const dates = val.split(" - ");
         finalVal = { from: dates[0], to: dates[1] };
       }

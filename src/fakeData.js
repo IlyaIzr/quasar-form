@@ -5,12 +5,15 @@ export const config = {
       type: 'date', key: 'afs', rowIndex: 8,
       label: 'some cal', mini: false,
       color: 'orange',
-      withInput: false, // true by default
+      withInput: true, // true by default
       localization: 'ru', // 'ru' or 'en' or {} of localisation. See https://quasar.dev/vue-components/date#Custom-ad-hoc-locale
+      mask: 'DD.MM.YYYY', //calendar mask. Должна совпадать с форматом даты. Указано значение по умолчанию
       // range: false,
-      // value: '2012/12/12',
+      // inputMask: '##.##.####', //default value
+      // value: '12.12.2012',
       range: true,
-      value: { start: '2012/12/11', finish: '2012/12/12' },
+      value: { start: '11.12.2012', finish: '13.12.2012' },
+      inputMask: '##.##.#### - ##.##.####', // default value
       defaultYearMonth: '2020/10',
       defaultView: 'Calendar', // 'Calendar' | 'Months' |'Years'
       navigationMinYearMonth: '2010/01',
