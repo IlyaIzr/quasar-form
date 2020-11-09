@@ -23,7 +23,7 @@
     :rules="rest.rules"
   >
     <div v-if="hasInput" class="row items-center justify-end">
-      <q-btn v-close-popup label="Close" color="primary" flat />
+      <q-btn v-close-popup label="Close" color="primary" flat ref="btn"/>
     </div>
   </q-date>
 </template>
@@ -126,7 +126,9 @@ export default {
       this.$emit("blur", e);
     },
     onInput(val) {
-      if (this.rest.range)console.log(this.$refs.calendar) 
+      // if (this.rest.range)
+      //  console.log(this.$refs.btn)
+      // this.$refs.btn.$el.click()
       this.$emit("input", val);
     },
     getStoreValue() {

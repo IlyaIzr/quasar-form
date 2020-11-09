@@ -22,6 +22,8 @@
       @input="onSimpleInput"
       :mask="rest.inputMask || textInputMask"
       :rules="rest.range ? rest.rules : ['date', ...rest.rules]"
+      :key="fuckenMask"
+      ref="input"
     >
       <template v-slot:append>
         <q-icon name="event" class="cursor-pointer">
@@ -43,7 +45,7 @@
           </q-popup-proxy>
         </q-icon>
       </template>
-    </q-input>    
+    </q-input>
   </div>
 </template>
 
@@ -86,27 +88,22 @@ export default {
       hasInput:
         this.rest.withInput || this.rest.withInput === undefined ? true : false,
       valueStore: this.getStoreValue(),
+      fuckenMask: 1,
     };
   },
   computed: {
     rangeInputValue() {
-      console.log('fuken range did run')
       let res = {};
       res = this.valueStore;
       if (typeof res === "object" && res.from && res.to) {
-        res = String(res.from) + ' - ' + String(res.to);
+        res = String(res.from) + String(res.to);
       } else if (typeof res === "object" && res.start && res.finish) {
-        res = String(res.start) + ' - ' + String(res.finish);
+        res = String(res.start) + String(res.finish);
       }
-      console.log('valu calculated: ', res)
       return res;
     },
     textInputMask() {
       let mask = "";
-      if (this.rest.range) {
-        mask = undefined
-        return mask // TODO go over this
-      }
       mask = this.rest.range ? "##.##.#### - ##.##.####" : "##.##.####";
       if (this.rest.localization === "ru") return mask;
       else if (this.rest.localization === "en") {
@@ -122,8 +119,8 @@ export default {
     onBlur(e) {
       this.$emit("blur", e);
     },
-    onInput(val) {      
-      console.log('calendae valye', val)
+    onInput(val) {
+      this.fuckenMask += 1;
       let finalVal = val;
       if (typeof val === "object" && val && val.start && val.finish) {
         finalVal = {
@@ -133,7 +130,6 @@ export default {
       }
       this.input(finalVal);
       this.$emit("input", finalVal);
-      this.rangeInputValue
     },
     onSimpleInput(val) {
       let finalVal = val;
