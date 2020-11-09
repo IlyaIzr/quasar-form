@@ -66,6 +66,13 @@ export default {
           valuesResponse[key] = { start: value.from, finish: value.to };
         }
       }
+      this.reset()
+      this.$q.notify({
+        color: "green-4",
+        textColor: "white",
+        icon: "cloud_done",
+        message: "Submitted",
+      });
       if (this.form.onSubmit) {
         const cb = await this.form.onSubmit(
           this,
@@ -110,6 +117,13 @@ export default {
         );
         if (cb && typeof cb === "function") cb(this);
       }
+    },
+
+    async reset() {
+      this.onReset();
+    },    
+    async submit() {
+      this.onSubmit();
     },
   },
 

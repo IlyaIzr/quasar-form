@@ -1,8 +1,1 @@
 reset - restore default values
-
-more buttons (clear)
-
-multiple fields
-
-date input output dd.mm.yyyy
-submit message
