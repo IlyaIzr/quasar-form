@@ -31,7 +31,9 @@ export const config = {
     ],
     buttons: {
       nextButton: { text: 'next step' },
-      backButton: false
+      backButton: false,
+      submitButton: {text: 'send'},
+      resetButton: false
     }
   },
 

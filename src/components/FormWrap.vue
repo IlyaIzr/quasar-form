@@ -21,9 +21,10 @@
         :fields="settings.fields"
         :values="values"
         :tabs="settings.tabs"
+        :settings="settings"
       />
 
-      <Buttons :buttons="settings.buttons" :modal="settings.modal" />
+      <Buttons :buttons="settings.buttons" :modal="settings.modal" v-if="!settings.tabs"/>
     </q-form>
   </q-card>
 </template>

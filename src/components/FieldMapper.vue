@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Stepper v-if="tabs" :sortedFields="sortedFields" :tabs="tabs"/>
+    <Stepper v-if="tabs" :fields="sortedFields" :tabs="tabs" :settings="settings || false"/>
 
     <div
       v-else
@@ -42,6 +42,10 @@ export default {
       type: Number || undefined,
       required: false,
     },
+    settings: {
+      type: Object,
+      required: false
+    }
   },
   computed: {
     sortedFields() {
