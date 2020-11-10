@@ -1,26 +1,23 @@
 export const config = {
   fields: [
-    // Date    
+    // Text input
     {
-      type: 'date', key: 'afs', rowIndex: 8,
-      label: 'some cal', mini: false,
-      color: 'orange',
-      withInput: true, // true by default
-      localization: 'ru', // 'ru' or 'en' or {} of localisation. See https://quasar.dev/vue-components/date#Custom-ad-hoc-locale
-      mask: 'DD.MM.YYYY', //calendar mask. Должна совпадать с форматом даты. Указано значение по умолчанию
-      // range: false,
-      // inputMask: '##.##.####', //default value
-      // value: '12.12.2012',
-      range: true,
-      value: { start: '11.12.2012', finish: '13.12.2012' },
-      inputMask: '##.##.#### - ##.##.####', // default value
-      defaultYearMonth: '2020/10',
-      defaultView: 'Calendar', // 'Calendar' | 'Months' |'Years'
-      navigationMinYearMonth: '2010/01',
-      navigationMaxYearMonth: '2030/01',
-      readonly: false,
-      disable: false
+      type: 'text', rowIndex: 3, key: '2421as',
+      label: 'Test',
+      rules: [val => val.length <= 12 || "Please use maximum 12 characters"],  //https://quasar.dev/vue-components/input#Async-rules
+      mask: '##,##', // See https://quasar.dev/vue-components/input#Mask
+      fillMask: '*', // Каким символом заполнить ещё не ввёденные символы маски
+      reverseFill: true, // Заполнение будет происходить справа налево
+      clearable: true,
+      prefix: 'dev.',
+      suffix: '@gmail.com',      
+      hint: 'helper-message'
     },
+    // Text area
+    {
+      type: 'textarea',
+      autogrow: true, // true by default
+    }
   ],
 
 
@@ -72,20 +69,6 @@ export const config = {
     }
   },
 
-  modal: {  //Nothing is required
-    triggerButton: {
-      label: 'run form', color: 'white', textColor: 'red'
-    },
-    opened: true, // true by default if no 'opened' key provided
-    persistent: true,  // rest if false by default. Можно ли закрыть кликом вне формы
-    maximized: false,
-    transitionShow: "slide-up", // one of https://quasar.dev/options/transitions
-    transitionHide: "jump-right",
-    seamless: false, // Можно ли взаимодействовать с контентом вне формы (по сторонам)
-    fullWidth: false,
-    fullHeigh: true,
-    position: 'left', // one of 'standard' 'top' 'right' 'bottom' 'left'
-  },
   title: 'Form title'
 }
 

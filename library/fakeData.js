@@ -1,6 +1,26 @@
 export const config = {
   fields: [
-    //1
+    
+    // Text input
+    {
+      type: 'text', rowIndex: 3, key: '2421as',
+      label: 'Test',
+      rules: [val => val.length <= 12 || "Please use maximum 12 characters"],  //https://quasar.dev/vue-components/input#Async-rules
+      mask: '##,##', // See https://quasar.dev/vue-components/input#Mask
+      fillMask: '*', // Каким символом заполнить ещё не ввёденные символы маски
+      reverseFill: true, // Заполнение будет происходить справа налево
+      clearable: true,
+      prefix: 'dev.',
+      suffix: '@gmail.com',      
+      hint: 'helper-message'
+    },
+    // Text area
+    {
+      type: 'textarea',
+      autogrow: true, // true by default
+    },
+
+    //Select with async methods
     {
       type: 'select', rowIndex: 1, key: 'sel1base',
       label: '@(Группа)',
@@ -17,18 +37,15 @@ export const config = {
         }
       }
     },
+
+    //Select rules
     {
       type: 'select', rowIndex: 2, key: 'sendersKey132', // required
       label: '@(Отправитель)',
       options: [],
       rules: [val => val || 'Please select option']
     },
-
-    {
-      type: 'text', rowIndex: 3, key: '2421as',
-      label: 'Test',
-      rules: [val => val.length <= 3 || "Please use maximum 3 characters"]  //https://quasar.dev/vue-components/input#Async-rules
-    },
+    
 
     // Universal event handlers
     {

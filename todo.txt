@@ -1,1 +1,3 @@
 reset - restore default values
+wizard
+textarea props
