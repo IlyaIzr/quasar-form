@@ -3,22 +3,37 @@ export const config = {
     // Text input
     {
       type: 'text', rowIndex: 3, key: '2421as',
+      tabIndex: 1,
       label: 'Test',
+      required: true,
       rules: [val => val.length <= 12 || "Please use maximum 12 characters"],  //https://quasar.dev/vue-components/input#Async-rules
       mask: '##,##', // See https://quasar.dev/vue-components/input#Mask
       fillMask: '*', // Каким символом заполнить ещё не ввёденные символы маски
       reverseFill: true, // Заполнение будет происходить справа налево
       clearable: true,
       prefix: 'dev.',
-      suffix: '@gmail.com',      
+      suffix: '@gmail.com',
       hint: 'helper-message'
     },
     // Text area
     {
-      type: 'textarea',
+      type: 'textarea', key: 'textoarea',
+      required: true,
+      tabIndex: 2,
       autogrow: true, // true by default
     }
   ],
+
+  tabs: {
+    steps: [
+      { title: 'First', icon: 'settings' },
+      { title: 'Second', icon: 'img:https://cdn.quasar.dev/logo/svg/quasar-logo.svg' }
+    ],
+    buttons: {
+      nextButton: { text: 'next step' },
+      backButton: false
+    }
+  },
 
 
   buttons: [  // buttons NOT required

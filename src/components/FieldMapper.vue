@@ -1,17 +1,25 @@
 <template>
   <div>
-    <div v-for="row in sortedFields" v-bind:key="sortedFields.indexOf(row)">
+    <Stepper v-if="tabs" :sortedFields="sortedFields" :tabs="tabs"/>
+
+    <div
+      v-else
+      v-for="row in sortedFields"
+      v-bind:key="sortedFields.indexOf(row)"
+    >
       <FormRow :row="row" />
     </div>
   </div>
 </template>
 
 <script>
-import FormRow from "../components/FormRow";
+import FormRow from "./FormRow";
+import Stepper from "./Stepper";
 export default {
   name: "FieldMapper",
   components: {
     FormRow,
+    Stepper,
   },
   props: {
     fields: {
@@ -20,6 +28,10 @@ export default {
     },
     values: {
       type: Object,
+      required: false,
+    },
+    tabs: {
+      type: Object || undefined,
       required: false,
     },
     multiKey: {
@@ -70,8 +82,24 @@ export default {
           }
         }
       });
-      const resFiltered = res.filter((field, index) => field != null); //delete all empty indexes
+      let resFiltered = res.filter((field) => field != null); //delete all empty indexes
       resFiltered.splice(resFiltered.length - 1, 0, ...noRowIndexes); //insert unindexed arrays
+      if (!this.tabs) return resFiltered;
+
+      //Tabs case
+      let tabbedFields = [];
+      resFiltered.map((row, index) => {
+        row.map((field) => {
+          const tabIndex = field.tabIndex || 1;
+          const cell = tabbedFields[tabIndex - 1];
+          if (cell) {
+            tabbedFields[tabIndex - 1] = [...cell, { ...field }];
+          } else {
+            tabbedFields[tabIndex - 1] = [{ ...field }];
+          }
+        });
+      });
+      resFiltered = tabbedFields.filter((field) => field != null);
       return resFiltered;
     },
   },

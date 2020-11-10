@@ -6,6 +6,7 @@
         <q-tooltip content-class="bg-white text-primary">Close</q-tooltip>
       </q-btn>
     </q-bar>
+
     <q-form
       class="bg-white q-pa-md"
       ref="form"
@@ -16,7 +17,11 @@
     >
       <div class="text-h6">{{ settings.title }}</div>
 
-      <FieldMapper :fields="settings.fields" :values="values" />
+      <FieldMapper
+        :fields="settings.fields"
+        :values="values"
+        :tabs="settings.tabs"
+      />
 
       <Buttons :buttons="settings.buttons" :modal="settings.modal" />
     </q-form>
@@ -31,7 +36,6 @@ export default {
   name: "FormWrap",
   components: {
     FieldMapper,
-    // FieldMapper: ()=> import('./FieldMapper.vue'),
     Buttons,
   },
   data() {
@@ -66,13 +70,6 @@ export default {
           valuesResponse[key] = { start: value.from, finish: value.to };
         }
       }
-      this.reset()
-      this.$q.notify({
-        color: "green-4",
-        textColor: "white",
-        icon: "cloud_done",
-        message: "Submitted",
-      });
       if (this.form.onSubmit) {
         const cb = await this.form.onSubmit(
           this,
@@ -121,7 +118,7 @@ export default {
 
     async reset() {
       this.onReset();
-    },    
+    },
     async submit() {
       this.onSubmit();
     },
