@@ -33,7 +33,6 @@
       :rules="rest.rules"
       borderless
       dense
-      style="margin-top: -30px; height: 0.01px; padding-left: 75px"
     >
       <template v-slot:control>
         <!-- <q-checkbox :value="checkboxValue" disable /> -->
