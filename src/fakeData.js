@@ -5,8 +5,7 @@ export const config = {
       type: 'text', rowIndex: 3, key: '2421as',
       tabIndex: 1,
       label: 'PIN-code',
-      rules: [val => val && val.length == 4  || "4 digits please"],
-      value: '1234'
+      value: 'Peps'
     },
     // Text area
     {

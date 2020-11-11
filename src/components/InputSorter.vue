@@ -175,7 +175,7 @@ export default {
           multiKey,
           this.inputInfo.multiIndex
         ) !== undefined;
-      return null;
+      if (isStoredAlready) return null;
       store.updateKeyValue(
         this.inputInfo.key,
         this.inputInfo.value,
@@ -185,7 +185,7 @@ export default {
     } else if (this.isRendered && !multiKey) {
       const isStoredAlready =
         store.getValueByKey(this.inputInfo.key) !== undefined;
-      return null;
+      if (isStoredAlready) return null;
       if (!this.inputInfo.value) this.inputInfo.value = [];
       store.updateKeyValue(this.inputInfo.key, this.inputInfo.value);
     }
