@@ -217,6 +217,20 @@ export const config = {
     position: 'left', // one of 'standard' 'top' 'right' 'bottom' 'left'
   },
 
+  // Tabs aka Stepper aka Wizard  
+  tabs: {
+    steps: [
+      { title: 'First', icon: 'settings' }, //Icon names: https://material.io/resources/icons/
+      { title: 'Second', icon: 'img:https://cdn.quasar.dev/logo/svg/quasar-logo.svg' }
+    ],
+    buttons: {  //Ovverrides default buttons
+      next: { text: 'next step' },
+      back: { text: 'go back', color: 'yellow', textColor: 'black' },
+      submit: { text: 'send' },
+      reset: false
+    }
+  },
+
   title: 'Form title'
 
 }

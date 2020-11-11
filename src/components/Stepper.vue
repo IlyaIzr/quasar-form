@@ -1,10 +1,11 @@
 <template>
-  <q-stepper v-model="step" ref="stepper">
+  <q-stepper v-model="step" ref="stepper" animated header-nav>
     <q-step
       v-for="(tab, index) in tabs.steps"
       v-bind:key="index"
       :name="Number(index) + 1"
       :title="tab.title"
+      :icon="tab.icon"
     >
       <FormRow :row="fields[index]" />
     </q-step>
@@ -12,11 +13,12 @@
       <q-stepper-navigation>
         <!-- Next btn -->
         <q-btn
-          v-if="buttons.next"
+          v-if="buttons.next && step < tabs.steps.length"
           @click="onNextClick"
           :color="buttons.next.color"
           :label="buttons.next.label || 'Next'"
           :text-color="buttons.back.textColor || 'black'"
+          class="q-mr-sm"
         />
         <!-- Back btn -->
         <q-btn
@@ -25,7 +27,7 @@
           :color="buttons.back.color"
           :label="buttons.back.label || 'Back'"
           :text-color="buttons.back.textColor || 'black'"
-          class="q-ml-sm"
+          class="q-mr-sm"
         />
         <!-- Submit btn -->
         <q-btn
@@ -34,7 +36,7 @@
           :color="buttons.submit.color || 'primary'"
           :label="buttons.submit.label || 'Submit'"
           :text-color="buttons.submit.textColor || 'black'"
-          class="q-ml-sm"
+          class="q-mr-sm"
         />
         <!-- Reset btn -->
         <q-btn
@@ -43,7 +45,7 @@
           :color="buttons.reset.color || 'primary'"
           :label="buttons.reset.label || 'Reset'"
           :text-color="buttons.reset.textColor || 'black'"
-          class="q-ml-sm"
+          class="q-mr-sm"
         />
       </q-stepper-navigation>
     </template>

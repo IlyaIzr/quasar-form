@@ -160,14 +160,22 @@ export default {
     // store.updateKeyValue(this.inputInfo.key, this.inputInfo.value);  //set value even if field invisible
     const multiKey = this.inputInfo.multiKey ? this.inputInfo.multiKey : "";
 
+    // Check if other component was rendered
     if (this.inputInfo.renderIf) {
       if (store.getValueByKey(this.inputInfo.renderIf)) {
         this.isRendered = true;
       } else this.isRendered = false;
     } else this.isRendered = true;
 
+    // Store input value or multifield value
     if (this.isRendered && multiKey) {
-      // console.log('send value ' + this.inputInfo.value + ' at key ' + this.inputInfo.key)
+      const isStoredAlready =
+        store.getValueByKey(
+          this.inputInfo.key,
+          multiKey,
+          this.inputInfo.multiIndex
+        ) !== undefined;
+      return null;
       store.updateKeyValue(
         this.inputInfo.key,
         this.inputInfo.value,
@@ -175,6 +183,9 @@ export default {
         this.inputInfo.multiIndex
       );
     } else if (this.isRendered && !multiKey) {
+      const isStoredAlready =
+        store.getValueByKey(this.inputInfo.key) !== undefined;
+      return null;
       if (!this.inputInfo.value) this.inputInfo.value = [];
       store.updateKeyValue(this.inputInfo.key, this.inputInfo.value);
     }

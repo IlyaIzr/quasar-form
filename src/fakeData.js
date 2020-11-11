@@ -5,8 +5,8 @@ export const config = {
       type: 'text', rowIndex: 3, key: '2421as',
       tabIndex: 1,
       label: 'PIN-code',
-      rules: [val => val.length == 4  || "4 digits please"],  //https://quasar.dev/vue-components/input#Async-rules
-      clearable: true,
+      rules: [val => val && val.length == 4  || "4 digits please"],
+      value: '1234'
     },
     // Text area
     {
@@ -18,7 +18,7 @@ export const config = {
 
   tabs: {
     steps: [
-      { title: 'First', icon: 'settings' },
+      { title: 'First', icon: 'settings' }, //Icon names: https://material.io/resources/icons/
       { title: 'Second', icon: 'img:https://cdn.quasar.dev/logo/svg/quasar-logo.svg' }
     ],
     buttons: {
