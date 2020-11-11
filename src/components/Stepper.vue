@@ -12,17 +12,37 @@
       <q-stepper-navigation>
         <!-- Next btn -->
         <q-btn
+          v-if="buttons.next"
           @click="onNextClick"
-          color="primary"
-          :label="step === 4 ? 'Finish' : 'Continue'"
+          :color="buttons.next.color"
+          :label="buttons.next.label || 'Next'"
+          :text-color="buttons.back.textColor || 'black'"
         />
         <!-- Back btn -->
         <q-btn
-          v-if="step > 1"
-          flat
-          color="primary"
+          v-if="buttons.back && step > 1"
           @click="onBackClick"
-          label="Back"
+          :color="buttons.back.color"
+          :label="buttons.back.label || 'Back'"
+          :text-color="buttons.back.textColor || 'black'"
+          class="q-ml-sm"
+        />
+        <!-- Submit btn -->
+        <q-btn
+          v-if="buttons.submit && step === tabs.steps.length"
+          type="submit"
+          :color="buttons.submit.color || 'primary'"
+          :label="buttons.submit.label || 'Submit'"
+          :text-color="buttons.submit.textColor || 'black'"
+          class="q-ml-sm"
+        />
+        <!-- Reset btn -->
+        <q-btn
+          v-if="buttons.reset"
+          type="reset"
+          :color="buttons.reset.color || 'primary'"
+          :label="buttons.reset.label || 'Reset'"
+          :text-color="buttons.reset.textColor || 'black'"
           class="q-ml-sm"
         />
       </q-stepper-navigation>
@@ -58,11 +78,13 @@ export default {
   data() {
     return {
       step: 1,
+      buttons: this.tabs.buttons,
     };
   },
   methods: {
-    onNextClick() {
-      this.$refs.stepper.next();
+    async onNextClick() {
+      const res = await this.$parent.$parent.validate();
+      if (res) this.$refs.stepper.next();
     },
     onBackClick() {
       this.$refs.stepper.previous();

@@ -4,23 +4,15 @@ export const config = {
     {
       type: 'text', rowIndex: 3, key: '2421as',
       tabIndex: 1,
-      label: 'Test',
-      required: true,
-      rules: [val => val.length <= 12 || "Please use maximum 12 characters"],  //https://quasar.dev/vue-components/input#Async-rules
-      mask: '##,##', // See https://quasar.dev/vue-components/input#Mask
-      fillMask: '*', // Каким символом заполнить ещё не ввёденные символы маски
-      reverseFill: true, // Заполнение будет происходить справа налево
+      label: 'PIN-code',
+      rules: [val => val.length == 4  || "4 digits please"],  //https://quasar.dev/vue-components/input#Async-rules
       clearable: true,
-      prefix: 'dev.',
-      suffix: '@gmail.com',
-      hint: 'helper-message'
     },
     // Text area
     {
       type: 'textarea', key: 'textoarea',
       required: true,
       tabIndex: 2,
-      autogrow: true, // true by default
     }
   ],
 
@@ -30,10 +22,10 @@ export const config = {
       { title: 'Second', icon: 'img:https://cdn.quasar.dev/logo/svg/quasar-logo.svg' }
     ],
     buttons: {
-      nextButton: { text: 'next step' },
-      backButton: false,
-      submitButton: {text: 'send'},
-      resetButton: false
+      next: { text: 'next step' },
+      back: { text: 'go back', color: 'yellow', textColor: 'black' },
+      submit: { text: 'send' },
+      reset: false
     }
   },
 
