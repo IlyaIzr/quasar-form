@@ -1,2 +1,16 @@
 reset - restore default values
+
+vnode.readonly
+
+textarea - no shrinked by default
+
+mask extention
+
+
+input scroll fix
+
+
 wizard
+--set if tab can be switched by nav, can be skipped with validation error
+
+check prop names unity in fields

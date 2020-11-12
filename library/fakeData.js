@@ -66,7 +66,7 @@ export const config = {
       async onBlur(vNode, event, methods, vNodeStore) { // methods - quasar API methods
         console.log('blur happend')
         let res = 'this was blurred'
-        // optional
+        // optional callback function
         return function (vNode) {
           console.log('callback function')
           vNode.input(res)
@@ -74,9 +74,9 @@ export const config = {
       },
 
       async onInput(vNode, value, methods, vNodeStore) {
-        console.log('input happend')
-        return function (vNode) {
-          console.log('callback function')
+        const otherField = vNodeStore.getComponent('other Field Key') // alias vNodeStore.get('field Key')
+        return function (vNode) {          
+          otherField.setProp('disable', true) //setProp(propName, propValue). Sets any prop exept value
         }
       },
 

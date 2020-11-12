@@ -1,6 +1,6 @@
 <template>
   <div class="q-my-md">
-    <p class="text-subtitle1 q-mb-none">{{ label }}</p>
+    <p class="text-subtitle1 q-mb-none">{{ rest.label }}</p>
     <div v-for="(item, index) in valueStore" v-bind:key="item.key" class="col">
       <FieldMapper
         :fields="rest.fields || []"
@@ -50,11 +50,6 @@ export default {
     FieldMapper: () => import("../FieldMapper.vue"),
   },
   props: {
-    label: {
-      type: String,
-      required: false,
-      default: "",
-    },
     multiKey: {
       type: String,
       required: true,
@@ -110,6 +105,11 @@ export default {
       fields.push(res);
       this.valueStore = fields;
       store.updateKeyValue(this.multiKey, fields);
+    },    
+    setProp(name = "", value) {
+      if (!name) console.log("WARNING! No prop name was given");
+      this.rest[name] = value;
+      this.$forceUpdate();
     },
   },
   watch: {

@@ -4,7 +4,6 @@
       v-if="inputType === 'simple'"
       :type="inputInfo.type"
       :value="inputInfo.value"
-      :label="inputInfo.label"
       :keyName="inputInfo.key"
       :rest="inputInfo"
       :store="store"
@@ -15,7 +14,6 @@
     <SelectInput
       v-if="inputType === 'select'"
       :value="inputInfo.value"
-      :label="inputInfo.label"
       :options="inputInfo.options"
       :keyName="inputInfo.key"
       :rest="inputInfo"
@@ -27,7 +25,6 @@
     <CheckBox
       v-if="inputType === 'checkbox'"
       :value="inputInfo.value"
-      :label="inputInfo.label"
       :keyName="inputInfo.key"
       :rest="inputInfo"
       :store="store"
@@ -38,7 +35,6 @@
     <Slider
       v-if="inputType === 'slider'"
       :value="inputInfo.value"
-      :label="inputInfo.label"
       :keyName="inputInfo.key"
       :rest="inputInfo"
       :store="store"
@@ -48,7 +44,6 @@
     <DateInput
       v-if="inputType === 'date'"
       :value="inputInfo.value"
-      :label="inputInfo.label"
       :keyName="inputInfo.key"
       :rest="inputInfo"
       :store="store"
@@ -57,7 +52,6 @@
     <Multiple
       v-if="inputType === 'multiple'"
       :value="inputInfo.value"
-      :label="inputInfo.label"
       :multiKey="inputInfo.key"
       :rest="inputInfo"
       :store="store"

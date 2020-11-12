@@ -1,34 +1,22 @@
 export const config = {
   fields: [
-    
-    //Common input properties. Not including type: "Multiple"
+
     {
-      type: 'text', rowIndex: 2, key: 'as24a',
-      tabIndex: 1,  // Index of Tab aka Wizard. Starting from 1
-      disable: true,
-      value: "Can't touch this",
+      type: 'text', rowIndex: 1, key: 'texto1',
+      value: 'Hello',
+      label: 'Parent field',
+      async onInput(vNode, value, methods, vNodeStore) {
+        const otherField = vNodeStore.getComponent('texto2')
+        // const otherField = vNodeStore.get('texto2') // Same as getComponent(fieldKey)
+        return function (vNode) {
+          otherField.setProp('disable', true) //setProp(propName, propValue). Sets any prop exept value
+        }
+      },
     },
-    // Text area
     {
-      type: 'textarea', key: 'textoarea',
-      required: true,
-      tabIndex: 2,
-      readonly: true,
+      type: 'text', rowIndex: 2, key: 'texto2', label: 'Child field',
     }
   ],
-
-  tabsFalse: {
-    steps: [
-      { title: 'First', icon: 'settings' }, //Icon names: https://material.io/resources/icons/
-      { title: 'Second', icon: 'img:https://cdn.quasar.dev/logo/svg/quasar-logo.svg' }
-    ],
-    buttons: {
-      next: { text: 'next step' },
-      back: { text: 'go back', color: 'yellow', textColor: 'black' },
-      submit: { text: 'send' },
-      reset: false
-    }
-  },
 
 
   buttons: [  // buttons NOT required

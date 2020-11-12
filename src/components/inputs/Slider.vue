@@ -81,6 +81,11 @@ export default {
         );
       else res = store.getValueByKey(this.keyName);
       return res;
+    },    
+    setProp(name = "", value) {
+      if (!name) console.log("WARNING! No prop name was given");
+      this.rest[name] = value;
+      this.$forceUpdate();
     },
   },
   watch: {

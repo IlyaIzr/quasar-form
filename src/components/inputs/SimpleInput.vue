@@ -3,11 +3,10 @@
     <q-input
       ref="input"
       :value="valueStore"
-      :label="label"
+      :label="rest.label"
       :type="type"
-      :rest="rest"
       :name="keyName"
-      :required="required"
+      :required="rest.required"
       :mask="rest.mask"
       :fill-mask="rest.fillMask || false"
       :reverse-fill-mask="rest.reverseFill"
@@ -35,11 +34,6 @@ export default {
       type: String,
       required: false,
       default: "text",
-    },
-    label: {
-      type: String,
-      required: false,
-      default: "",
     },
     keyName: {
       type: String,
@@ -91,6 +85,11 @@ export default {
         );
       else res = store.getValueByKey(this.keyName);
       return res;
+    },
+    setProp(name = "", value) {
+      if (!name) console.log("WARNING! No prop name was given");
+      this.rest[name] = value;
+      this.$forceUpdate();
     },
   },
   watch: {

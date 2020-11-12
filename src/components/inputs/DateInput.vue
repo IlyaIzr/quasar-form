@@ -5,7 +5,7 @@
   >
     <p class="text-subtitle1 q-mb-none">{{ label }}</p>
     <DateInp
-      :label="label"
+      :label="rest.label"
       :keyName="keyName"
       :rest="rest"
       :store="store"
@@ -33,7 +33,7 @@
             transition-hide="scale"
           >
             <DateInp
-              :label="label"
+              :label="rest.label"
               :keyName="keyName"
               :rest="rest"
               :store="store"
@@ -64,11 +64,6 @@ export default {
       type: String,
       required: false,
       default: "text",
-    },
-    label: {
-      type: String,
-      required: false,
-      default: "",
     },
     keyName: {
       type: String,
@@ -161,6 +156,11 @@ export default {
         );
       else res = store.getValueByKey(this.keyName);
       return res;
+    },    
+    setProp(name = "", value) {
+      if (!name) console.log("WARNING! No prop name was given");
+      this.rest[name] = value;
+      this.$forceUpdate();
     },
   },
   watch: {

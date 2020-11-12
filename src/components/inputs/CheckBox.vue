@@ -11,7 +11,7 @@
         <q-checkbox
           ref="input"
           :value="valueStore"
-          :label="label"
+          :label="rest.label"
           :name="keyName"
           :disable="rest.disable"
           @focus="onFocus"
@@ -29,11 +29,6 @@ import { store } from "../../store";
 export default {
   name: "CheckBox",
   props: {
-    label: {
-      type: String,
-      required: false,
-      default: "",
-    },
     keyName: {
       type: String,
       required: true,
@@ -84,6 +79,11 @@ export default {
         );
       else res = store.getValueByKey(this.keyName);
       return res;
+    },    
+    setProp(name = "", value) {
+      if (!name) console.log("WARNING! No prop name was given");
+      this.rest[name] = value;
+      this.$forceUpdate();
     },
   },
   watch: {

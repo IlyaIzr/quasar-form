@@ -7,7 +7,7 @@
       :name="keyName"
       :readonly="rest.readonly"
       :disable="rest.disable"
-      :label="label"
+      :label="rest.label"
       :rules="rules"
       @input="onInput"
       @focus="onFocus"
@@ -23,11 +23,6 @@ export default {
   props: {
     value: {
       type: String || Object,
-      required: false,
-      default: "",
-    },
-    label: {
-      type: String,
       required: false,
       default: "",
     },
@@ -79,6 +74,11 @@ export default {
       //     this.localOptions
       //   );
       return res;
+    },    
+    setProp(name = "", value) {
+      if (!name) console.log("WARNING! No prop name was given");
+      this.rest[name] = value;
+      this.$forceUpdate();
     },
   },
   methods: {

@@ -30,14 +30,14 @@ export const store = {
   },
   updateKeyValue(key, value, multiKey = "", fieldNumber = "") {
     if (typeof value === 'object' && value && value.length === undefined) value = { ...value }  //skip obj observer
-    if (typeof value === 'object' && value && value.length !== undefined) value = [ ...value ]  //skip arr observer
+    if (typeof value === 'object' && value && value.length !== undefined) value = [...value]  //skip arr observer
     if (!multiKey) {
-      if (this.debug) console.log(`key ${key} recieved value`, value)     
+      if (this.debug) console.log(`key ${key} recieved value`, value)
       this.state[key] = value
     } else {
       if (this.debug) console.log(`multiKeys ${multiKey} field ${fieldNumber} updated key ${key} with `, value)
       // this thingy stops from making observers
-      this.state[multiKey] = [ ...this.state[multiKey] ]
+      this.state[multiKey] = [...this.state[multiKey]]
       this.state[multiKey][fieldNumber] = { ...this.state[multiKey][fieldNumber] }
       this.state[multiKey][fieldNumber][key] = value
     }
@@ -49,18 +49,18 @@ export const store = {
       value = this.state[key]
     } else {
       value = this.state[multiKey] && this.state[multiKey][fieldNumber] && this.state[multiKey][fieldNumber][key]
-    }    
+    }
     if (this.debug) console.log('key ' + key + ' request recieved. Its value ', value)
     // if (!multiKey) console.log('key ' + key + ' request recieved. Its value ', value)
     return value
   },
-  getStore(){
+  getStore() {
     const res = killObservers(this.state)
     return res
   },
   deleteMultiField(multiKey, fieldNumber) {
     if (this.debug) console.log(`field ${fieldNumber} was deleted from multikey ${multiKey}`)
-    const n = [ ...this.state[multiKey] ]
+    const n = [...this.state[multiKey]]
     n.splice(fieldNumber, 1)
     this.state[multiKey] = n
     this.state.watcher = 'deleted' + multiKey + String(new Date)
@@ -87,5 +87,8 @@ export const vNodeStore = {
   },
   getComponent(key) { //  child input component
     return this.state[key].$children[0]
-  }
+  },
+  get(key) {
+    return this.getComponent(key)
+  },
 }
