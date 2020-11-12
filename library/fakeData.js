@@ -1,6 +1,14 @@
 export const config = {
   fields: [
-    
+
+    //Common input properties. Not including type: "Multiple"
+    {
+      type: 'text', rowIndex: 2, key: 'as24a',
+      tabIndex: 1,  // Index of Tab aka Wizard. Starting from 1
+      disable: true,
+      value: "Can't touch this",
+    },
+
     // Text input
     {
       type: 'text', rowIndex: 3, key: '2421as',
@@ -11,8 +19,9 @@ export const config = {
       reverseFill: true, // Заполнение будет происходить справа налево
       clearable: true,
       prefix: 'dev.',
-      suffix: '@gmail.com',      
-      hint: 'helper-message'
+      suffix: '@gmail.com',
+      hint: 'helper-message',
+      readonly: false,
     },
     // Text area
     {
@@ -20,10 +29,19 @@ export const config = {
       autogrow: true, // true by default
     },
 
+    //Select
+    {
+      type: 'select', rowIndex: 2, key: 'sendersKey132', // required
+      label: '@(Отправитель)',
+      options: [],
+      rules: [val => val || 'Please select option'],
+      readonly: false,
+    },
+
     //Select with async methods
     {
       type: 'select', rowIndex: 1, key: 'sel1base',
-      label: '@(Группа)',
+      label: 'Группа',
       options: [{ name: 'Alpha', id: '114aZ' }, { name: 'Beta', id: '2aaaZ' },],
       value: '2aaaZ',
       async onInput(vNode, value, methods, vNodeStore) { // methods - quasar API methods
@@ -38,14 +56,7 @@ export const config = {
       }
     },
 
-    //Select rules
-    {
-      type: 'select', rowIndex: 2, key: 'sendersKey132', // required
-      label: '@(Отправитель)',
-      options: [],
-      rules: [val => val || 'Please select option']
-    },
-    
+
 
     // Universal event handlers
     {
@@ -93,7 +104,7 @@ export const config = {
       value: 50, max: 100, min: 1,
       showValue: false
     },
-    
+
     // Date    
     {
       type: 'date', key: 'afs', rowIndex: 8,

@@ -16,9 +16,9 @@
         :color="rest.color"
         :label-color="rest.labelColor"
         :label-text-color="rest.labelTextColor"
+        :rules="rest.rules"
         @change="onChange"
         @input="onInput"
-        :rules="rest.rules"
       />
     </q-field>
   </div>

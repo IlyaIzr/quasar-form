@@ -13,7 +13,7 @@
           :value="valueStore"
           :label="label"
           :name="keyName"
-          :rest="rest"
+          :disable="rest.disable"
           @focus="onFocus"
           @blur="onBlur"
           @input="onInput"
@@ -61,7 +61,7 @@ export default {
     },
     onInput(val) {
       this.input(val);
-      this.$refs.checkbox.validate()
+      this.$refs.checkbox.validate();
       this.$emit("input", val);
     },
     input(val) {

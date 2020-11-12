@@ -1,21 +1,23 @@
 export const config = {
   fields: [
-    // Text input
+    
+    //Common input properties. Not including type: "Multiple"
     {
-      type: 'text', rowIndex: 3, key: '2421as',
-      tabIndex: 1,
-      label: 'PIN-code',
-      value: 'Peps'
+      type: 'text', rowIndex: 2, key: 'as24a',
+      tabIndex: 1,  // Index of Tab aka Wizard. Starting from 1
+      disable: true,
+      value: "Can't touch this",
     },
     // Text area
     {
       type: 'textarea', key: 'textoarea',
       required: true,
       tabIndex: 2,
+      readonly: true,
     }
   ],
 
-  tabs: {
+  tabsFalse: {
     steps: [
       { title: 'First', icon: 'settings' }, //Icon names: https://material.io/resources/icons/
       { title: 'Second', icon: 'img:https://cdn.quasar.dev/logo/svg/quasar-logo.svg' }

@@ -16,6 +16,8 @@
       :suffix="rest.suffix"
       :autogrow="rest.autogrow || true"
       :hint="rest.hint"
+      :readonly="rest.readonly"
+      :disable="rest.disable"
       @focus="onFocus"
       @blur="onBlur"
       @input="onInput"

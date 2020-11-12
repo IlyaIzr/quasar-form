@@ -4,13 +4,14 @@
       ref="input"
       :value="parsedValue"
       :options="parsedOptions"
+      :name="keyName"
+      :readonly="rest.readonly"
+      :disable="rest.disable"
+      :label="label"
+      :rules="rules"
       @input="onInput"
       @focus="onFocus"
       @blur="onBlur"
-      :name="keyName"
-      :label="label"
-      :rest="rest"
-      :rules="rules"
     />
   </div>
 </template>
