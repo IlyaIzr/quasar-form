@@ -3,7 +3,7 @@
     v-if="!rest.withInput && rest.withInput !== undefined"
     class="q-gutter-md"
   >
-    <p class="text-subtitle1 q-mb-none">{{ label }}</p>
+    <p class="text-subtitle1 q-mb-none">{{ rest.label }}</p>
     <DateInp
       :label="rest.label"
       :keyName="keyName"
@@ -157,9 +157,17 @@ export default {
       else res = store.getValueByKey(this.keyName);
       return res;
     },    
-    setProp(name = "", value) {
-      if (!name) console.log("WARNING! No prop name was given");
-      this.rest[name] = value;
+    setProp(arg1 = "", arg2) {
+      if (arguments.length === 2) {
+        if (arg1) this.rest[arg1] = arg2;
+        else console.log("WARNING! No name provided!");
+      } else if (arguments.length === 1) {
+        if (arg1 && typeof arg1 === "object") {
+          for (const [key, value] of Object.entries(arg1)) {
+            this.rest[key] = value;
+          }
+        } else console.log("WARNING! No value object provided!");
+      }
       this.$forceUpdate();
     },
   },

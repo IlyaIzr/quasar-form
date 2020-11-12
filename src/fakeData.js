@@ -8,8 +8,13 @@ export const config = {
       async onInput(vNode, value, methods, vNodeStore) {
         const otherField = vNodeStore.getComponent('texto2')
         // const otherField = vNodeStore.get('texto2') // Same as getComponent(fieldKey)
+        const props = {
+          label: 'New label',
+          disable: true
+        }
         return function (vNode) {
-          otherField.setProp('disable', true) //setProp(propName, propValue). Sets any prop exept value
+          // otherField.setProp('disable', true) //setProp(propName, propValue). Arg1 - prop name, arg2 - prop value          
+          otherField.setProp(props) // Arg1 - object of { propName: propValue }
         }
       },
     },

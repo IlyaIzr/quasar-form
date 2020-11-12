@@ -129,6 +129,19 @@ export default {
       else res = store.getValueByKey(this.keyName);
       return res;
     },
+    setProp(arg1 = "", arg2) {
+      if (arguments.length === 2) {
+        if (arg1) this.rest[arg1] = arg2;
+        else console.log("WARNING! No name provided!");
+      } else if (arguments.length === 1) {
+        if (arg1 && typeof arg1 === "object") {
+          for (const [key, value] of Object.entries(arg1)) {
+            this.rest[key] = value;
+          }
+        } else console.log("WARNING! No value object provided!");
+      }
+      this.$forceUpdate();
+    },
   },
   watch: {
     "store.state.watcher": function () {

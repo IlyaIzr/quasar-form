@@ -1,5 +1,5 @@
 reset - restore default values
-
+setProp(propName, propObj)
 vnode.readonly
 
 textarea - no shrinked by default
