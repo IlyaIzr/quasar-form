@@ -4,7 +4,7 @@ export const config = {
     {
       type: 'text', rowIndex: 1, key: 'texto1',
       label: 'Parent field',
-      maskPattern: 'comfortNumbers',
+      mask: '###,###,###,###,###.##', reverseFill: true, 
     },
   ],
 

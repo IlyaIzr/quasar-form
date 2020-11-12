@@ -63,9 +63,6 @@ export default {
       this.$emit("blur", e);
     },
     onInput(val) {
-      if (this.rest.maskPattern === "comfortNumbers") {
-        val = this.comfortNumbers(val);
-      }
       this.input(val);
       this.$emit("input", val);
     },
@@ -102,24 +99,6 @@ export default {
         } else console.log("WARNING! No value object provided!");
       }
       this.$forceUpdate();
-    },
-    comfortNumbers(val) {
-      console.log(this.valueStore, this.valueStore.length);
-      if (!this.rest.mask) {
-        this.rest.mask = "##";
-        this.rest.unmaskedValue = true;
-        this.$forceUpdate();
-      }
-      if (this.valueStore && (this.valueStore.length + 1) % 3) {
-        console.log("no coma case");
-        this.rest.mask += "#";
-      } else if (this.valueStore && this.valueStore.length) {
-        console.log("coma case, ", this.valueStore.length);
-        if (this.valueStore.length < 4){
-        const s = this.rest.mask.slice(0, -1);
-        this.rest.mask = s + ",#";} else this.rest.mask += ',#'
-      }
-      return String(val);
     },
   },
   watch: {
