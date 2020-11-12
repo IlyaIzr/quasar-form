@@ -26,7 +26,7 @@ export const config = {
     // Text area
     {
       type: 'textarea',
-      autogrow: true, // true by default
+      autogrow: true, // false by default
     },
 
     //Select
@@ -74,9 +74,14 @@ export const config = {
       },
 
       async onInput(vNode, value, methods, vNodeStore) {
-        const otherField = vNodeStore.getComponent('other Field Key') // alias vNodeStore.get('field Key')
+        const otherField = vNodeStore.getComponent('other Field Key') // alias vNodeStore.get('field Key')        
+        const propsObject = {
+          label: 'New label',
+          disable: true
+        }
         return function (vNode) {          
-          otherField.setProp('disable', true) //setProp(propName, propValue). Sets any prop exept value
+          // otherField.setProp('disable', true) //setProp(propName, propValue). Arg1 - prop name, arg2 - prop value       
+          otherField.setProp(propsObject) // Arg1 - object of { propName: propValue }
         }
       },
 

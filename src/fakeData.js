@@ -2,7 +2,7 @@ export const config = {
   fields: [
 
     {
-      type: 'text', rowIndex: 1, key: 'texto1',
+      type: 'textarea', rowIndex: 1, key: 'texto1',
       value: 'Hello',
       label: 'Parent field',
       async onInput(vNode, value, methods, vNodeStore) {

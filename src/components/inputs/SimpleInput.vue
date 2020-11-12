@@ -13,7 +13,7 @@
       :clearable="rest.clearable"
       :prefix="rest.prefix"
       :suffix="rest.suffix"
-      :autogrow="rest.autogrow || true"
+      :autogrow="rest.autogrow"
       :hint="rest.hint"
       :readonly="rest.readonly"
       :disable="rest.disable"
