@@ -13,10 +13,11 @@ export const config = {
     {
       type: 'text', rowIndex: 3, key: '2421as',
       label: 'Test',
-      rules: [val => val.length <= 12 || "Please use maximum 12 characters"],  //https://quasar.dev/vue-components/input#Async-rules
+      rules: [val => val && val.length <= 12 || "Please use maximum 12 characters"],  //https://quasar.dev/vue-components/input#Async-rules
       mask: '##,##', // See https://quasar.dev/vue-components/input#Mask
       fillMask: '*', // Каким символом заполнить ещё не ввёденные символы маски
       reverseFill: true, // Заполнение будет происходить справа налево
+      unmaskedValue: true, // Send value without mask. Example: 444,444.44 will be sent as '44444444'
       clearable: true,
       prefix: 'dev.',
       suffix: '@gmail.com',
