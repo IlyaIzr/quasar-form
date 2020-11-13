@@ -4,9 +4,11 @@
       v-if="!rest.withInput && rest.withInput !== undefined"
       class="q-gutter-md"
     >
-      <p class="text-subtitle1 q-mb-none">{{ rest.label }}</p>
+      <p class="text-subtitle1 q-mb-none">
+        {{ rest.required ? (rest.label || "") + " *" : rest.required }}
+      </p>
       <DateInp
-        :label="rest.label"
+        :label="rest.required ? (rest.label || '') + ' *' : rest.required"
         :keyName="keyName"
         :rest="rest"
         :store="store"
@@ -22,7 +24,7 @@
         :value="rangeInputValue"
         @input="onSimpleInput"
         :mask="rest.inputMask || textInputMask"
-        :rules="rest.range ? rest.rules : ['date', ...rest.rules]"
+        :rules="rules"
         :key="fuckenMask"
         ref="input"
       >
@@ -34,7 +36,9 @@
               transition-hide="scale"
             >
               <DateInp
-                :label="rest.label"
+                :label="
+                  rest.required ? (rest.label || '') + ' *' : rest.required
+                "
                 :keyName="keyName"
                 :rest="rest"
                 :store="store"
@@ -86,6 +90,7 @@ export default {
         this.rest.withInput || this.rest.withInput === undefined ? true : false,
       valueStore: this.getStoreValue(),
       fuckenMask: 1,
+      rules: this.checkRules(this.rest.rules, this.rest.required),
     };
   },
   computed: {
@@ -177,6 +182,28 @@ export default {
       this.$emit("input", val);
       this.valueStore = val;
       this.$forceUpdate();
+    },
+    checkRules(rules, required) {
+      let res;
+      if (required) {
+        if (typeof rules === "object") {
+          res = [
+            // typeof because input stuff gives me [] as def empty value
+            (val) =>
+              (val && typeof val === "string") ||
+              this.rest.requiredMessage ||
+              "Please fill",
+            ...this.rest.rules,
+          ];
+        } else
+          res = [
+            (val) =>
+              (val && typeof val === "string") ||
+              this.rest.requiredMessage ||
+              "Please fill",
+          ];
+      } else res = this.rest.rules;
+      return res;
     },
   },
   watch: {

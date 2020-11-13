@@ -4,7 +4,7 @@
       ref="checkbox"
       v-if="rest.visible === undefined ? true : rest.visible"
       :value="valueStore"
-      :rules="rest.rules"
+      :rules="rules"
       borderless
       dense
     >
@@ -12,13 +12,13 @@
         <q-checkbox
           ref="input"
           :value="valueStore"
-          :label="rest.label"
+          :label="rest.required ? (rest.label || '') + ' *' : rest.required"
           :name="keyName"
           :disable="rest.disable"
           @focus="onFocus"
           @blur="onBlur"
           @input="onInput"
-          :rules="rest.rules"
+          :rules="rules"
         />
       </template>
     </q-field>
@@ -46,6 +46,7 @@ export default {
   data() {
     return {
       valueStore: this.getStoreValue(),
+      rules: this.checkRules(this.rest.rules, this.rest.required),
     };
   },
   methods: {
@@ -79,8 +80,9 @@ export default {
           this.rest.multiIndex
         );
       else res = store.getValueByKey(this.keyName);
-      return res;
-    },    
+      if (Array.isArray(res) && !res.length) res = false;
+      return Boolean(res);
+    },
     setConfig(arg1 = "", arg2) {
       if (arguments.length === 2) {
         if (arg1) this.rest[arg1] = arg2;
@@ -97,8 +99,30 @@ export default {
     setValue(val) {
       this.input(val);
       this.$emit("input", val);
-      this.valueStore = val
-      this.$forceUpdate()
+      this.valueStore = val;
+      this.$forceUpdate();
+    },
+    checkRules(rules, required) {
+      let res;
+      if (required) {
+        if (typeof rules === "object") {
+          res = [
+            // typeof because input stuff gives me [] as def empty value
+            (val) =>
+              (val && typeof val === "boolean") ||
+              this.rest.requiredMessage ||
+              "Please fill",
+            ...this.rest.rules,
+          ];
+        } else
+          res = [
+            (val) =>
+              (val && typeof val === "boolean") ||
+              this.rest.requiredMessage ||
+              "Please fill",
+          ];
+      } else res = this.rest.rules;
+      return res;
     },
   },
   watch: {

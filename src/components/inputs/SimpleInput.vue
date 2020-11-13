@@ -4,10 +4,9 @@
       v-if="rest.visible === undefined ? true : rest.visible"
       ref="input"
       :value="valueStore"
-      :label="rest.label"
+      :label="rest.required ? (rest.label || '') + ' *' : rest.required"
       :type="type"
       :name="keyName"
-      :required="rest.required"
       :mask="rest.mask"
       :fill-mask="rest.fillMask || false"
       :reverse-fill-mask="rest.reverseFill"
@@ -22,7 +21,7 @@
       @focus="onFocus"
       @blur="onBlur"
       @input="onInput"
-      :rules="rest.rules"
+      :rules="rules"
     />
   </div>
 </template>
@@ -53,7 +52,7 @@ export default {
   data() {
     return {
       valueStore: this.getStoreValue(),
-      required: this.rest.required === undefined ? false : this.rest.required,
+      rules: this.checkRules(this.rest.rules, this.rest.required),
     };
   },
   methods: {
@@ -106,6 +105,19 @@ export default {
       this.$emit("input", val);
       this.valueStore = val;
       this.$forceUpdate();
+    },
+    checkRules(rules, required) {
+      let res;
+      if (required) {
+        if (typeof rules === "object") {
+          res = [
+            // typeof because input stuff gives me [] as def empty value
+            (val) => (val && typeof val === 'string')  || this.rest.requiredMessage || "Please fill",
+            ...this.rest.rules,
+          ];
+        } else res = [(val) => (val && typeof val === 'string') || this.rest.requiredMessage || "Please fill"];
+      } else res = this.rest.rules;
+      return res;
     },
   },
   watch: {

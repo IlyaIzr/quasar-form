@@ -6,7 +6,11 @@ qdecimal or https://codepen.io/pdanpdan/pen/KKKrwbe?editors=1010
 required: true for all fields
 add * to label if required
 
+
 wizard
 empty value converts to array for some reason
 
 check prop names unity in fields
+
+pure calendar validation
+[] value in tab fields

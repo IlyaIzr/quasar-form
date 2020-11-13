@@ -8,7 +8,7 @@
       :name="keyName"
       :readonly="rest.readonly"
       :disable="rest.disable"
-      :label="rest.label"
+      :label="rest.required ? (rest.label || '') + ' *' : rest.required"
       :rules="rules"
       @input="onInput"
       @focus="onFocus"

@@ -8,6 +8,8 @@ export const config = {
       visible: false, //true by default
       disable: true,
       value: "Can't touch this",
+      required: true,
+      requiredMessage: 'Fill the field' // Не знаю какое поставить по дефолту. Просто пустое?
     },
 
     // Text input

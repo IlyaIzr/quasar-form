@@ -1,6 +1,11 @@
 <template>
   <div class="q-gutter-md">
-    <q-field borderless :label="label">
+    <q-field
+      borderless
+      :label="rest.required ? (rest.label || '') + ' *' : rest.required"
+      :rules="rules"
+      :value="valueStore"
+    >
       <q-slider
         v-if="rest.visible === undefined ? true : rest.visible"
         ref="input"
@@ -10,14 +15,13 @@
         :max="rest.max"
         :label="rest.showValue"
         :step="0.01 && rest.step"
-        :reverse="rest.reverse"
+        :reverse="rest.reverse || false"
         :vertical="rest.vertical"
         :disable="rest.disable"
         :readonly="rest.readonly"
         :color="rest.color"
         :label-color="rest.labelColor"
         :label-text-color="rest.labelTextColor"
-        :rules="rest.rules"
         @change="onChange"
         @input="onInput"
       />
@@ -50,8 +54,8 @@ export default {
   },
   data() {
     return {
-      valueStore: this.getStoreValue(),
-      required: this.rest.required === undefined ? false : this.rest.required,
+      valueStore: Number(this.getStoreValue()),
+      rules: this.checkRules(this.rest.rules, this.rest.required),
     };
   },
   methods: {
@@ -95,6 +99,24 @@ export default {
         } else console.log("WARNING! No value object provided!");
       }
       this.$forceUpdate();
+    },
+    checkRules(rules, required) {
+      let res;
+      if (required) {
+        if (typeof rules === "object") {
+          res = [
+            // typeof because input stuff gives me [] as def empty value
+            (val) =>
+              Number(val) > 0 || this.rest.requiredMessage || "Please fill",
+            ...this.rest.rules,
+          ];
+        } else
+          res = [
+            (val) =>
+              Number(val) || this.rest.requiredMessage || "Please fill",
+          ];
+      } else res = this.rest.rules;
+      return res;
     },
   },
   watch: {
