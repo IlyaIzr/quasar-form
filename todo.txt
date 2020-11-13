@@ -7,6 +7,6 @@ required: true for all fields
 add * to label if required
 
 wizard
---set if tab can be switched by nav, can be skipped with validation error
+empty value converts to array for some reason
 
 check prop names unity in fields

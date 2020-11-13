@@ -92,6 +92,29 @@ export default {
       errors: [],
     };
   },
+  // computed: {
+  //   localFields() {
+  //     let res = [];
+  //     this.fields.map((tab) => {
+  //       let tabs = [];
+  //       tab.map((row) => {
+  //         let rows = [];
+  //         row.map((field) => {
+  //           console.log(field.value);
+  //           if (!field.value || !field.value.length) {
+  //             console.log("fuken case", field);
+  //             field.value = "";
+  //           }
+  //           rows.push({...field});
+  //         });
+  //         tabs.push(rows);
+  //       });
+  //       res.push(tabs);
+  //     });
+  //     console.log(res);
+  //     return res;
+  //   },
+  // },
   methods: {
     async onNextClick() {
       if (this.tabs.validateButtonNavigation) {
@@ -114,16 +137,14 @@ export default {
       if (res) this.errors = this.errors.filter((step) => step !== prevVal);
       else this.errors.push(prevVal);
     },
-    async trySubmit(){
-      await this.beforeStep(null, this.step)
+    async trySubmit() {
+      await this.beforeStep(null, this.step);
       if (this.errors.length === 0) {
-        this.$emit('submit')        
+        this.$emit("submit");
       } else {
-        console.log('error case')
-        console.log(this.errors)
-        this.step = this.errors[0]
-        }
-    }
+        this.step = this.errors[0];
+      }
+    },
   },
 };
 </script>

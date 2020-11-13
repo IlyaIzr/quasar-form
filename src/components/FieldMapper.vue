@@ -119,7 +119,7 @@ export default {
       });
       tabbedFields = tabbedFields.filter((field) => field != null);
       const tabbedAndSorted = [];
-      console.log('second loop')
+      // console.log('second loop')
       tabbedFields.map((tab, index) => {
         tabbedAndSorted.push(fieldRowSorter(tab));
       });

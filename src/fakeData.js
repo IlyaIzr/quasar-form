@@ -6,7 +6,18 @@ export const config = {
       label: 'Hello',
     },
     {
-      type: 'text', rowIndex: 2, key: 'text2', tabIndex: 2
+      type: 'text', rowIndex: 2, key: 'text2', tabIndex: 2, visible: false
+    },
+    //Select with async methods
+    {
+      type: 'select', rowIndex: 2, key: 'sel1base', tabIndex: 2,
+      label: 'Группа',
+      options: [{ name: 'Alpha', id: '114aZ' }, { name: 'Beta', id: '2aaaZ' },],
+      async onInput(vNode, value, methods, vNodeStore) { // methods - quasar API methods
+        const vTarget = vNodeStore.getComponent('text2')
+        vTarget.setConfig('visible', true)
+      },
+      required: true
     },
   ],
 
@@ -22,7 +33,7 @@ export const config = {
       reset: false
     },
     tabNavigation: true,  //User can click on tabs
-    validateTabNavigation: true,  
+    validateTabNavigation: true,
     validateButtonNavigation: true,
   },
 
