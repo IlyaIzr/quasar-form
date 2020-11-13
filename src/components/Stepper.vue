@@ -15,12 +15,12 @@
       <q-stepper-navigation>
         <!-- Next btn -->
         <q-btn
-          v-if="buttons.next && step < tabs.steps.length"
+          v-if="buttons.next && step <= tabs.steps.length"          
           @click="onNextClick"
           :color="buttons.next.color"
           :label="buttons.next.label || 'Next'"
           :text-color="buttons.back.textColor || 'black'"
-          class="q-mr-sm"
+          :class="step === tabs.steps.length ? 'hidden':'q-mr-sm'"
         />
         <!-- Back btn -->
         <q-btn
@@ -94,9 +94,6 @@ export default {
       this.$refs.stepper.previous();
     },
   },
-  // mounted(){
-  //   console.log(this.fields)
-  // }
 };
 </script>
 

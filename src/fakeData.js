@@ -5,7 +5,7 @@ export const config = {
       type: 'text', rowIndex: 1, key: 'text1',
       label: 'Hello',
       value: 'mae',
-      rules: [val => val && val.length >= 3 || 'need 4+ value length']
+      rules: [val => val && val.length > 3 || 'need 4+ value length']
     },
     {
       type: 'text', rowIndex: 2, key: 'text2',
@@ -17,13 +17,11 @@ export const config = {
       type: 'text', rowIndex: 3, key: 'text4',
     },
     {
-      type: 'text', rowIndex: 3, key: 'text4', tabIndex: 2
+      type: 'text',  key: 'text636', tabIndex: 2,
+      label: 'Hello again!',
     },
     {
-      type: 'text', rowIndex: 1, key: 'text1',tabIndex: 3,
-      label: 'Hello',
-      value: 'mae',
-      rules: [val => val && val >= 3 || 'need 4+ value length']
+      type: 'text', rowIndex: 3, key: 'text125126s', tabIndex: 3,
     },
   ],
 
@@ -31,7 +29,7 @@ export const config = {
     steps: [
       { title: 'First', icon: 'settings' }, //Icon names: https://material.io/resources/icons/
       { title: 'Second', icon: 'img:https://cdn.quasar.dev/logo/svg/quasar-logo.svg' },
-      { title: 'Third', icon: 'phone' },
+      { title: 'Fourth', icon: 'phone' },
     ],
     buttons: {  //Ovverrides default buttons
       next: { text: 'next step' },

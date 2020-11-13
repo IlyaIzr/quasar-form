@@ -103,7 +103,6 @@ export default {
       if (!this.tabs) return sortedFields;
 
       //Tabs case
-      console.log(sortedFields);
       let tabbedFields = [];
       sortedFields.map((row, index) => {
         row.map((field) => {
