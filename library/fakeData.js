@@ -80,12 +80,14 @@ export const config = {
           label: 'New label',
           disable: true
         }
-        // setConfig() - set any config exept value and options
+        // setConfig() - set any config except value and options
+
         // otherField.setConfig('disable', true) //setConfig(propName, propValue). Arg1 - prop name, arg2 - prop value       
         otherField.setConfig(propsObject) // Arg1 - object of { propName: propValue }  
-        otherField.setValue('123') // Arg1 - object of { propName: propValue }  
-        otherField.setOptions([{name: 'Adam', id: 1}]) // Arg1 - object of { propName: propValue }
-        
+
+        otherField.setValue('123')
+        otherField.setOptions([{name: 'Adam', id: 1}])  // for type: select only
+
         // return function (vNode) {          
         // }
       },
