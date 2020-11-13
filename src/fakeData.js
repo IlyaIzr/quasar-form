@@ -1,31 +1,45 @@
 export const config = {
   fields: [
 
-    //Select with async methods
     {
-      type: 'select', rowIndex: 1, key: 'sel1base',
-      label: 'Группа',
-      options: [{ name: 'Alpha', id: '114aZ' }, { name: 'Beta', id: '2aaaZ' },],
-      value: '2aaaZ',
-      async onInput(vNode, value, methods, vNodeStore) { // methods - quasar API methods
-
-        //Request example
-        const props = await {label: 'testo', visible: true}
-          const vTarget = vNodeStore.getComponent('select2')
-          vTarget.setConfig(props)
-          console.log(vTarget)
-          // vTarget.setOptions(options)
-      }
+      type: 'text', rowIndex: 1, key: 'text1',
+      label: 'Hello',
+      value: 'mae',
+      rules: [val => val && val.length >= 3 || 'need 4+ value length']
     },
     {
-      type: 'select', rowIndex: 2, key: 'select2',
-      visible: false,
-      label: 'Select 2',
-      options: [{ name: 'Alpha', id: '114aZ' }, { name: 'Beta', id: '2aaaZ' },],
-      value: ''
+      type: 'text', rowIndex: 2, key: 'text2',
+    },
+    {
+      type: 'text', rowIndex: 3, key: 'text3',
+    },
+    {
+      type: 'text', rowIndex: 3, key: 'text4',
+    },
+    {
+      type: 'text', rowIndex: 3, key: 'text4', tabIndex: 2
+    },
+    {
+      type: 'text', rowIndex: 1, key: 'text1',tabIndex: 3,
+      label: 'Hello',
+      value: 'mae',
+      rules: [val => val && val >= 3 || 'need 4+ value length']
     },
   ],
 
+  tabs: {
+    steps: [
+      { title: 'First', icon: 'settings' }, //Icon names: https://material.io/resources/icons/
+      { title: 'Second', icon: 'img:https://cdn.quasar.dev/logo/svg/quasar-logo.svg' },
+      { title: 'Third', icon: 'phone' },
+    ],
+    buttons: {  //Ovverrides default buttons
+      next: { text: 'next step' },
+      back: { text: 'go back', color: 'yellow', textColor: 'black' },
+      submit: { text: 'send' },
+      reset: false
+    }
+  },
 
   buttons: [  // buttons NOT required
     {

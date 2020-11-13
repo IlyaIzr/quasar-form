@@ -7,7 +7,9 @@
       :title="tab.title"
       :icon="tab.icon"
     >
-      <FormRow :row="fields[index]" />
+      <div v-for="(row, index) in fields[index]" v-bind:key="index">
+        <FormRow :row="row" />
+      </div>
     </q-step>
     <template v-slot:navigation>
       <q-stepper-navigation>
@@ -92,6 +94,9 @@ export default {
       this.$refs.stepper.previous();
     },
   },
+  // mounted(){
+  //   console.log(this.fields)
+  // }
 };
 </script>
 
