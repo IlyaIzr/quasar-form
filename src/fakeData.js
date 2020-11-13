@@ -4,24 +4,9 @@ export const config = {
     {
       type: 'text', rowIndex: 1, key: 'text1',
       label: 'Hello',
-      value: 'mae',
-      rules: [val => val && val.length > 3 || 'need 4+ value length']
     },
     {
-      type: 'text', rowIndex: 2, key: 'text2',
-    },
-    {
-      type: 'text', rowIndex: 3, key: 'text3',
-    },
-    {
-      type: 'text', rowIndex: 3, key: 'text4',
-    },
-    {
-      type: 'text',  key: 'text636', tabIndex: 2,
-      label: 'Hello again!',
-    },
-    {
-      type: 'text', rowIndex: 3, key: 'text125126s', tabIndex: 3,
+      type: 'text', rowIndex: 2, key: 'text2', tabIndex: 2
     },
   ],
 
@@ -29,7 +14,6 @@ export const config = {
     steps: [
       { title: 'First', icon: 'settings' }, //Icon names: https://material.io/resources/icons/
       { title: 'Second', icon: 'img:https://cdn.quasar.dev/logo/svg/quasar-logo.svg' },
-      { title: 'Fourth', icon: 'phone' },
     ],
     buttons: {  //Ovverrides default buttons
       next: { text: 'next step' },
@@ -37,9 +21,9 @@ export const config = {
       submit: { text: 'send' },
       reset: false
     },
-    tabNavigation: true,
-    validateTabNavigation: true,
-    validateButtonNavigation: false,
+    tabNavigation: true,  //User can click on tabs
+    validateTabNavigation: true,  
+    validateButtonNavigation: true,
   },
 
   buttons: [  // buttons NOT required

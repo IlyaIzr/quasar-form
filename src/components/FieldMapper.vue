@@ -72,7 +72,6 @@ export default {
           if (this.values && this.values[field.key] !== undefined) {
             field.value = this.values[field.key];
           } else if (field.value === undefined) field.value = "";
-
           //Assign default field type as 'text'
           if (field.type === undefined) field.type = "text";
 
@@ -89,9 +88,12 @@ export default {
             if (cell) {
               res[field.rowIndex - 1] = [...cell, { ...field }]; //fucking observers
             } else {
-              res[field.rowIndex - 1] = [{ ...field }];
+              res[field.rowIndex - 1] = [{ ...field, value: String(field.value)  }];  // TODO wired value bug
+              // res[field.rowIndex - 1][0].value = 'temsto'
+              // console.log(field)
+              // console.log(res[field.rowIndex - 1])
             }
-          }
+          }          
         });
 
         let resFiltered = res.filter((field) => field != null); //delete all empty indexes
@@ -115,9 +117,9 @@ export default {
           }
         });
       });
-      sortedFields = tabbedFields.filter((field) => field != null);
       tabbedFields = tabbedFields.filter((field) => field != null);
       const tabbedAndSorted = [];
+      console.log('second loop')
       tabbedFields.map((tab, index) => {
         tabbedAndSorted.push(fieldRowSorter(tab));
       });

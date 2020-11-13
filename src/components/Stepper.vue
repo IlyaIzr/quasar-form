@@ -89,7 +89,7 @@ export default {
     return {
       step: 1,
       buttons: this.tabs.buttons,
-      errors: [3],
+      errors: [],
     };
   },
   methods: {
@@ -118,7 +118,11 @@ export default {
       await this.beforeStep(null, this.step)
       if (this.errors.length === 0) {
         this.$emit('submit')        
-      } else this.step = this.errors[0]
+      } else {
+        console.log('error case')
+        console.log(this.errors)
+        this.step = this.errors[0]
+        }
     }
   },
 };
