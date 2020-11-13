@@ -80,10 +80,14 @@ export const config = {
           label: 'New label',
           disable: true
         }
-        return function (vNode) {          
-          // otherField.setProp('disable', true) //setProp(propName, propValue). Arg1 - prop name, arg2 - prop value       
-          otherField.setProp(propsObject) // Arg1 - object of { propName: propValue }
-        }
+        // setConfig() - set any config exept value and options
+        // otherField.setConfig('disable', true) //setConfig(propName, propValue). Arg1 - prop name, arg2 - prop value       
+        otherField.setConfig(propsObject) // Arg1 - object of { propName: propValue }  
+        otherField.setValue('123') // Arg1 - object of { propName: propValue }  
+        otherField.setOptions([{name: 'Adam', id: 1}]) // Arg1 - object of { propName: propValue }
+        
+        // return function (vNode) {          
+        // }
       },
 
       async onFocus(vNode, value, methods, vNodeStore) {

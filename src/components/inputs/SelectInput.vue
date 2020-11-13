@@ -21,11 +21,6 @@ import { store } from "../../store";
 export default {
   name: "SelectInput",
   props: {
-    value: {
-      type: String || Object,
-      required: false,
-      default: "",
-    },
     options: {
       type: Array,
       required: false,
@@ -74,7 +69,7 @@ export default {
       //     this.localOptions
       //   );
       return res;
-    },    
+    },
     setProp(name = "", value) {
       if (!name) console.log("WARNING! No prop name was given");
       this.rest[name] = value;
@@ -129,7 +124,10 @@ export default {
       else res = store.getValueByKey(this.keyName);
       return res;
     },
-    setProp(arg1 = "", arg2) {
+    setOptions(options) {
+      this.localOptions = options;
+    },
+    setConfig(arg1 = "", arg2) {
       if (arguments.length === 2) {
         if (arg1) this.rest[arg1] = arg2;
         else console.log("WARNING! No name provided!");
@@ -140,6 +138,12 @@ export default {
           }
         } else console.log("WARNING! No value object provided!");
       }
+      this.$forceUpdate();
+    },
+    setValue(val) {
+      this.input(val);
+      this.$emit("input", val);
+      this.valueStore = val;
       this.$forceUpdate();
     },
   },

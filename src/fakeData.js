@@ -1,11 +1,6 @@
 export const config = {
   fields: [
 
-    {
-      type: 'text', rowIndex: 1, key: 'texto1',
-      label: 'Parent field',
-      mask: '###,###,###,###,###.##', reverseFill: true, 
-    },
   ],
 
 

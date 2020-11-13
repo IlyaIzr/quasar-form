@@ -87,7 +87,7 @@ export default {
       else res = store.getValueByKey(this.keyName);
       return res;
     },
-    setProp(arg1 = "", arg2) {
+    setConfig(arg1 = "", arg2) {
       if (arguments.length === 2) {
         if (arg1) this.rest[arg1] = arg2;
         else console.log("WARNING! No name provided!");
@@ -99,6 +99,12 @@ export default {
         } else console.log("WARNING! No value object provided!");
       }
       this.$forceUpdate();
+    },
+    setValue(val) {
+      this.input(val);
+      this.$emit("input", val);
+      this.valueStore = val
+      this.$forceUpdate()
     },
   },
   watch: {
