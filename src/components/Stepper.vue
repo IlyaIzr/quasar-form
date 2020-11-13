@@ -1,11 +1,19 @@
 <template>
-  <q-stepper v-model="step" ref="stepper" animated header-nav>
+  <q-stepper
+    :value="step"
+    @input="onInput"
+    ref="stepper"
+    animated
+    :header-nav="tabs.tabNavigation"
+    @before-transition="beforeStep"
+  >
     <q-step
       v-for="(tab, index) in tabs.steps"
       v-bind:key="index"
       :name="Number(index) + 1"
       :title="tab.title"
       :icon="tab.icon"
+      :error="Boolean(errors.find((el) => el === Number(index + 1)))"
     >
       <div v-for="(row, index) in fields[index]" v-bind:key="index">
         <FormRow :row="row" />
@@ -15,12 +23,12 @@
       <q-stepper-navigation>
         <!-- Next btn -->
         <q-btn
-          v-if="buttons.next && step <= tabs.steps.length"          
+          v-if="buttons.next && step <= tabs.steps.length"
           @click="onNextClick"
           :color="buttons.next.color"
           :label="buttons.next.label || 'Next'"
           :text-color="buttons.back.textColor || 'black'"
-          :class="step === tabs.steps.length ? 'hidden':'q-mr-sm'"
+          :class="step === tabs.steps.length ? 'hidden' : 'q-mr-sm'"
         />
         <!-- Back btn -->
         <q-btn
@@ -34,7 +42,7 @@
         <!-- Submit btn -->
         <q-btn
           v-if="buttons.submit && step === tabs.steps.length"
-          type="submit"
+          @click="trySubmit"
           :color="buttons.submit.color || 'primary'"
           :label="buttons.submit.label || 'Submit'"
           :text-color="buttons.submit.textColor || 'black'"
@@ -51,18 +59,15 @@
         />
       </q-stepper-navigation>
     </template>
-    <Buttons :buttons="settings.buttons" :modal="settings.modal" />
   </q-stepper>
 </template>
 
 <script>
 import FormRow from "../components/FormRow";
-import Buttons from "./Buttons";
 export default {
   name: "Stepper",
   components: {
     FormRow,
-    Buttons,
   },
   props: {
     tabs: {
@@ -83,16 +88,37 @@ export default {
     return {
       step: 1,
       buttons: this.tabs.buttons,
+      errors: [3],
     };
   },
   methods: {
     async onNextClick() {
-      const res = await this.$parent.$parent.validate();
-      if (res) this.$refs.stepper.next();
+      if (this.tabs.validateButtonNavigation) {
+        const res = await this.$parent.$parent.validate();
+        if (res) this.$refs.stepper.next();
+      } else this.step += 1;
     },
     onBackClick() {
       this.$refs.stepper.previous();
     },
+    async onInput(val) {
+      let res;
+      if (this.tabs.validateTabNavigation) {
+        res = await this.$parent.$parent.validate();
+        if (res) this.step = val;
+      } else this.step = val;
+    },
+    async beforeStep(newVal, prevVal) {
+      const res = await this.$parent.$parent.validate();
+      if (res) this.errors = this.errors.filter((step) => step !== prevVal);
+      else this.errors.push(prevVal);
+    },
+    async trySubmit(){
+      await this.beforeStep(null, this.step)
+      if (this.errors.length === 0) {
+        this.$emit('submit')        
+      } else this.step = this.errors[0]
+    }
   },
 };
 </script>

@@ -36,7 +36,10 @@ export const config = {
       back: { text: 'go back', color: 'yellow', textColor: 'black' },
       submit: { text: 'send' },
       reset: false
-    }
+    },
+    tabNavigation: true,
+    validateTabNavigation: true,
+    validateButtonNavigation: false,
   },
 
   buttons: [  // buttons NOT required

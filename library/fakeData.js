@@ -252,7 +252,10 @@ export const config = {
       back: { text: 'go back', color: 'yellow', textColor: 'black' },
       submit: { text: 'send' },
       reset: false
-    }
+    },    
+    tabNavigation: true,  //User can click on tabs
+    validateTabNavigation: true,  
+    validateButtonNavigation: false,
   },
 
   title: 'Form title'
