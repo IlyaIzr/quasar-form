@@ -1,7 +1,8 @@
 <template>
   <div class="q-gutter-md">
-    <q-field borderless  :label="label">
+    <q-field borderless :label="label">
       <q-slider
+        v-if="rest.visible === undefined ? true : rest.visible"
         ref="input"
         :value="valueStore"
         :name="keyName"
@@ -61,7 +62,7 @@ export default {
       this.input(val);
       this.$emit("input", val);
     },
-    input(val) {      
+    input(val) {
       if (this.rest.multiKey)
         store.updateKeyValue(
           this.keyName,
@@ -70,7 +71,7 @@ export default {
           this.rest.multiIndex
         );
       else store.updateKeyValue(this.keyName, val);
-    },    
+    },
     getStoreValue() {
       let res;
       if (this.rest.multiKey)
@@ -81,7 +82,7 @@ export default {
         );
       else res = store.getValueByKey(this.keyName);
       return res;
-    },    
+    },
     setProp(arg1 = "", arg2) {
       if (arguments.length === 2) {
         if (arg1) this.rest[arg1] = arg2;

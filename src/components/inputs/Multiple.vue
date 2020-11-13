@@ -1,5 +1,5 @@
 <template>
-  <div class="q-my-md">
+  <div class="q-my-md" v-if="rest.visible === undefined ? true : rest.visible">
     <p class="text-subtitle1 q-mb-none">{{ rest.label }}</p>
     <div v-for="(item, index) in valueStore" v-bind:key="item.key" class="col">
       <FieldMapper
@@ -105,7 +105,7 @@ export default {
       fields.push(res);
       this.valueStore = fields;
       store.updateKeyValue(this.multiKey, fields);
-    },    
+    },
     setConfig(arg1 = "", arg2) {
       if (arguments.length === 2) {
         if (arg1) this.rest[arg1] = arg2;
@@ -118,12 +118,12 @@ export default {
         } else console.log("WARNING! No value object provided!");
       }
       this.$forceUpdate();
-    },    
+    },
     setValue(val) {
       this.input(val);
       this.$emit("input", val);
-      this.valueStore = val
-      this.$forceUpdate()
+      this.valueStore = val;
+      this.$forceUpdate();
     },
   },
   watch: {

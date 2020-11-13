@@ -1,6 +1,29 @@
 export const config = {
   fields: [
 
+    //Select with async methods
+    {
+      type: 'select', rowIndex: 1, key: 'sel1base',
+      label: 'Группа',
+      options: [{ name: 'Alpha', id: '114aZ' }, { name: 'Beta', id: '2aaaZ' },],
+      value: '2aaaZ',
+      async onInput(vNode, value, methods, vNodeStore) { // methods - quasar API methods
+
+        //Request example
+        const props = await {label: 'testo', visible: true}
+          const vTarget = vNodeStore.getComponent('select2')
+          vTarget.setConfig(props)
+          console.log(vTarget)
+          // vTarget.setOptions(options)
+      }
+    },
+    {
+      type: 'select', rowIndex: 2, key: 'select2',
+      visible: false,
+      label: 'Select 2',
+      options: [{ name: 'Alpha', id: '114aZ' }, { name: 'Beta', id: '2aaaZ' },],
+      value: ''
+    },
   ],
 
 

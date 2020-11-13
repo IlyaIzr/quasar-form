@@ -1,6 +1,7 @@
 <template>
   <div class="q-gutter-md">
     <q-input
+      v-if="rest.visible === undefined ? true : rest.visible"
       ref="input"
       :value="valueStore"
       :label="rest.label"
@@ -103,8 +104,8 @@ export default {
     setValue(val) {
       this.input(val);
       this.$emit("input", val);
-      this.valueStore = val
-      this.$forceUpdate()
+      this.valueStore = val;
+      this.$forceUpdate();
     },
   },
   watch: {

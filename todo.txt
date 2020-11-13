@@ -5,7 +5,6 @@ qdecimal or https://codepen.io/pdanpdan/pen/KKKrwbe?editors=1010
 
 required: true for all fields
 add * to label if required
-setValue
 
 wizard
 --set if tab can be switched by nav, can be skipped with validation error

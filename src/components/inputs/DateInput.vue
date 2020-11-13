@@ -1,51 +1,53 @@
 <template>
-  <div
-    v-if="!rest.withInput && rest.withInput !== undefined"
-    class="q-gutter-md"
-  >
-    <p class="text-subtitle1 q-mb-none">{{ rest.label }}</p>
-    <DateInp
-      :label="rest.label"
-      :keyName="keyName"
-      :rest="rest"
-      :store="store"
-      :hasInput="hasInput"
-      :value="valueStore"
-      @input="onInput"
-      @focus="onFocus"
-      @blur="onBlur"
-    />
-  </div>
-  <div v-else class="q-gutter-md">
-    <q-input
-      :value="rangeInputValue"
-      @input="onSimpleInput"
-      :mask="rest.inputMask || textInputMask"
-      :rules="rest.range ? rest.rules : ['date', ...rest.rules]"
-      :key="fuckenMask"
-      ref="input"
+  <div v-if="rest.visible === undefined ? true : rest.visible">
+    <div
+      v-if="!rest.withInput && rest.withInput !== undefined"
+      class="q-gutter-md"
     >
-      <template v-slot:append>
-        <q-icon name="event" class="cursor-pointer">
-          <q-popup-proxy
-            ref="qDateProxy"
-            transition-show="scale"
-            transition-hide="scale"
-          >
-            <DateInp
-              :label="rest.label"
-              :keyName="keyName"
-              :rest="rest"
-              :store="store"
-              :hasInput="hasInput"
-              @input="onInput"
-              @focus="onFocus"
-              @blur="onBlur"
-            />
-          </q-popup-proxy>
-        </q-icon>
-      </template>
-    </q-input>
+      <p class="text-subtitle1 q-mb-none">{{ rest.label }}</p>
+      <DateInp
+        :label="rest.label"
+        :keyName="keyName"
+        :rest="rest"
+        :store="store"
+        :hasInput="hasInput"
+        :value="valueStore"
+        @input="onInput"
+        @focus="onFocus"
+        @blur="onBlur"
+      />
+    </div>
+    <div v-else class="q-gutter-md">
+      <q-input
+        :value="rangeInputValue"
+        @input="onSimpleInput"
+        :mask="rest.inputMask || textInputMask"
+        :rules="rest.range ? rest.rules : ['date', ...rest.rules]"
+        :key="fuckenMask"
+        ref="input"
+      >
+        <template v-slot:append>
+          <q-icon name="event" class="cursor-pointer">
+            <q-popup-proxy
+              ref="qDateProxy"
+              transition-show="scale"
+              transition-hide="scale"
+            >
+              <DateInp
+                :label="rest.label"
+                :keyName="keyName"
+                :rest="rest"
+                :store="store"
+                :hasInput="hasInput"
+                @input="onInput"
+                @focus="onFocus"
+                @blur="onBlur"
+              />
+            </q-popup-proxy>
+          </q-icon>
+        </template>
+      </q-input>
+    </div>
   </div>
 </template>
 
@@ -156,7 +158,7 @@ export default {
         );
       else res = store.getValueByKey(this.keyName);
       return res;
-    },    
+    },
     setConfig(arg1 = "", arg2) {
       if (arguments.length === 2) {
         if (arg1) this.rest[arg1] = arg2;
@@ -169,12 +171,12 @@ export default {
         } else console.log("WARNING! No value object provided!");
       }
       this.$forceUpdate();
-    },    
+    },
     setValue(val) {
       this.input(val);
       this.$emit("input", val);
-      this.valueStore = val
-      this.$forceUpdate()
+      this.valueStore = val;
+      this.$forceUpdate();
     },
   },
   watch: {

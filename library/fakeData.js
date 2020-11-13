@@ -5,6 +5,7 @@ export const config = {
     {
       type: 'text', rowIndex: 2, key: 'as24a',
       tabIndex: 1,  // Index of Tab aka Wizard. Starting from 1
+      visible: false, //true by default
       disable: true,
       value: "Can't touch this",
     },
