@@ -42,6 +42,7 @@
         <!-- Submit btn -->
         <q-btn
           v-if="buttons.submit && step === tabs.steps.length"
+          type="submit"
           @click="trySubmit"
           :color="buttons.submit.color || 'primary'"
           :label="buttons.submit.label || 'Submit'"
