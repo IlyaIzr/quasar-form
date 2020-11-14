@@ -109,8 +109,8 @@ export default {
       let res;
       if (required) {
         if (typeof rules === "object") {
-          res = [(val) => val || "Please select option", ...this.rest.rules];
-        } else res = [(val) => val || "Please select option"];
+          res = [(val) => val || this.rest.requiredMessage || "Please select option", ...this.rest.rules];
+        } else res = [(val) => val || this.rest.requiredMessage || "Please select option"];
       } else res = this.rest.rules;
       return res;
     },

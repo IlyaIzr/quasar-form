@@ -57,6 +57,12 @@
       :store="store"
       @input="onInput"
     />
+    <Html
+      v-if="inputType === 'html'"
+      :keyName="inputInfo.key"
+      :rest="inputInfo"
+      @focus="onFocus"
+    />
   </div>
 </template>
 
@@ -67,6 +73,7 @@ import CheckBox from "./inputs/CheckBox";
 import Slider from "./inputs/Slider";
 import DateInput from "./inputs/DateInput";
 import Multiple from "./inputs/Multiple";
+import Html from "./inputs/Html";
 import { store, vNodeStore } from "../store";
 
 export default {
@@ -91,6 +98,7 @@ export default {
     Slider,
     DateInput,
     Multiple,
+    Html,
   },
   computed: {
     inputType: function () {
@@ -131,6 +139,14 @@ export default {
             break;
           case "multiple":
             inputType = "multiple";
+            return inputType;
+            break;
+          case "html":
+            inputType = "html";
+            return inputType;
+            break;
+          case "editor":
+            inputType = "editor";
             return inputType;
             break;
 

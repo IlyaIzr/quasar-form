@@ -1,30 +1,8 @@
 export const config = {
   fields: [
 
-    {
-      type: 'text', rowIndex: 1, key: 'data2', tabIndex: 1, label: 'pep'
-    },
-    {
-      type: 'text', rowIndex: 1, key: 'text1', tabIndex: 2,
-      label: 'Hello', requiredMessage: 'hey you', required: true
-    },
   ],
 
-  tabs: {
-    steps: [
-      { title: 'First', icon: 'settings' }, //Icon names: https://material.io/resources/icons/
-      { title: 'Second', icon: 'img:https://cdn.quasar.dev/logo/svg/quasar-logo.svg' },
-    ],
-    buttons: {  //Ovverrides default buttons
-      next: { text: 'next step' },
-      back: { text: 'go back', color: 'yellow', textColor: 'black' },
-      submit: { text: 'send' },
-      reset: false
-    },
-    tabNavigation: true,  //User can click on tabs
-    validateTabNavigation: false,
-    validateButtonNavigation: true,
-  },
 
   buttons: [  // buttons NOT required
     {
