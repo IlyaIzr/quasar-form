@@ -8,7 +8,7 @@
         {{ rest.required ? (rest.label || "") + " *" : rest.required }}
       </p>
       <DateInp
-        :label="rest.required ? (rest.label || '') + ' *' : rest.required"
+        :label="rest.required ? (rest.label || '') + ' *' : rest.label"
         :keyName="keyName"
         :rest="rest"
         :store="store"
@@ -26,6 +26,7 @@
         :mask="rest.inputMask || textInputMask"
         :rules="rules"
         :key="fuckenMask"
+        :label="rest.required ? (rest.label || '') + ' *' : rest.label"
         ref="input"
       >
         <template v-slot:append>
@@ -36,9 +37,7 @@
               transition-hide="scale"
             >
               <DateInp
-                :label="
-                  rest.required ? (rest.label || '') + ' *' : rest.required
-                "
+                :label="rest.required ? (rest.label || '') + ' *' : rest.label"
                 :keyName="keyName"
                 :rest="rest"
                 :store="store"

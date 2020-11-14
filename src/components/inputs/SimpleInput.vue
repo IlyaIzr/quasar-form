@@ -4,7 +4,7 @@
       v-if="rest.visible === undefined ? true : rest.visible"
       ref="input"
       :value="valueStore"
-      :label="rest.required ? (rest.label || '') + ' *' : rest.required"
+      :label="rest.required ? (rest.label || '') + ' *' : rest.label"
       :type="type"
       :name="keyName"
       :mask="rest.mask"

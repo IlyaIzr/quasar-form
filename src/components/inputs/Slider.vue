@@ -2,7 +2,7 @@
   <div class="q-gutter-md">
     <q-field
       borderless
-      :label="rest.required ? (rest.label || '') + ' *' : rest.required"
+      :label="rest.required ? (rest.label || '') + ' *' : rest.label"
       :rules="rules"
       :value="valueStore"
     >

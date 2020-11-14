@@ -3,14 +3,10 @@ reset - restore default values
 mask extention
 qdecimal or https://codepen.io/pdanpdan/pen/KKKrwbe?editors=1010
 
-required: true for all fields
-add * to label if required
-
-
-wizard
-empty value converts to array for some reason
 
 check prop names unity in fields
 
-pure calendar validation
+wizard
+empty value converts to array for some reason
 [] value in tab fields
+pure calendar validation

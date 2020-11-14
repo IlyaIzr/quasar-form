@@ -2,7 +2,7 @@ export const config = {
   fields: [
 
     {
-      type: 'date', rowIndex: 1, key: 'data2', tabIndex: 1, required: true
+      type: 'text', rowIndex: 1, key: 'data2', tabIndex: 1, label: 'pep'
     },
     {
       type: 'text', rowIndex: 1, key: 'text1', tabIndex: 2,

@@ -12,7 +12,7 @@
         <q-checkbox
           ref="input"
           :value="valueStore"
-          :label="rest.required ? (rest.label || '') + ' *' : rest.required"
+          :label="rest.required ? (rest.label || '') + ' *' : rest.label"
           :name="keyName"
           :disable="rest.disable"
           @focus="onFocus"
