@@ -1,6 +1,18 @@
 export const config = {
   fields: [
-
+    {
+      value: 'anton',
+      onInput(vnode, value, m, vNodeStore) {
+        const field2 = vNodeStore.get('date')
+        field2.setValue('11.12.2012')
+      }
+    },
+    {
+      key: 'field2', type: 'select', options: [{ name: 'A', id: 'aletter' }, { name: 'B', id: 'bletter' }, { name: 'C', id: 'cletter' }], value: 'bletter',      
+      onInput(vnode, value, m, vNodeStore) {
+        vnode.setValue('cletter')
+      }, rowIndex: 2
+    },
   ],
 
 

@@ -22,7 +22,7 @@
     <div v-else class="q-gutter-md">
       <q-input
         :value="rangeInputValue"
-        @input="onSimpleInput"
+        @input="onTextInput"
         :mask="rest.inputMask || textInputMask"
         :rules="rules"
         :key="fuckenMask"
@@ -57,8 +57,8 @@
 <script>
 import { store } from "../../store";
 import { date } from "quasar";
-const { formatDate } = date;
 import DateInp from "./Date";
+const { formatDate } = date;
 export default {
   name: "DateInput",
   components: {
@@ -129,19 +129,22 @@ export default {
           to: val.finish,
         };
       }
-      this.input(finalVal);
+      this.storeValue(finalVal);
       this.$emit("input", finalVal);
     },
-    onSimpleInput(val) {
+    input(val) {
+      this.onInput(val);
+    },
+    onTextInput(val) {
       let finalVal = val;
       if (this.rest.range) {
         const dates = val.split(" - ");
         finalVal = { from: dates[0], to: dates[1] };
       }
-      this.input(finalVal);
+      this.storeValue(finalVal);
       this.$emit("input", finalVal);
     },
-    input(val) {
+    storeValue(val) {
       if (this.rest.multiKey)
         store.updateKeyValue(
           this.keyName,
@@ -150,7 +153,7 @@ export default {
           this.rest.multiIndex
         );
       else store.updateKeyValue(this.keyName, val);
-      this.valueStore = val;
+      this.valueStore = this.getStoreValue(); // or = val?
     },
     getStoreValue() {
       let res;
@@ -177,10 +180,7 @@ export default {
       this.$forceUpdate();
     },
     setValue(val) {
-      this.input(val);
-      this.$emit("input", val);
-      this.valueStore = val;
-      this.$forceUpdate();
+      this.storeValue(val);
     },
     checkRules(rules, required) {
       let res;

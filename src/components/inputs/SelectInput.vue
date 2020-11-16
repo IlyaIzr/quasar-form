@@ -10,7 +10,7 @@
       :disable="rest.disable"
       :label="rest.required ? (rest.label || '') + ' *' : rest.label"
       :rules="rules"
-      @input="onInput"
+      @input="input"
       @focus="onFocus"
       @blur="onBlur"
     />
@@ -78,7 +78,7 @@ export default {
     },
   },
   methods: {
-    input(val) {
+    storeValue(val) {
       let noObserver = val && typeof val === "object" ? { ...val } : "";
       if (noObserver.value) {
         noObserver = noObserver.value;
@@ -94,9 +94,13 @@ export default {
           this.rest.multiIndex
         );
       else this.store.updateKeyValue(this.keyName, noObserver);
+      this.valueStore = this.getStoreValue();
+    },
+    input(val) {
+      this.onInput(val);
     },
     onInput(val) {
-      this.input(val);
+      this.storeValue(val);
       this.$emit("input", val);
     },
     onFocus(e) {
@@ -109,8 +113,14 @@ export default {
       let res;
       if (required) {
         if (typeof rules === "object") {
-          res = [(val) => val || this.rest.requiredMessage || "Please select option", ...this.rest.rules];
-        } else res = [(val) => val || this.rest.requiredMessage || "Please select option"];
+          res = [
+            (val) => val || this.rest.requiredMessage || "Please select option",
+            ...this.rest.rules,
+          ];
+        } else
+          res = [
+            (val) => val || this.rest.requiredMessage || "Please select option",
+          ];
       } else res = this.rest.rules;
       return res;
     },
@@ -142,18 +152,7 @@ export default {
       this.$forceUpdate();
     },
     setValue(val) {
-      this.input(val);
-      this.$emit("input", val);
-      this.valueStore = val;
-      this.$forceUpdate();
-    },
-  },
-  watch: {
-    "store.state.watcher": function () {
-      const val = this.getStoreValue();
-      if (val !== this.valueStore) {
-        this.valueStore = val;
-      }
+      this.storeValue(val);
     },
   },
 };

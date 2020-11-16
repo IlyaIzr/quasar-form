@@ -61,6 +61,7 @@
       v-if="inputType === 'html'"
       :keyName="inputInfo.key"
       :rest="inputInfo"
+      :value="inputInfo.value"
       @focus="onFocus"
     />
   </div>
@@ -177,7 +178,9 @@ export default {
       } else this.isRendered = false;
     } else this.isRendered = true;
 
-    // Store input value or multifield value
+    // Check if we need to store it at all
+    if (this.inputInfo.type === 'html') return null;
+
     if (this.isRendered && multiKey) {
       const isStoredAlready =
         store.getValueByKey(
@@ -186,6 +189,7 @@ export default {
           this.inputInfo.multiIndex
         ) !== undefined;
       if (isStoredAlready) return null;
+    // Store input value or multifield value
       store.updateKeyValue(
         this.inputInfo.key,
         this.inputInfo.value,

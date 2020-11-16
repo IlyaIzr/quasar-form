@@ -20,7 +20,7 @@
       :disable="rest.disable"
       @focus="onFocus"
       @blur="onBlur"
-      @input="onInput"
+      @input="input"
       :rules="rules"
     />
   </div>
@@ -63,10 +63,13 @@ export default {
       this.$emit("blur", e);
     },
     onInput(val) {
-      this.input(val);
+      this.storeValue(val);
       this.$emit("input", val);
     },
     input(val) {
+      this.onInput(val);
+    },
+    storeValue(val) {
       if (this.rest.multiKey)
         store.updateKeyValue(
           this.keyName,
@@ -75,6 +78,7 @@ export default {
           this.rest.multiIndex
         );
       else store.updateKeyValue(this.keyName, val);
+      this.valueStore = this.getStoreValue();
     },
     getStoreValue() {
       let res;
@@ -101,10 +105,7 @@ export default {
       this.$forceUpdate();
     },
     setValue(val) {
-      this.input(val);
-      this.$emit("input", val);
-      this.valueStore = val;
-      this.$forceUpdate();
+      this.storeValue(val);
     },
     checkRules(rules, required) {
       let res;
@@ -112,20 +113,21 @@ export default {
         if (typeof rules === "object") {
           res = [
             // typeof because input stuff gives me [] as def empty value
-            (val) => (val && typeof val === 'string')  || this.rest.requiredMessage || "Please fill",
+            (val) =>
+              (val && typeof val === "string") ||
+              this.rest.requiredMessage ||
+              "Please fill",
             ...this.rest.rules,
           ];
-        } else res = [(val) => (val && typeof val === 'string') || this.rest.requiredMessage || "Please fill"];
+        } else
+          res = [
+            (val) =>
+              (val && typeof val === "string") ||
+              this.rest.requiredMessage ||
+              "Please fill",
+          ];
       } else res = this.rest.rules;
       return res;
-    },
-  },
-  watch: {
-    "store.state.watcher": function () {
-      const val = this.getStoreValue();
-      if (val !== this.valueStore) {
-        this.valueStore = val;
-      }
     },
   },
 };

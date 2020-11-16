@@ -120,18 +120,8 @@ export default {
       this.$forceUpdate();
     },
     setValue(val) {
-      this.input(val);
-      this.$emit("input", val);
-      this.valueStore = val;
-      this.$forceUpdate();
-    },
-  },
-  watch: {
-    "store.state.watcher": function () {
-      const val = this.store.getValueByKey(this.multiKey);
-      if (val !== this.valueStore) {
-        this.valueStore = val;
-      }
+      this.updateKeyValue(this.multiKey, val);
+      this.valueStore = this.store.getValueByKey(this.multiKey)
     },
   },
 };

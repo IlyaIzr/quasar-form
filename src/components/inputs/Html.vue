@@ -5,14 +5,13 @@
       ref="editor"
       :name="keyName"
       :disable="rest.disable"
-      v-html="valueStore"
+      v-html="localValue"
       @focus="onFocus"
     />
   </div>
 </template>
 
 <script>
-import { store } from "../../store";
 export default {
   name: "Html",
   props: {
@@ -24,27 +23,21 @@ export default {
       type: Object,
       required: true,
     },
+    value: {
+      type: String,
+      required: true,
+      default: "",
+    },
   },
   data() {
     return {
-      valueStore: this.getStoreValue(),
+      localValue: this.value,
     };
   },
 
   methods: {
     onFocus(e) {
       this.$emit("focus", e);
-    },
-    getStoreValue() {
-      let res;
-      if (this.rest.multiKey)
-        res = store.getValueByKey(
-          this.keyName,
-          this.rest.multiKey,
-          this.rest.multiIndex
-        );
-      else res = store.getValueByKey(this.keyName);
-      return res;
     },
     setConfig(arg1 = "", arg2) {
       if (arguments.length === 2) {
@@ -60,31 +53,7 @@ export default {
       this.$forceUpdate();
     },
     setValue(val) {
-      this.input(val);
-      this.$emit("input", val);
-      this.valueStore = val;
-      this.$forceUpdate();
-    },
-    // checkRules(rules, required) {
-    //   let res;
-    //   if (required) {
-    //     if (typeof rules === "object") {
-    //       res = [
-    //         // typeof because input stuff gives me [] as def empty value
-    //         (val) => (val && typeof val === 'string')  || this.rest.requiredMessage || "Please fill",
-    //         ...this.rest.rules,
-    //       ];
-    //     } else res = [(val) => (val && typeof val === 'string') || this.rest.requiredMessage || "Please fill"];
-    //   } else res = this.rest.rules;
-    //   return res;
-    // },
-  },
-  watch: {
-    "store.state.watcher": function () {
-      const val = this.getStoreValue();
-      if (val !== this.valueStore) {
-        this.valueStore = val;
-      }
+      this.localValue = val;
     },
   },
 };
