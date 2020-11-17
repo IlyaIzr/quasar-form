@@ -170,7 +170,6 @@ export default {
   beforeMount() {
     // store.updateKeyValue(this.inputInfo.key, this.inputInfo.value);  //set value even if field invisible
     const multiKey = this.inputInfo.multiKey ? this.inputInfo.multiKey : "";
-
     // Check if other component was rendered
     if (this.inputInfo.renderIf) {
       if (store.getValueByKey(this.inputInfo.renderIf)) {
@@ -179,7 +178,7 @@ export default {
     } else this.isRendered = true;
 
     // Check if we need to store it at all
-    if (this.inputInfo.type === 'html') return null;
+    if (this.inputInfo.type === "html") return null;
 
     if (this.isRendered && multiKey) {
       const isStoredAlready =
@@ -189,7 +188,7 @@ export default {
           this.inputInfo.multiIndex
         ) !== undefined;
       if (isStoredAlready) return null;
-    // Store input value or multifield value
+      // Store input value or multifield value
       store.updateKeyValue(
         this.inputInfo.key,
         this.inputInfo.value,
@@ -200,7 +199,6 @@ export default {
       const isStoredAlready =
         store.getValueByKey(this.inputInfo.key) !== undefined;
       if (isStoredAlready) return null;
-      if (!this.inputInfo.value) this.inputInfo.value = [];
       store.updateKeyValue(this.inputInfo.key, this.inputInfo.value);
     }
   },
