@@ -64,6 +64,16 @@
       :value="inputInfo.value"
       @focus="onFocus"
     />
+    <Editor
+      v-if="inputType === 'editor'"
+      :keyName="inputInfo.key"
+      :rest="inputInfo"
+      :value="inputInfo.value"
+      :store="store"
+      @input="onInput"
+      @focus="onFocus"
+      @blur="onBlur"
+    />
   </div>
 </template>
 
@@ -75,6 +85,7 @@ import Slider from "./inputs/Slider";
 import DateInput from "./inputs/DateInput";
 import Multiple from "./inputs/Multiple";
 import Html from "./inputs/Html";
+import Editor from "./inputs/Editor";
 import { store, vNodeStore } from "../store";
 
 export default {
@@ -100,6 +111,7 @@ export default {
     DateInput,
     Multiple,
     Html,
+    Editor,
   },
   computed: {
     inputType: function () {

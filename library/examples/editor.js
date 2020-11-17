@@ -1,4 +1,4 @@
-export const config = {
+const config = {
   fields: [
     {
       type: 'editor', key: 'edt14',
@@ -28,10 +28,5 @@ export const config = {
     },
   },
 
-  title: 'Development mode'
-}
-
-export const values = {
-  n55eds: '200',
-  mailo12: 'testo@validate'
+  title: 'Editor mode'
 }

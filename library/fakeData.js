@@ -92,7 +92,7 @@ export const config = {
         otherField.setConfig(propsObject) // Arg1 - object of { propName: propValue }  
 
         otherField.setValue('123')
-        otherField.setOptions([{name: 'Adam', id: 1}])  // for type: select only
+        otherField.setOptions([{ name: 'Adam', id: 1 }])  // for type: select only
 
         // return function (vNode) {          
         // }
@@ -121,6 +121,16 @@ export const config = {
       label: 'Do be do',
       value: 50, max: 100, min: 1,
       showValue: false
+    },
+
+    // Editor 
+    {
+      type: 'editor', 
+      value: '<b>B</b>enis',
+      placeholder: 'Type here',
+      readonly: false,
+      minHeight: '150px',
+      maxHeight: '60vh',
     },
 
     // Date    
@@ -257,9 +267,9 @@ export const config = {
       back: { text: 'go back', color: 'yellow', textColor: 'black' },
       submit: { text: 'send' },
       reset: false
-    },    
+    },
     tabNavigation: true,  //User can click on tabs
-    validateTabNavigation: true,  
+    validateTabNavigation: true,
     validateButtonNavigation: false,
   },
 
