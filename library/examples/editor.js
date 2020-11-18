@@ -13,7 +13,8 @@ const config = {
         ['left', 'center', 'right', 'justify'],
         ['bold', 'italic', 'underline', 'strike'],
         ['undo', 'redo'],
-      ]
+      ],
+      localization: 'en-us' // Default 'ru'. See https://github.com/quasarframework/quasar/blob/dev/ui/lang/uk.js
       // Quasar methods https://quasar.dev/vue-components/editor#QEditor-API
     }
   ],

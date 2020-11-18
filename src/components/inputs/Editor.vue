@@ -41,6 +41,7 @@ export default {
   data() {
     return {
       valueStore: this.getStoreValue(),
+      lang: this.rest.localization || "ru",
     };
   },
   methods: {
@@ -96,6 +97,11 @@ export default {
     setValue(val) {
       this.storeValue(val);
     },
+  },
+  beforeMount() {
+    import("quasar/lang/" + this.lang).then((lang) => {
+      this.$q.lang.set(lang.default);
+    });
   },
 };
 </script>
