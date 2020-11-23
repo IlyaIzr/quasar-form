@@ -14,8 +14,10 @@ export const config = {
         ['bold', 'italic', 'underline', 'strike'],
         ['undo', 'redo'],
       ],
-      localization: 'en-us' //'en-us', 'ru', 'uk', 'de', 'fr' etc. See https://github.com/quasarframework/quasar/blob/dev/ui/lang/uk.js
       // Quasar methods https://quasar.dev/vue-components/editor#QEditor-API
+    },
+    {
+      type: 'html', value: `ы`
     }
   ],
 
@@ -28,7 +30,7 @@ export const config = {
       console.log('validation error', errorComponent)
     },
   },
-
+  
   title: 'Development mode'
 }
 

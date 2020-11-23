@@ -130,6 +130,11 @@ export default {
       const cb = await this.form.onMount(this, this.$refs.form);
       if (cb && typeof cb === "function") cb(this);
     }
+  },  
+  beforeMount() {
+    import("quasar/lang/" + (this.settings.localization || 'ru')).then((lang) => {
+      this.$q.lang.set(lang.default);
+    });
   },
 };
 </script>

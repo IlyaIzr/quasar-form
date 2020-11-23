@@ -139,7 +139,6 @@ export const config = {
       label: 'some cal', mini: false,
       color: 'orange',
       withInput: true, // true by default
-      localization: 'ru', // 'ru' or 'en' or {} of localisation. See https://quasar.dev/vue-components/date#Custom-ad-hoc-locale
       mask: 'DD.MM.YYYY', //calendar mask. Должна совпадать с форматом даты. Указано значение по умолчанию
       // range: false,
       // inputMask: '##.##.####', //default value
@@ -273,8 +272,9 @@ export const config = {
     validateButtonNavigation: false,
   },
 
-  title: 'Form title'
-
+  title: 'Form title',
+  
+  localization: 'en-us' // Default 'ru'. See https://github.com/quasarframework/quasar/blob/dev/ui/lang/uk.js
 }
 
 export const values = {

@@ -6,7 +6,8 @@ qdecimal or https://codepen.io/pdanpdan/pen/KKKrwbe?editors=1010
 
 check prop names unity in fields
 
-wizard
-empty value converts to array for some reason
-[] value in tab fields
 pure calendar validation
+
+const mask = createMask(config)
+
+mask.resolve('value')

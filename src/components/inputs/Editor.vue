@@ -98,11 +98,6 @@ export default {
       this.storeValue(val);
     },
   },
-  beforeMount() {
-    import("quasar/lang/" + this.lang).then((lang) => {
-      this.$q.lang.set(lang.default);
-    });
-  },
 };
 </script>
 
