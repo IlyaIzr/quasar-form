@@ -1,10 +1,11 @@
 export const config = {
   fields: [
-    
+
     {
-      type: 'date', key: 'date', rowIndex: 2, 
-      range: true,
-      value: { start: '11.12.2012', finish: '13.12.2012' },
+      key: 'selectF', type: 'select', rowIndex: 2,
+      options: [
+        { name: 'Anto 13', id: 'aletter' }, { name: 'B 52', id: 'bletter' }, { name: 'Cinnabon', id: 'cletter' }
+      ],
     },
   ],
 
@@ -17,7 +18,7 @@ export const config = {
       console.log('validation error', errorComponent)
     },
   },
-  
+
   title: 'Development mode'
 }
 

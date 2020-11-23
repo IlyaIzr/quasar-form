@@ -40,6 +40,8 @@ export const config = {
       options: [],
       rules: [val => val || 'Please select option'],
       readonly: false,
+      clearable: false, // true by default
+      autocomplete: false, // true by default
     },
 
     //Select with async methods
@@ -151,7 +153,7 @@ export const config = {
       navigationMinYearMonth: '2010/01',
       navigationMaxYearMonth: '2030/01',
       readonly: false,
-      disable: false
+      clearable: false // true by default
     },
 
     //Multiple fields

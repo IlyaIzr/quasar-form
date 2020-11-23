@@ -11,10 +11,18 @@
       :label="rest.required ? (rest.label || '') + ' *' : rest.label"
       :rules="rules"
       :clearable="rest.clearable === undefined ? true : rest.clearable"
+      v-bind:use-input="rest.autocomplete === undefined ? true : rest.autocomplete"
+      @filter="filterFn"
       @input="input"
       @focus="onFocus"
       @blur="onBlur"
-    />
+    >
+      <template v-slot:no-option>
+        <q-item>
+          <q-item-section class="text-grey"> No results </q-item-section>
+        </q-item>
+      </template>
+    </q-select>
   </div>
 </template>
 
@@ -44,23 +52,15 @@ export default {
   data() {
     return {
       valueStore: this.getStoreValue(),
-      localOptions: this.options,
       rules: this.checkRules(this.rest.rules, this.rest.required),
+      parsedOptions: this.parseOptions(this.options),
     };
   },
   computed: {
-    parsedOptions() {
-      const arr = [];
-      this.localOptions.map((option) => {
-        const noObserver = { ...option };
-        arr.push({ label: noObserver.name, value: noObserver.id });
-      });
-      return arr;
-    },
     parsedValue() {
       let res;
-      this.localOptions &&
-        this.localOptions.map((option) => {
+      this.options &&
+        this.options.map((option) => {
           const noObserver = { ...option };
           if (this.valueStore === noObserver.id)
             res = { label: noObserver.name, value: noObserver.id };
@@ -68,7 +68,7 @@ export default {
       // if (!res)
       //   console.log(
       //     "option " + this.valueStore + "wasnt found in options",
-      //     this.localOptions
+      //     this.options
       //   );
       return res;
     },
@@ -136,9 +136,6 @@ export default {
       else res = store.getValueByKey(this.keyName);
       return res;
     },
-    setOptions(options) {
-      this.localOptions = options;
-    },
     setConfig(arg1 = "", arg2) {
       if (arguments.length === 2) {
         if (arg1) this.rest[arg1] = arg2;
@@ -154,6 +151,33 @@ export default {
     },
     setValue(val) {
       this.storeValue(val);
+    },
+    parseOptions(options) {
+      const arr = [];
+      options.map((option) => {
+        const noObserver = { ...option };
+        arr.push({ label: noObserver.name, value: noObserver.id });
+      });
+      return arr;
+    },
+    filterFn(input, update) {
+      if (input === "") {
+        update(() => {
+          this.parsedOptions = this.parseOptions(this.options);
+        });
+        return;
+      }
+
+      update(() => {
+        const needle = input.toLocaleLowerCase();
+        let parsedOptions = this.parsedOptions.filter((v) => {
+          console.log(v)
+          if (v.label.toLocaleLowerCase().indexOf(needle) > -1) {
+            return v;
+          }
+        });
+        this.parsedOptions = parsedOptions;
+      });
     },
   },
 };
