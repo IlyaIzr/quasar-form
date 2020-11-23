@@ -1,3 +1,4 @@
+  
 <template>
   <div class="q-gutter-md">
     <q-select
@@ -11,10 +12,6 @@
       :label="rest.required ? (rest.label || '') + ' *' : rest.label"
       :rules="rules"
       :clearable="rest.clearable === undefined ? true : rest.clearable"
-      v-bind:use-input="
-        rest.autocomplete === undefined ? true : rest.autocomplete
-      "
-      @filter="filterFn"
       @input="input"
       @focus="onFocus"
       @blur="onBlur"
@@ -157,24 +154,6 @@ export default {
     },
     setValue(val) {
       this.storeValue(val);
-    },
-
-    filterFn(input, update) {
-      if (input === "") {
-        update(() => {
-          this.localOptions = this.options;
-        });
-        return;
-      }
-      update(() => {
-        const needle = input.toLocaleLowerCase();
-        let parsedOptions = this.localOptions.filter((v) => {
-          if (v.name.toLocaleLowerCase().indexOf(needle) > -1) {
-            return v;
-          }
-        });
-        this.localOptions = parsedOptions;
-      });
     },
   },
 };

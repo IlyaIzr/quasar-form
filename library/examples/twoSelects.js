@@ -10,12 +10,13 @@ export const config = {
       onInput(vnode, value, m, vNodeStore) {
         const sel2 = vNodeStore.get('select2')
         console.log(sel2)
-        sel2.setOptions([ { name: 'A', id: 'aletter' }, { name: 'B', id: 'bletter' },])
+        sel2.setOptions([ { name: 'A', id: 'aletter' },])
       },
     },
     {
       key: 'select2', type: 'select', rowIndex: 2,
-      options: [],
+      options: [
+      ],
     },
   ],
 
