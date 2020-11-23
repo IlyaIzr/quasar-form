@@ -10,6 +10,7 @@
       :disable="rest.disable"
       :label="rest.required ? (rest.label || '') + ' *' : rest.label"
       :rules="rules"
+      :clearable="rest.clearable === undefined ? true : rest.clearable"
       @input="input"
       @focus="onFocus"
       @blur="onBlur"

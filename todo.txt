@@ -11,3 +11,5 @@ pure calendar validation
 const mask = createMask(config)
 
 mask.resolve('value')
+
+date with input clearable

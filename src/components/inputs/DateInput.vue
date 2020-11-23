@@ -27,6 +27,7 @@
         :rules="rules"
         :key="fuckenMask"
         :label="rest.required ? (rest.label || '') + ' *' : rest.label"
+        :clearable="rest.clearable === undefined ? true : rest.clearable"
         ref="input"
       >
         <template v-slot:append>
@@ -96,11 +97,11 @@ export default {
     rangeInputValue() {
       let res = {};
       res = this.valueStore;
-      if (typeof res === "object" && res.from && res.to) {
+      if (res && typeof res === "object" && res.from && res.to) {
         res = String(res.from) + String(res.to);
-      } else if (typeof res === "object" && res.start && res.finish) {
+      } else if (res && typeof res === "object" && res.start && res.finish) {
         res = String(res.start) + String(res.finish);
-      }
+      } else if (!res) res = "";
       return res;
     },
     textInputMask() {
@@ -137,7 +138,7 @@ export default {
     },
     onTextInput(val) {
       let finalVal = val;
-      if (this.rest.range) {
+      if (val && this.rest.range) {
         const dates = val.split(" - ");
         finalVal = { from: dates[0], to: dates[1] };
       }

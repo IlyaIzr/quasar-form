@@ -11,7 +11,7 @@
       :fill-mask="rest.fillMask || false"
       :reverse-fill-mask="rest.reverseFill"
       :unmasked-value="rest.unmaskedValue"
-      :clearable="rest.clearable"
+      :clearable="rest.clearable === undefined ? true : rest.clearable"
       :prefix="rest.prefix"
       :suffix="rest.suffix"
       :autogrow="rest.autogrow"
