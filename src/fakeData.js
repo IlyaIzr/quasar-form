@@ -6,6 +6,7 @@ export const config = {
       options: [
         { name: 'Anto 13', id: 'aletter' }, { name: 'B 52', id: 'bletter' }, { name: 'Cinnabon', id: 'cletter' }
       ],
+      
     },
   ],
 

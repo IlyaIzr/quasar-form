@@ -11,7 +11,9 @@
       :label="rest.required ? (rest.label || '') + ' *' : rest.label"
       :rules="rules"
       :clearable="rest.clearable === undefined ? true : rest.clearable"
-      v-bind:use-input="rest.autocomplete === undefined ? true : rest.autocomplete"
+      v-bind:use-input="
+        rest.autocomplete === undefined ? true : rest.autocomplete
+      "
       @filter="filterFn"
       @input="input"
       @focus="onFocus"
@@ -152,6 +154,9 @@ export default {
     setValue(val) {
       this.storeValue(val);
     },
+    setOptions(options) {
+      this.parsedOptions = options;
+    },
     parseOptions(options) {
       const arr = [];
       options.map((option) => {
@@ -171,7 +176,7 @@ export default {
       update(() => {
         const needle = input.toLocaleLowerCase();
         let parsedOptions = this.parsedOptions.filter((v) => {
-          console.log(v)
+          console.log(v);
           if (v.label.toLocaleLowerCase().indexOf(needle) > -1) {
             return v;
           }
