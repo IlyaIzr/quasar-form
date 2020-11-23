@@ -1,13 +1,6 @@
 export const config = {
   fields: [
 
-    {
-      key: 'selectF', type: 'select', rowIndex: 2,
-      options: [
-        { name: 'Anto 13', id: 'aletter' }, { name: 'B 52', id: 'bletter' }, { name: 'Cinnabon', id: 'cletter' }
-      ],
-      
-    },
   ],
 
 

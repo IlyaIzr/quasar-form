@@ -18,13 +18,7 @@
       @input="input"
       @focus="onFocus"
       @blur="onBlur"
-    >
-      <template v-slot:no-option>
-        <q-item>
-          <q-item-section class="text-grey"> No results </q-item-section>
-        </q-item>
-      </template>
-    </q-select>
+    />
   </div>
 </template>
 
@@ -54,15 +48,23 @@ export default {
   data() {
     return {
       valueStore: this.getStoreValue(),
+      localOptions: this.options,
       rules: this.checkRules(this.rest.rules, this.rest.required),
-      parsedOptions: this.parseOptions(this.options),
     };
   },
   computed: {
+    parsedOptions() {
+      const arr = [];
+      this.localOptions.map((option) => {
+        const noObserver = { ...option };
+        arr.push({ label: noObserver.name, value: noObserver.id });
+      });
+      return arr;
+    },
     parsedValue() {
       let res;
-      this.options &&
-        this.options.map((option) => {
+      this.localOptions &&
+        this.localOptions.map((option) => {
           const noObserver = { ...option };
           if (this.valueStore === noObserver.id)
             res = { label: noObserver.name, value: noObserver.id };
@@ -70,7 +72,7 @@ export default {
       // if (!res)
       //   console.log(
       //     "option " + this.valueStore + "wasnt found in options",
-      //     this.options
+      //     this.localOptions
       //   );
       return res;
     },
@@ -88,7 +90,6 @@ export default {
       }
       // handle string
       if (typeof val === "string") noObserver = val;
-
       if (this.rest.multiKey)
         store.updateKeyValue(
           this.keyName,
@@ -138,6 +139,9 @@ export default {
       else res = store.getValueByKey(this.keyName);
       return res;
     },
+    setOptions(options) {
+      this.localOptions = options;
+    },
     setConfig(arg1 = "", arg2) {
       if (arguments.length === 2) {
         if (arg1) this.rest[arg1] = arg2;
@@ -154,34 +158,22 @@ export default {
     setValue(val) {
       this.storeValue(val);
     },
-    setOptions(options) {
-      this.parsedOptions = options;
-    },
-    parseOptions(options) {
-      const arr = [];
-      options.map((option) => {
-        const noObserver = { ...option };
-        arr.push({ label: noObserver.name, value: noObserver.id });
-      });
-      return arr;
-    },
+
     filterFn(input, update) {
       if (input === "") {
         update(() => {
-          this.parsedOptions = this.parseOptions(this.options);
+          this.localOptions = this.options;
         });
         return;
       }
-
       update(() => {
         const needle = input.toLocaleLowerCase();
-        let parsedOptions = this.parsedOptions.filter((v) => {
-          console.log(v);
-          if (v.label.toLocaleLowerCase().indexOf(needle) > -1) {
+        let parsedOptions = this.localOptions.filter((v) => {
+          if (v.name.toLocaleLowerCase().indexOf(needle) > -1) {
             return v;
           }
         });
-        this.parsedOptions = parsedOptions;
+        this.localOptions = parsedOptions;
       });
     },
   },
