@@ -12,8 +12,11 @@
       :rules="rules"
       :clearable="rest.clearable === undefined ? true : rest.clearable"
       v-bind:use-input="
-        rest.autocomplete === undefined ? true : rest.autocomplete
+        rest.autocomplete === undefined && rest.multiple === undefined
+          ? true
+          : rest.autocomplete
       "
+      :multiple="rest.multiple"
       @filter="filterFn"
       @input="input"
       @focus="onFocus"
@@ -71,12 +74,22 @@ export default {
       return arr;
     },
     parsedValue() {
-      let res;
+      let res = [];
       this.localOptions &&
         this.localOptions.map((option) => {
           const noObserver = { ...option };
+          // CASE single value
           if (this.value === noObserver.id)
             res = { label: noObserver.name, value: noObserver.id };
+          // CASE multivalue
+          else if (
+            typeof this.value === "object" &&
+            this.value.hasOwnProperty(length)
+          ) {
+            let ops = this.value.filter((value) => value === noObserver.id);
+            if (ops[0])
+              res.push({ label: noObserver.name, value: noObserver.id });
+          }
         });
       // if (!res)
       //   console.log(
@@ -88,9 +101,21 @@ export default {
   },
   methods: {
     storeValue(val) {
-      let noObserver = val && typeof val === "object" ? { ...val } : "";
+      let noObserver =
+        val && typeof val === "object"
+          ? val.length === undefined
+            ? { ...val }
+            : [...val]
+          : "";
+      // handle object
       if (noObserver.value) {
         noObserver = noObserver.value;
+      }
+      // handle array   of object values
+      if (typeof noObserver === 'object' && noObserver.hasOwnProperty(length)) {
+        let res = [];
+        noObserver.forEach((option) => res.push(option.value));
+        noObserver = res;
       }
       // handle string
       if (typeof val === "string") noObserver = val;
@@ -204,19 +229,19 @@ export default {
       });
     },
     reset() {
-      this.setConfig(this.archiveRest)
-      this.setOptions(this.archiveRest.options)
-      this.setValue(this.archiveRest.value)
-      this.$nextTick(function(){
-        this.$refs.input.resetValidation()
-      })
+      this.setConfig(this.archiveRest);
+      this.setOptions(this.archiveRest.options);
+      this.setValue(this.archiveRest.value);
+      this.$nextTick(function () {
+        this.$refs.input.resetValidation();
+      });
     },
-    clear(){
-      this.setValue('')
-      this.$nextTick(function(){
-        this.$refs.input.resetValidation()
-      })
-    }
+    clear() {
+      this.setValue("");
+      this.$nextTick(function () {
+        this.$refs.input.resetValidation();
+      });
+    },
   },
   watch: {
     "store.state.watcher": function () {

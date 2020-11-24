@@ -219,6 +219,7 @@ export const config = {
       //   textColor: "white",
       //   icon: "cloud_done",
       //   message: "Submitted",
+      //   position: 'bottom-right'
       // });
       return function (vNode) {
         console.log('callback function')

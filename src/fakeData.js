@@ -6,24 +6,24 @@ export const config = {
         { name: 'A', id: 'aletter' }, { name: 'B', id: 'bletter' }, { name: 'C', id: 'cletter' }
       ],
       value: 'bletter',
-      onInput(vnode, value, m, vNodeStore) {
-        const sel2 = vNodeStore.get('select2')
-        console.log(sel2)
-        console.log(sel2.value)
-      },
+      // onInput(vnode, value, m, vNodeStore) {
+      //   const sel2 = vNodeStore.get('select2')
+      //   console.log(sel2)
+      //   console.log(sel2.value)
+      // },
     },
-    {
-      key: 'select2', type: 'text', rowIndex: 2,
-      value: 15,
-      label: 'init label',
-      required: true,
-    },
-    {
-      onInput(v, val, m, store){        
-        const sel2 = store.get('select2')
-        sel2.clear()
-      }
-    }
+    // {
+    //   key: 'select2', type: 'text', rowIndex: 2,
+    //   value: 15,
+    //   label: 'init label',
+    //   required: true,
+    // },
+    // {
+    //   onInput(v, val, m, store) {
+    //     const sel2 = store.get('select2')
+    //     sel2.clear()
+    //   }
+    // }
   ],
 
 
