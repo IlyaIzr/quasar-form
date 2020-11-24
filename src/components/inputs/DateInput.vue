@@ -13,7 +13,7 @@
         :rest="rest"
         :store="store"
         :hasInput="hasInput"
-        :value="valueStore"
+        :value="value"
         @input="onInput"
         @focus="onFocus"
         @blur="onBlur"
@@ -88,7 +88,7 @@ export default {
     return {
       hasInput:
         this.rest.withInput || this.rest.withInput === undefined ? true : false,
-      valueStore: this.getStoreValue(),
+      value: this.getStoreValue(),
       fuckenMask: 1,
       rules: this.checkRules(this.rest.rules, this.rest.required),
       archiveRest: { ...this.rest },
@@ -97,7 +97,7 @@ export default {
   computed: {
     rangeInputValue() {
       let res = {};
-      res = this.valueStore;
+      res = this.value;
       if (res && typeof res === "object" && res.from && res.to) {
         res = String(res.from) + String(res.to);
       } else if (res && typeof res === "object" && res.start && res.finish) {
@@ -155,7 +155,7 @@ export default {
           this.rest.multiIndex
         );
       else store.updateKeyValue(this.keyName, val);
-      this.valueStore = this.getStoreValue(); // or = val?
+      this.value = this.getStoreValue(); // or = val?
     },
     getStoreValue() {
       let res;
@@ -223,8 +223,8 @@ export default {
   watch: {
     "store.state.watcher": function () {
       const val = this.getStoreValue();
-      if (val !== this.valueStore) {
-        this.valueStore = val;
+      if (val !== this.value) {
+        this.value = val;
       }
     },
   },

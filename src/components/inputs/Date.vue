@@ -1,7 +1,7 @@
 <template>
   <q-date
     ref="calendar"
-    :value="rest.range ? rangeValues : valueStore"
+    :value="rest.range ? rangeValues : value"
     :color="rest.color"
     :text-color="rest.textColor"
     :minimal="rest.mini"
@@ -32,16 +32,6 @@ import { store } from "../../store";
 export default {
   name: "Date",
   props: {
-    type: {
-      type: String,
-      required: false,
-      default: "text",
-    },
-    label: {
-      type: String,
-      required: false,
-      default: "",
-    },
     keyName: {
       type: String,
       required: true,
@@ -63,16 +53,16 @@ export default {
   data() {
     return {
       required: this.rest.required === undefined ? false : this.rest.required,
-      valueStore: this.getStoreValue(),
+      value: this.getStoreValue(),
     };
   },
   computed: {
     rangeValues() {
       let res = {};
-      if (typeof this.valueStore === "object" && this.valueStore) {
-        if (this.valueStore.start && this.valueStore.finish)
-          res = { from: this.valueStore.start, to: this.valueStore.finish };
-        else res = { ...this.valueStore };
+      if (typeof this.value === "object" && this.value) {
+        if (this.value.start && this.value.finish)
+          res = { from: this.value.start, to: this.value.finish };
+        else res = { ...this.value };
       }
       return res;
     },
@@ -105,8 +95,8 @@ export default {
   watch: {
     "store.state.watcher": function () {
       const val = this.getStoreValue();
-      if (val !== this.valueStore) {
-        this.valueStore = val;
+      if (val !== this.value) {
+        this.value = val;
       }
     },
   },

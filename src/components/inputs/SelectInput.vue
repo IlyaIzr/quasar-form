@@ -55,7 +55,7 @@ export default {
   },
   data() {
     return {
-      valueStore: this.getStoreValue(),
+      value: this.getStoreValue(),
       localOptions: this.getStoreOptions(),
       rules: this.checkRules(this.rest.rules, this.rest.required),
       archiveRest: { ...this.rest },
@@ -75,12 +75,12 @@ export default {
       this.localOptions &&
         this.localOptions.map((option) => {
           const noObserver = { ...option };
-          if (this.valueStore === noObserver.id)
+          if (this.value === noObserver.id)
             res = { label: noObserver.name, value: noObserver.id };
         });
       // if (!res)
       //   console.log(
-      //     "option " + this.valueStore + "wasnt found in options",
+      //     "option " + this.value + "wasnt found in options",
       //     this.localOptions
       //   );
       return res;
@@ -102,7 +102,7 @@ export default {
           this.rest.multiIndex
         );
       else store.updateKeyValue(this.keyName, noObserver);
-      this.valueStore = this.getStoreValue();
+      this.value = this.getStoreValue();
     },
     storeOptions(val) {
       let noObserver = val ? [...val] : [];
@@ -114,7 +114,7 @@ export default {
           this.rest.multiIndex
         );
       else optionsStore.setOptions(this.keyName, noObserver);
-      this.valueStore = this.getStoreOptions();
+      this.value = this.getStoreOptions();
     },
     input(val) {
       this.onInput(val);
@@ -221,8 +221,8 @@ export default {
   watch: {
     "store.state.watcher": function () {
       const val = this.getStoreValue();
-      if (val !== this.valueStore) {
-        this.valueStore = val;
+      if (val !== this.value) {
+        this.value = val;
       }
     },
   },

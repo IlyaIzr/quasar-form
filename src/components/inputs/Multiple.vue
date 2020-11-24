@@ -1,11 +1,11 @@
 <template>
   <div class="q-my-md" v-if="rest.visible === undefined ? true : rest.visible">
     <p class="text-subtitle1 q-mb-none">{{ rest.label }}</p>
-    <div v-for="(item, index) in valueStore" v-bind:key="item.key" class="col">
+    <div v-for="(item, index) in value" v-bind:key="item.key" class="col">
       <FieldMapper
         :fields="rest.fields || []"
         :multiKey="multiKey"
-        :values="valueStore[index]"
+        :values="value[index]"
         :rowIndexMultiple="Number(index)"
       />
       <div class="col text-right">
@@ -29,7 +29,7 @@
     />
     <q-field
       ref="checkbox"
-      :value="valueStore.length"
+      :value="value.length"
       :rules="rest.rules"
       borderless
       dense
@@ -65,7 +65,7 @@ export default {
   },
   data() {
     return {
-      valueStore: this.store.getValueByKey(this.multiKey),
+      value: this.store.getValueByKey(this.multiKey),
       buttons: this.rest.buttons
         ? this.rest.buttons
         : { addField: {}, deleteField: {} },
@@ -77,20 +77,20 @@ export default {
   //     let res = "";
   //     const rulesArr = this.rest.rules;
   //     const f = rulesArr[0];
-  //     res = f(this.valueStore.length);
+  //     res = f(this.value.length);
   //     if (typeof res !== "boolean") res = false;
   //     return res;
   //   },
   // },
   methods: {
     deleteField(index) {
-      let res = [...this.valueStore];
+      let res = [...this.value];
       res.splice(index, 1);
-      this.valueStore = res;
+      this.value = res;
       store.deleteMultiField(this.multiKey, index);
     },
     addField() {
-      let fields = this.valueStore;
+      let fields = this.value;
       let res = {};
       //shouldAddPreviousValue ?
       if (!this.rest.shouldAddPreviousValue && this.rest.value[0]) {
@@ -104,7 +104,7 @@ export default {
       }
 
       fields.push(res);
-      this.valueStore = fields;
+      this.value = fields;
       store.updateKeyValue(this.multiKey, fields);
     },
     setConfig(arg1 = "", arg2) {
@@ -122,7 +122,7 @@ export default {
     },
     setValue(val) {
       this.updateKeyValue(this.multiKey, val);
-      this.valueStore = this.store.getValueByKey(this.multiKey)
+      this.value = this.store.getValueByKey(this.multiKey)
     },
     reset() {
       this.setConfig(this.archiveRest)

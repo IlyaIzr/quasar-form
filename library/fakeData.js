@@ -10,10 +10,6 @@ export const config = {
       value: "Can't touch this",
       required: true,
       requiredMessage: 'Fill the field', // Не знаю какое поставить по дефолту. Просто пустое?
-      onInput(vnode, value, field, vNodeStore) {
-        vnode.clear();
-        vnode.reset();
-      }
     },
 
     // Text input
@@ -63,6 +59,9 @@ export const config = {
           const vTarget = vNodeStore.getComponent('sendersKey132')
           vTarget.onInput(data)
           vTarget.setOptions(options)
+          vTarget.clear()
+          vTarget.reset()
+          vTarget.value
         }
       }
     },

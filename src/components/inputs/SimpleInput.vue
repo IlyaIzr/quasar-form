@@ -3,7 +3,7 @@
     <q-input
       v-if="rest.visible === undefined ? true : rest.visible"
       ref="input"
-      :value="valueStore"
+      :value="value"
       :label="rest.required ? (rest.label || '') + ' *' : rest.label"
       :type="type"
       :name="keyName"
@@ -51,7 +51,7 @@ export default {
   },
   data() {
     return {
-      valueStore: this.getStoreValue(),
+      value: this.getStoreValue(),
       rules: this.checkRules(this.rest.rules, this.rest.required),
       archiveRest: { ...this.rest },
     };
@@ -79,7 +79,7 @@ export default {
           this.rest.multiIndex
         );
       else store.updateKeyValue(this.keyName, val);
-      this.valueStore = this.getStoreValue();
+      this.value = this.getStoreValue();
     },
     getStoreValue() {
       let res;
@@ -131,24 +131,24 @@ export default {
       return res;
     },
     reset() {
-      this.setConfig(this.archiveRest)
-      this.setValue(this.archiveRest.value)
-      this.$nextTick(function(){
-        this.$refs.input.resetValidation()
-      })
+      this.setConfig(this.archiveRest);
+      this.setValue(this.archiveRest.value);
+      this.$nextTick(function () {
+        this.$refs.input.resetValidation();
+      });
     },
-    clear(){
-      this.setValue('')
-      this.$nextTick(function(){
-        this.$refs.input.resetValidation()
-      })
-    }
+    clear() {
+      this.setValue("");
+      this.$nextTick(function () {
+        this.$refs.input.resetValidation();
+      });
+    },
   },
   watch: {
     "store.state.watcher": function () {
       const val = this.getStoreValue();
-      if (val !== this.valueStore) {
-        this.valueStore = val;
+      if (val !== this.value) {
+        this.value = val;
       }
     },
   },

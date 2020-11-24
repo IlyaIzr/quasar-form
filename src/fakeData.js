@@ -9,8 +9,7 @@ export const config = {
       onInput(vnode, value, m, vNodeStore) {
         const sel2 = vNodeStore.get('select2')
         console.log(sel2)
-        sel2.setValue(true)
-        sel2.setConfig('label', 'new Lablo')
+        console.log(sel2.value)
       },
     },
     {
@@ -18,9 +17,6 @@ export const config = {
       value: 15,
       label: 'init label',
       required: true,
-      onInput(vnode, value, field, vNodeStore) {
-        vnode.clear()
-      }
     },
     {
       onInput(v, val, m, store){        

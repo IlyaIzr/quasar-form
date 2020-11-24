@@ -5,12 +5,12 @@
       ref="slider"
       :label="rest.required ? (rest.label || '') + ' *' : rest.label"
       :rules="rules"
-      :value="valueStore"
+      :value="value"
     >
       <q-slider
         v-if="rest.visible === undefined ? true : rest.visible"
         ref="input"
-        :value="valueStore"
+        :value="value"
         :name="keyName"
         :min="rest.min"
         :max="rest.max"
@@ -55,7 +55,7 @@ export default {
   },
   data() {
     return {
-      valueStore: Number(this.getStoreValue()),
+      value: Number(this.getStoreValue()),
       rules: this.checkRules(this.rest.rules, this.rest.required),
       archiveRest: { ...this.rest },
     };
@@ -80,7 +80,7 @@ export default {
           this.rest.multiIndex
         );
       else store.updateKeyValue(this.keyName, val);
-      this.valueStore = this.getStoreValue();
+      this.value = this.getStoreValue();
     },
     getStoreValue() {
       let res;
@@ -143,8 +143,8 @@ export default {
   watch: {
     "store.state.watcher": function () {
       const val = this.getStoreValue();
-      if (val !== this.valueStore) {
-        this.valueStore = val;
+      if (val !== this.value) {
+        this.value = val;
       }
     },
   },
