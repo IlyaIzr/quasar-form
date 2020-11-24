@@ -204,6 +204,14 @@ export default {
       });
     },
   },
+  watch: {
+    "store.state.watcher": function () {
+      const val = this.getStoreValue();
+      if (val !== this.valueStore) {
+        this.valueStore = val;
+      }
+    },
+  },
 };
 </script>
 

@@ -17,23 +17,15 @@ export const config = {
       key: 'select2', type: 'select', rowIndex: 2,
       options: [],
     },
+    {
+      value: 'pepser',      
+      onInput(vnode, value, m, vNodeStore) {
+        console.log('hop')
+        vnode.setValue(value + '*')
+      },
+    }
   ],
 
-  tabs: {
-    steps: [
-      { title: 'First', icon: 'settings' }, //Icon names: https://material.io/resources/icons/
-      { title: 'Second', icon: 'img:https://cdn.quasar.dev/logo/svg/quasar-logo.svg' }
-    ],
-    buttons: {  //Ovverrides default buttons
-      next: { text: 'next step' },
-      back: { text: 'go back', color: 'yellow', textColor: 'black' },
-      submit: { text: 'send' },
-      reset: false
-    },
-    tabNavigation: true,  //User can click on tabs
-    validateTabNavigation: true,
-    validateButtonNavigation: false,
-  },
 
   form: {
     async onSubmit(vNode, data, formMethods) {
