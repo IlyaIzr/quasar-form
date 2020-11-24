@@ -1,15 +1,21 @@
 <template>
   <div class="q-gutter-md">
-    <q-file 
+    <q-file
+      bottom-slots
       v-if="rest.visible === undefined ? true : rest.visible"
       ref="input"
       :label="rest.label"
-      :readonly="rest.readonly"
       :disable="rest.disable"
+      :clearable="rest.clearable === undefined ? true : rest.clearable"
       @blur="onBlur"
       @input="input"
-      :placeholder="rest.placeholder"
-    />
+    >
+      <template v-slot:prepend>
+        <q-icon name="cloud_upload" @click.stop />
+      </template>
+
+      <template v-slot:hint> {{ rest.hint }} </template>
+    </q-file>
   </div>
 </template>
 
@@ -51,7 +57,7 @@ export default {
       this.onInput(val);
     },
     storeValue(val) {
-      console.log(val)
+      console.log(val);
       if (this.rest.multiKey)
         store.updateKeyValue(
           this.keyName,

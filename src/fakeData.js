@@ -1,8 +1,11 @@
 export const config = {
   fields: [
-
+    // File
     {
-      type: 'file', key: 'fillo'
+      type: 'file', 
+      label: 'Upload',
+      hint: 'any image below 10000000mb',
+      clearable: false // true by default
     }
   ],
 

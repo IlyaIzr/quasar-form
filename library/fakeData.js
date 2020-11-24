@@ -135,6 +135,14 @@ export const config = {
       minHeight: '150px',
       maxHeight: '60vh',
     },
+    
+    // File
+    {
+      type: 'file', 
+      label: 'Upload',
+      hint: 'any image below 10000000mb',
+      clearable: false // true by default
+    },
 
     // Date    
     {

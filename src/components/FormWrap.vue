@@ -56,7 +56,7 @@ export default {
   },
   computed: {
     valuesResponse() {
-      let res = store.getStore();
+      let res = store.state;
       return res;
     },
   },
