@@ -86,7 +86,7 @@ import DateInput from "./inputs/DateInput";
 import Multiple from "./inputs/Multiple";
 import Html from "./inputs/Html";
 import Editor from "./inputs/Editor";
-import { store, vNodeStore } from "../store";
+import { optionsStore, store, vNodeStore } from "../store";
 
 export default {
   name: "InputSorter",
@@ -189,9 +189,9 @@ export default {
       } else this.isRendered = false;
     } else this.isRendered = true;
 
-    // Check if we need to store it at all
     if (this.inputInfo.type === "html") return null;
 
+    //Check if stored already
     if (this.isRendered && multiKey) {
       const isStoredAlready =
         store.getValueByKey(
@@ -200,7 +200,7 @@ export default {
           this.inputInfo.multiIndex
         ) !== undefined;
       if (isStoredAlready) return null;
-      // Store input value or multifield value
+      // Store value inside multyfield
       store.updateKeyValue(
         this.inputInfo.key,
         this.inputInfo.value,
@@ -208,9 +208,14 @@ export default {
         this.inputInfo.multiIndex
       );
     } else if (this.isRendered && !multiKey) {
+      // Set options if they're provided
+      if (this.inputInfo.options && this.inputInfo.options.length)
+        optionsStore.setOptions(this.inputInfo.key, this.inputInfo.options);
+      //Check if stored already
       const isStoredAlready =
         store.getValueByKey(this.inputInfo.key) !== undefined;
       if (isStoredAlready) return null;
+
       store.updateKeyValue(this.inputInfo.key, this.inputInfo.value);
     }
   },

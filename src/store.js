@@ -74,6 +74,24 @@ export const store = {
     }
   }
 }
+export const optionsStore = {
+  debug: false,
+  state: {
+    watcher: 'a'
+  },
+  setOptions(key, options) {
+    if (this.debug) console.log(`key ${key} recieved options`, options)
+    this.state[key] = options ? [...options] : []
+  },
+  getOptions(key) {
+    let value = this.state[key] || []
+    if (this.debug) console.log('key ' + key + ' request for options recieved. They are: ', value)
+    return [...value]
+  },
+  reset() {
+    this.state = { watcher: 'b' }
+  }
+}
 
 export const vNodeStore = {
   debug: false,

@@ -1,4 +1,3 @@
-  
 <template>
   <div class="q-gutter-md">
     <q-select
@@ -12,15 +11,27 @@
       :label="rest.required ? (rest.label || '') + ' *' : rest.label"
       :rules="rules"
       :clearable="rest.clearable === undefined ? true : rest.clearable"
+      v-bind:use-input="
+        rest.autocomplete === undefined ? true : rest.autocomplete
+      "
+      @filter="filterFn"
       @input="input"
       @focus="onFocus"
       @blur="onBlur"
-    />
+    >
+      <template v-slot:no-option>
+        <q-item>
+          <q-item-section class="text-grey">
+            {{ rest.noResultsMsg || "Нет результатов" }}
+          </q-item-section>
+        </q-item>
+      </template>
+    </q-select>
   </div>
 </template>
 
 <script>
-import { store } from "../../store";
+import { store, optionsStore } from "../../store";
 export default {
   name: "SelectInput",
   props: {
@@ -45,7 +56,7 @@ export default {
   data() {
     return {
       valueStore: this.getStoreValue(),
-      localOptions: this.options,
+      localOptions: optionsStore.getOptions(this.keyName),
       rules: this.checkRules(this.rest.rules, this.rest.required),
     };
   },
@@ -72,11 +83,6 @@ export default {
       //     this.localOptions
       //   );
       return res;
-    },
-    setProp(name = "", value) {
-      if (!name) console.log("WARNING! No prop name was given");
-      this.rest[name] = value;
-      this.$forceUpdate();
     },
   },
   methods: {
@@ -137,6 +143,7 @@ export default {
       return res;
     },
     setOptions(options) {
+      optionsStore.setOptions(this.keyName, options);
       this.localOptions = options;
     },
     setConfig(arg1 = "", arg2) {
@@ -154,6 +161,24 @@ export default {
     },
     setValue(val) {
       this.storeValue(val);
+    },
+
+    filterFn(input, update) {
+      if (input === "") {
+        update(() => {
+          this.localOptions = optionsStore.getOptions(this.keyName);
+        });
+        return;
+      }
+      update(() => {
+        const needle = input.toLocaleLowerCase();
+        let parsedOptions = this.localOptions.filter((v) => {
+          if (v.name.toLocaleLowerCase().indexOf(needle) > -1) {
+            return v;
+          }
+        });
+        this.localOptions = parsedOptions;
+      });
     },
   },
 };

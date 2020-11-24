@@ -42,6 +42,7 @@ export const config = {
       readonly: false,
       clearable: false, // true by default
       autocomplete: false, // true by default
+      noResultsMsg: 'No results', //autocomplete no-result message, 'Нет результатов' by default
     },
 
     //Select with async methods
