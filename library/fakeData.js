@@ -43,6 +43,9 @@ export const config = {
       clearable: false, // true by default
       autocomplete: false, // true by default
       noResultsMsg: 'No results', //autocomplete no-result message, 'Нет результатов' by default
+      
+      // multiple: true, // false by default
+      // value: [],   // value HAS TO BE ARRAY if multiple true
     },
 
     //Select with async methods
