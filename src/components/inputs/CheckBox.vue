@@ -47,6 +47,7 @@ export default {
     return {
       valueStore: this.getStoreValue(),
       rules: this.checkRules(this.rest.rules, this.rest.required),
+      archiveRest: { ...this.rest },
     };
   },
   methods: {
@@ -125,6 +126,19 @@ export default {
       } else res = this.rest.rules;
       return res;
     },
+    reset() {
+      this.setConfig(this.archiveRest)
+      this.setValue(this.archiveRest.value)
+      this.$nextTick(function(){
+        this.$refs.checkbox.resetValidation()
+      })
+    },
+    clear(){
+      this.setValue('')
+      this.$nextTick(function(){
+        this.$refs.checkbox.resetValidation()
+      })
+    }
   },
   watch: {
     "store.state.watcher": function () {

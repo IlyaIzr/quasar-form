@@ -1,4 +1,4 @@
-export const config = {
+const config = {
   fields: [
     {
       key: 'select', type: 'select', rowIndex: 1,
@@ -8,24 +8,23 @@ export const config = {
       value: 'bletter',
       onInput(vnode, value, m, vNodeStore) {
         const sel2 = vNodeStore.get('select2')
-        console.log(sel2)
-        sel2.setValue(true)
+        sel2.setOptions([ { name: 'A', id: 'aletter' },])
+        sel2.setValue('aletter')
         sel2.setConfig('label', 'new Lablo')
       },
     },
     {
-      key: 'select2', type: 'text', rowIndex: 2,
-      value: 15,
-      label: 'init label',
-      required: true,
-      onInput(vnode, value, field, vNodeStore) {
-        vnode.clear()
-      }
+      key: 'select2', type: 'select', rowIndex: 2,
+      options: [
+        { name: 'Oldo 1', id: 'o1' }, { name: 'Oldo 2', id: 'o2' }
+      ],
+      value: 'o2',
+      label: 'init label'
     },
     {
       onInput(v, val, m, store){        
         const sel2 = store.get('select2')
-        sel2.clear()
+        sel2.reset()
       }
     }
   ],

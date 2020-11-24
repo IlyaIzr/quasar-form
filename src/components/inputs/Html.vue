@@ -32,6 +32,7 @@ export default {
   data() {
     return {
       localValue: this.value,
+      archiveRest: { ...this.rest },
     };
   },
 
@@ -54,6 +55,10 @@ export default {
     },
     setValue(val) {
       this.localValue = val;
+    },
+    reset() {
+      this.setConfig(this.archiveRest)
+      this.setValue(this.archiveRest.value)
     },
   },
 };

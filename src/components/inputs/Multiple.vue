@@ -69,6 +69,7 @@ export default {
       buttons: this.rest.buttons
         ? this.rest.buttons
         : { addField: {}, deleteField: {} },
+      archiveRest: { ...this.rest },
     };
   },
   // computed: {
@@ -122,6 +123,10 @@ export default {
     setValue(val) {
       this.updateKeyValue(this.multiKey, val);
       this.valueStore = this.store.getValueByKey(this.multiKey)
+    },
+    reset() {
+      this.setConfig(this.archiveRest)
+      this.setValue(this.archiveRest.value)
     },
   },
 };

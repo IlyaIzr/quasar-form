@@ -40,6 +40,7 @@ export default {
   data() {
     return {
       valueStore: this.getStoreValue(),
+      archiveRest: { ...this.rest },
     };
   },
   methods: {
@@ -94,6 +95,10 @@ export default {
     },
     setValue(val) {
       this.storeValue(val);
+    },
+    reset() {
+      this.setConfig(this.archiveRest)
+      this.setValue(this.archiveRest.value)
     },
   },
   watch: {

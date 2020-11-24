@@ -9,7 +9,11 @@ export const config = {
       disable: true,
       value: "Can't touch this",
       required: true,
-      requiredMessage: 'Fill the field' // Не знаю какое поставить по дефолту. Просто пустое?
+      requiredMessage: 'Fill the field', // Не знаю какое поставить по дефолту. Просто пустое?
+      onInput(vnode, value, field, vNodeStore) {
+        vnode.clear();
+        vnode.reset();
+      }
     },
 
     // Text input
@@ -128,17 +132,17 @@ export const config = {
 
     // Editor 
     {
-      type: 'editor', 
+      type: 'editor',
       value: '<b>B</b>enis',
       placeholder: 'Type here',
       readonly: false,
       minHeight: '150px',
       maxHeight: '60vh',
     },
-    
+
     // File
     {
-      type: 'file', 
+      type: 'file',
       label: 'Upload',
       hint: 'any image below 10000000mb',
       clearable: false // true by default
@@ -284,7 +288,7 @@ export const config = {
   },
 
   title: 'Form title',
-  
+
   localization: 'en-us' // Default 'ru'. See https://github.com/quasarframework/quasar/blob/dev/ui/lang/uk.js
 }
 

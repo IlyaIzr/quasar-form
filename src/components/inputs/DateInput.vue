@@ -91,6 +91,7 @@ export default {
       valueStore: this.getStoreValue(),
       fuckenMask: 1,
       rules: this.checkRules(this.rest.rules, this.rest.required),
+      archiveRest: { ...this.rest },
     };
   },
   computed: {
@@ -205,6 +206,19 @@ export default {
       } else res = this.rest.rules;
       return res;
     },
+    reset() {
+      this.setConfig(this.archiveRest)
+      this.setValue(this.archiveRest.value)
+      this.$nextTick(function(){
+        this.$refs.input.resetValidation()
+      })
+    },
+    clear(){
+      this.setValue('')
+      this.$nextTick(function(){
+        this.$refs.input.resetValidation()
+      })
+    }
   },
   watch: {
     "store.state.watcher": function () {

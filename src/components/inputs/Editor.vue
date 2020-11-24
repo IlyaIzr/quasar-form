@@ -42,6 +42,7 @@ export default {
     return {
       valueStore: this.getStoreValue(),
       lang: this.rest.localization || "ru",
+      archiveRest: { ...this.rest },
     };
   },
   methods: {
@@ -96,6 +97,13 @@ export default {
     setValue(val) {
       this.storeValue(val);
     },
+    reset() {
+      this.setConfig(this.archiveRest)
+      this.setValue(this.archiveRest.value)
+    },
+    clear(){
+      this.setValue('')
+    }
   },
   watch: {
     "store.state.watcher": function () {

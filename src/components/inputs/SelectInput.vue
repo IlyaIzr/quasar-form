@@ -58,6 +58,7 @@ export default {
       valueStore: this.getStoreValue(),
       localOptions: this.getStoreOptions(),
       rules: this.checkRules(this.rest.rules, this.rest.required),
+      archiveRest: { ...this.rest },
     };
   },
   computed: {
@@ -185,7 +186,6 @@ export default {
     setValue(val) {
       this.storeValue(val);
     },
-
     filterFn(input, update) {
       if (input === "") {
         update(() => {
@@ -203,6 +203,20 @@ export default {
         this.localOptions = parsedOptions;
       });
     },
+    reset() {
+      this.setConfig(this.archiveRest)
+      this.setOptions(this.archiveRest.options)
+      this.setValue(this.archiveRest.value)
+      this.$nextTick(function(){
+        this.$refs.input.resetValidation()
+      })
+    },
+    clear(){
+      this.setValue('')
+      this.$nextTick(function(){
+        this.$refs.input.resetValidation()
+      })
+    }
   },
   watch: {
     "store.state.watcher": function () {
