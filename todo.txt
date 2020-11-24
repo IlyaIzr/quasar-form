@@ -13,3 +13,9 @@ const mask = createMask(config)
 mask.resolve('value')
 
 date with input clearable
+
+
+pass value store or getValue through component = vNodeStore.get('key')
+
+reset - restore default fields values
+clear - setValue(''), but without validation

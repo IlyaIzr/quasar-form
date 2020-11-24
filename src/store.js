@@ -43,6 +43,19 @@ export const store = {
     }
     this.state.watcher = value + String(new Date)
   },
+  updateFile(key, value, multiKey = "", fieldNumber = "") {
+    if (!multiKey) {
+      if (this.debug) console.log(`key ${key} recieved value`, value)
+      this.state[key] = value
+    } else {
+      if (this.debug) console.log(`multiKeys ${multiKey} field ${fieldNumber} updated key ${key} with `, value)
+      // this thingy stops from making observers
+      this.state[multiKey] = [...this.state[multiKey]]
+      this.state[multiKey][fieldNumber] = { ...this.state[multiKey][fieldNumber] }
+      this.state[multiKey][fieldNumber][key] = value
+    }
+    this.state.watcher = value + String(new Date)
+  },
   getValueByKey(key, multiKey = "", fieldNumber = "") {
     let value
     if (!multiKey) {

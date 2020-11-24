@@ -1,29 +1,22 @@
 <template>
   <div class="q-gutter-md">
-    <p class="text-subtitle1 q-mb-none">{{ rest.label }}</p>
-    <q-editor
+    <q-file 
       v-if="rest.visible === undefined ? true : rest.visible"
       ref="input"
-      :value="valueStore"
+      :label="rest.label"
       :readonly="rest.readonly"
       :disable="rest.disable"
-      :min-height="rest.minHeight"
-      :max-height="rest.maxHeight"
-      :height="rest.height"
-      :toolbar="rest.toolbar"
-      @focus="onFocus"
       @blur="onBlur"
       @input="input"
       :placeholder="rest.placeholder"
     />
-    <!-- TODO clearable btn -->
   </div>
 </template>
 
 <script>
 import { store } from "../../store";
 export default {
-  name: "Editor",
+  name: "File",
   props: {
     keyName: {
       type: String,
@@ -41,7 +34,6 @@ export default {
   data() {
     return {
       valueStore: this.getStoreValue(),
-      lang: this.rest.localization || "ru",
     };
   },
   methods: {
@@ -59,6 +51,7 @@ export default {
       this.onInput(val);
     },
     storeValue(val) {
+      console.log(val)
       if (this.rest.multiKey)
         store.updateKeyValue(
           this.keyName,

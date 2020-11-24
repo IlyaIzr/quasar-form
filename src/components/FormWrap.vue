@@ -120,6 +120,9 @@ export default {
     async reset() {
       this.onReset();
     },
+    async clear() {
+      this.onReset();
+    },
     async submit() {
       this.onSubmit();
     },

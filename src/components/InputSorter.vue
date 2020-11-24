@@ -74,6 +74,16 @@
       @focus="onFocus"
       @blur="onBlur"
     />
+    <File
+      v-if="inputType === 'file'"
+      :keyName="inputInfo.key"
+      :rest="inputInfo"
+      :value="inputInfo.value"
+      :store="store"
+      @input="onInput"
+      @focus="onFocus"
+      @blur="onBlur"
+    />
   </div>
 </template>
 
@@ -86,6 +96,7 @@ import DateInput from "./inputs/DateInput";
 import Multiple from "./inputs/Multiple";
 import Html from "./inputs/Html";
 import Editor from "./inputs/Editor";
+import File from "./inputs/File";
 import { optionsStore, store, vNodeStore } from "../store";
 
 export default {
@@ -112,6 +123,7 @@ export default {
     Multiple,
     Html,
     Editor,
+    File,
   },
   computed: {
     inputType: function () {
@@ -124,7 +136,6 @@ export default {
         "email",
         "search",
         "tel",
-        "file",
         "number",
         "url",
         "timedate",
@@ -160,6 +171,10 @@ export default {
             break;
           case "editor":
             inputType = "editor";
+            return inputType;
+            break;
+          case "file":
+            inputType = "file";
             return inputType;
             break;
 

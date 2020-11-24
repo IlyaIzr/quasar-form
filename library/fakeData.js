@@ -202,7 +202,7 @@ export const config = {
     async onSubmit(vNode, data, formMethods) {
       console.log('submited', vNode)
       console.log('submited', data)
-      // vNode.reset()  //Reset form
+      // vNode.clear()  // Clear form
       // vNode.$q.notify({  // Any notification. See more https://quasar.dev/quasar-plugins/notify#Introduction
       //   color: "green-4",
       //   textColor: "white",
