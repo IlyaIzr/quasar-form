@@ -56,7 +56,7 @@ export default {
   data() {
     return {
       valueStore: this.getStoreValue(),
-      localOptions: optionsStore.getOptions(this.keyName),
+      localOptions: this.getStoreOptions(),
       rules: this.checkRules(this.rest.rules, this.rest.required),
     };
   },
@@ -100,8 +100,20 @@ export default {
           this.rest.multiKey,
           this.rest.multiIndex
         );
-      else this.store.updateKeyValue(this.keyName, noObserver);
+      else store.updateKeyValue(this.keyName, noObserver);
       this.valueStore = this.getStoreValue();
+    },
+    storeOptions(val) {
+      let noObserver = val ? [...val] : [];
+      if (this.rest.multiKey)
+        optionsStore.setOptions(
+          this.keyName,
+          noObserver,
+          this.rest.multiKey,
+          this.rest.multiIndex
+        );
+      else optionsStore.setOptions(this.keyName, noObserver);
+      this.valueStore = this.getStoreOptions();
     },
     input(val) {
       this.onInput(val);
@@ -142,6 +154,17 @@ export default {
       else res = store.getValueByKey(this.keyName);
       return res;
     },
+    getStoreOptions() {
+      let res;
+      if (this.rest.multiKey)
+        res = optionsStore.getOptions(
+          this.keyName,
+          this.rest.multiKey,
+          this.rest.multiIndex
+        );
+      else res = optionsStore.getOptions(this.keyName);
+      return res;
+    },
     setOptions(options) {
       optionsStore.setOptions(this.keyName, options);
       this.localOptions = options;
@@ -166,7 +189,7 @@ export default {
     filterFn(input, update) {
       if (input === "") {
         update(() => {
-          this.localOptions = optionsStore.getOptions(this.keyName);
+          this.localOptions = this.getStoreOptions();
         });
         return;
       }

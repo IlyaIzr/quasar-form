@@ -191,8 +191,13 @@ export default {
 
     if (this.inputInfo.type === "html") return null;
 
+    // CASE MULTIKEY
     //Check if stored already
     if (this.isRendered && multiKey) {
+      // Set options if they're provided
+      if (this.inputInfo.options && this.inputInfo.options.length)
+        optionsStore.setOptions(this.inputInfo.key, this.inputInfo.options);
+
       const isStoredAlready =
         store.getValueByKey(
           this.inputInfo.key,
@@ -207,6 +212,8 @@ export default {
         multiKey,
         this.inputInfo.multiIndex
       );
+
+      // CASE SINGLE KEY
     } else if (this.isRendered && !multiKey) {
       // Set options if they're provided
       if (this.inputInfo.options && this.inputInfo.options.length)

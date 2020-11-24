@@ -76,20 +76,30 @@ export const store = {
 }
 export const optionsStore = {
   debug: false,
-  state: {
-    watcher: 'a'
+  state: {},
+  setOptions(key, options, multiKey = "", fieldNumber = "") {
+    if (!multiKey) {
+      if (this.debug) console.log(`key ${key} recieved options`, options)
+      this.state[key] = options ? [...options] : []
+    } else {
+      if (this.debug) console.log(`multiKeys ${multiKey} field ${fieldNumber} updated key ${key} options`, options)
+      this.state[multiKey] = [...this.state[multiKey]]
+      this.state[multiKey][fieldNumber] = { ...this.state[multiKey][fieldNumber] }
+      this.state[multiKey][fieldNumber][key] = options
+    }
   },
-  setOptions(key, options) {
-    if (this.debug) console.log(`key ${key} recieved options`, options)
-    this.state[key] = options ? [...options] : []
-  },
-  getOptions(key) {
-    let value = this.state[key] || []
+  getOptions(key, multiKey = "", fieldNumber = "") {
+    let value
+    if (!multiKey) {
+      value = this.state[key] || []
+    } else {
+      value = this.state[multiKey] && this.state[multiKey][fieldNumber] && this.state[multiKey][fieldNumber][key]
+    }
     if (this.debug) console.log('key ' + key + ' request for options recieved. They are: ', value)
     return [...value]
   },
   reset() {
-    this.state = { watcher: 'b' }
+    this.state = {}
   }
 }
 
