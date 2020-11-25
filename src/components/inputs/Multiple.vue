@@ -90,7 +90,7 @@ export default {
       store.deleteMultiField(this.multiKey, index);
     },
     addField() {
-      let fields = this.value;
+      let fields = [...this.value];
       let res = {};
       //shouldAddPreviousValue ?
       if (!this.rest.shouldAddPreviousValue && this.rest.value[0]) {
@@ -102,10 +102,10 @@ export default {
           res[field.key] = field.value || "";
         });
       }
-
       fields.push(res);
+
       this.value = fields;
-      store.updateKeyValue(this.multiKey, fields);
+      // store.updateKeyValue(this.multiKey, fields);
     },
     setConfig(arg1 = "", arg2) {
       if (arguments.length === 2) {

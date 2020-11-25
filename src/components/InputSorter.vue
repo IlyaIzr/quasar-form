@@ -211,7 +211,7 @@ export default {
     if (this.isRendered && multiKey) {
       // Set options if they're provided
       if (this.inputInfo.options && this.inputInfo.options.length)
-        optionsStore.setOptions(this.inputInfo.key, this.inputInfo.options);
+        optionsStore.setOptions(this.inputInfo.key, this.inputInfo.options, multiKey, this.inputInfo.multiIndex);
 
       const isStoredAlready =
         store.getValueByKey(

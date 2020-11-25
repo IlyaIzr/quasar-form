@@ -95,9 +95,10 @@ export const optionsStore = {
       if (this.debug) console.log(`key ${key} recieved options`, options)
       this.state[key] = options ? [...options] : []
     } else {
-      if (this.debug) console.log(`multiKeys ${multiKey} field ${fieldNumber} updated key ${key} options`, options)
-      this.state[multiKey] = [...this.state[multiKey]]
-      this.state[multiKey][fieldNumber] = { ...this.state[multiKey][fieldNumber] }
+      // if (this.debug) 
+      console.log(`multiKeys ${multiKey} field ${fieldNumber} updated key ${key} options`, options)
+      this.state[multiKey] = []
+      this.state[multiKey][fieldNumber] = []
       this.state[multiKey][fieldNumber][key] = options
     }
   },
@@ -106,7 +107,9 @@ export const optionsStore = {
     if (!multiKey) {
       value = this.state[key] || []
     } else {
-      value = this.state[multiKey] && this.state[multiKey][fieldNumber] && this.state[multiKey][fieldNumber][key]
+      value = this.state[multiKey] && this.state[multiKey][fieldNumber] && this.state[multiKey][fieldNumber][key] || []
+      let value2 = this.state
+      console.log(value2)
     }
     if (this.debug) console.log('key ' + key + ' request for options recieved. They are: ', value)
     return [...value]
