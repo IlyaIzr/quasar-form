@@ -1,24 +1,24 @@
 export const config = {
   fields: [
-    // {
-    //   key: 'select', type: 'select', rowIndex: 1,
-    //   options: [
-    //     { name: 'A', id: 'aletter' }, { name: 'B', id: 'bletter' }, { name: 'C', id: 'cletter' }
-    //   ],
-    //   label: 'false'
+    {
+      key: 'select', type: 'select', rowIndex: 1,
+      options: [
+        { name: 'A', id: 'aletter' }, { name: 'B', id: 'bletter' }, { name: 'C', id: 'cletter' }
+      ],
+      label: 'false'
 
       // onInput(vnode, value, m, vNodeStore) {
       //   const sel2 = vNodeStore.get('select2')
       //   console.log(sel2)
       //   console.log(sel2.value)
       // },
-    // },
-    {
-      key: 'select2', type: 'number', rowIndex: 2,
-      value: 15,
-      // label: 'init label',
-      // required: true,
     },
+    // {
+    //   key: 'select2', type: 'checkbox', rowIndex: 2,
+    //   value: 15,
+    //   // label: 'init label',
+    //   // required: true,
+    // },
     // {
     //   onInput(v, val, m, store) {
     //     const sel2 = store.get('select2')

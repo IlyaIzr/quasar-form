@@ -113,36 +113,29 @@ export default {
         this.rest.label = this.rest.label ? this.rest.label + " *" : " *";
         if (typeof rules === "object") {
           res = [
-            // typeof because input stuff gives me [] as def empty value
-            (val) =>
-              (val && typeof val === "boolean") ||
-              this.rest.requiredMessage ||
-              "Please fill",
+            (val) => Boolean(val) || this.rest.requiredMessage || "Please fill",
             ...this.rest.rules,
           ];
         } else
           res = [
-            (val) =>
-              (val && typeof val === "boolean") ||
-              this.rest.requiredMessage ||
-              "Please fill",
+            (val) => Boolean(val) || this.rest.requiredMessage || "Please fill",
           ];
       } else res = this.rest.rules;
       return res;
     },
     reset() {
-      this.setConfig(this.archiveRest)
-      this.setValue(this.archiveRest.value)
-      this.$nextTick(function(){
-        this.$refs.checkbox.resetValidation()
-      })
+      this.setConfig(this.archiveRest);
+      this.setValue(this.archiveRest.value);
+      this.$nextTick(function () {
+        this.$refs.checkbox.resetValidation();
+      });
     },
-    clear(){
-      this.setValue('')
-      this.$nextTick(function(){
-        this.$refs.checkbox.resetValidation()
-      })
-    }
+    clear() {
+      this.setValue("");
+      this.$nextTick(function () {
+        this.$refs.checkbox.resetValidation();
+      });
+    },
   },
   watch: {
     "store.state.watcher": function () {

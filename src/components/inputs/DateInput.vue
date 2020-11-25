@@ -186,11 +186,11 @@ export default {
         this.rest.label = this.rest.label ? this.rest.label + " *" : " *";
         if (typeof rules === "object") {
           res = [
-            (val) => val || this.rest.requiredMessage || "Please fill",
+            (val) => Boolean(val) || this.rest.requiredMessage || "Please fill",
             ...this.rest.rules,
           ];
         } else
-          res = [(val) => val || this.rest.requiredMessage || "Please fill"];
+          res = [(val) => Boolean(val) || this.rest.requiredMessage || "Please fill"];
       } else res = this.rest.rules;
       return res;
     },

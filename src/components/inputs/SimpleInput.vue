@@ -118,11 +118,11 @@ export default {
         if (typeof rules === "object") {
           res = [
             // typeof because input stuff gives me [] as def empty value
-            (val) => val || this.rest.requiredMessage || "Please fill",
+            (val) => Boolean(val) || this.rest.requiredMessage || "Please fill",
             ...this.rest.rules,
           ];
         } else
-          res = [(val) => val || this.rest.requiredMessage || "Please fill"];
+          res = [(val) => Boolean(val) || this.rest.requiredMessage || "Please fill"];
       } else res = this.rest.rules;
       return res;
     },
