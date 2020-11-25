@@ -3,20 +3,12 @@ export const config = {
     {
       key: 'select', type: 'select', rowIndex: 1,
       options: [
-        { name: 'A', id: 'aletter' }, { name: 'B', id: 'bletter' }, { name: 'C', id: 'cletter' }
+        { name: 'Ab 1', id: 'aletter' }, { name: 'Bd 2', id: 'bletter' }, { name: 'Cs 3', id: 'cletter' }
       ],
-      label: 'false',
-
-      onInput(vnode, value, m, vNodeStore) {
-        const sel2 = vNodeStore.get('select2')
-        sel2.setConfig('label', 'new label')
-      },
-    },
-    {
-      key: 'select2', type: 'text', rowIndex: 2,
-      value: 15,
-      label: 'init label',
-      // required: true,
+      label: 'Pesting',
+      autocomplete: true,
+      multiple: true,
+      value: []
     },
   ],
 

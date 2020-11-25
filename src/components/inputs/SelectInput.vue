@@ -17,8 +17,8 @@
           : rest.autocomplete
       "
       :multiple="rest.multiple"
-      @filter="filterFn"
       @input="input"
+      @input-value="inputValue"
       @focus="onFocus"
       @blur="onBlur"
     >
@@ -142,10 +142,23 @@ export default {
           this.rest.multiIndex
         );
       else optionsStore.setOptions(this.keyName, noObserver);
-      this.value = this.getStoreOptions();
     },
     input(val) {
       this.onInput(val);
+    },
+    inputValue(val) {
+      const needle = val.toLocaleLowerCase();
+      let newOptions = this.getStoreOptions();
+      if (val)
+        newOptions = this.localOptions.filter((v) => {
+          if (v.name.toLocaleLowerCase().indexOf(needle) > -1) {
+            return v;
+          }
+        });
+      this.localOptions = newOptions;
+      this.$nextTick(function () {
+        this.$refs.input.resetValidation();
+      });
     },
     onInput(val) {
       this.storeValue(val);
@@ -220,23 +233,6 @@ export default {
     },
     setValue(val) {
       this.storeValue(val);
-    },
-    filterFn(input, update) {
-      if (input === "") {
-        update(() => {
-          this.localOptions = this.getStoreOptions();
-        });
-        return;
-      }
-      update(() => {
-        const needle = input.toLocaleLowerCase();
-        let parsedOptions = this.localOptions.filter((v) => {
-          if (v.name.toLocaleLowerCase().indexOf(needle) > -1) {
-            return v;
-          }
-        });
-        this.localOptions = parsedOptions;
-      });
     },
     reset() {
       this.setConfig(this.archiveRest);
