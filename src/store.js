@@ -78,7 +78,7 @@ export const store = {
     this.state[multiKey] = n
     this.state.watcher = 'deleted' + multiKey + String(new Date)
   },
-  resetStore(exeptionKey = '') {
+  clearStore(exeptionKey = '') {
     if (this.debug) console.log('store was reseted')
     // let empty = {}
     for (const [key, value] of Object.entries(this.state)) {
@@ -132,4 +132,9 @@ export const vNodeStore = {
   get(key) {
     return this.getComponent(key)
   },
+  resetComponents(){    
+    for (const [key] of Object.entries(this.state)) {
+      this.state[key].$children[0].reset()
+    }
+  }
 }

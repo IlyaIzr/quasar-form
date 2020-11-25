@@ -5,26 +5,19 @@ export const config = {
       options: [
         { name: 'A', id: 'aletter' }, { name: 'B', id: 'bletter' }, { name: 'C', id: 'cletter' }
       ],
-      label: 'false'
+      label: 'false',
 
-      // onInput(vnode, value, m, vNodeStore) {
-      //   const sel2 = vNodeStore.get('select2')
-      //   console.log(sel2)
-      //   console.log(sel2.value)
-      // },
+      onInput(vnode, value, m, vNodeStore) {
+        const sel2 = vNodeStore.get('select2')
+        sel2.setConfig('label', 'new label')
+      },
     },
-    // {
-    //   key: 'select2', type: 'checkbox', rowIndex: 2,
-    //   value: 15,
-    //   // label: 'init label',
-    //   // required: true,
-    // },
-    // {
-    //   onInput(v, val, m, store) {
-    //     const sel2 = store.get('select2')
-    //     sel2.clear()
-    //   }
-    // }
+    {
+      key: 'select2', type: 'text', rowIndex: 2,
+      value: 15,
+      label: 'init label',
+      // required: true,
+    },
   ],
 
 
@@ -36,6 +29,15 @@ export const config = {
       console.log('validation error', errorComponent)
     },
   },
+  
+  buttons: [  // buttons NOT required
+    {
+      type: 'submit', // required IF buttons declared
+      label: 'отправить', color: 'primary', class: 'customClassName' //not required
+    },
+    { type: 'reset', label: 'reset' },  // reset button not required
+    { type: 'close', label: 'x' },
+  ],
 
   title: 'Development mode'
 }

@@ -2,11 +2,20 @@
   <div class="q-my-sm">
     <q-btn
       v-if="resBtn.type"
-      :label="resBtn.label"
       type="reset"
+      :label="resBtn.label"
       :color="resBtn.color"
       :text-color="resBtn.textColor"
       :class="resBtn.class"
+    />
+    <q-btn
+      v-if="clearBtn.type"
+      @click="$emit('clear')"
+      type="button"
+      :label="clearBtn.label"
+      :color="clearBtn.color"
+      :text-color="clearBtn.textColor"
+      :class="clearBtn.class"
     />
     <q-btn
       :label="subBtn.label"
@@ -60,6 +69,16 @@ export default {
       let res = {};
       this.buttons.map((btn) => {
         if (btn.type === "reset") {
+          !btn.color ? (btn.color = "primary") : null;
+          res = { ...btn };
+        }
+      });
+      return res;
+    },
+    clearBtn() {
+      let res = {};
+      this.buttons.map((btn) => {
+        if (btn.type === "clear") {
           !btn.color ? (btn.color = "primary") : null;
           res = { ...btn };
         }

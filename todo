@@ -1,0 +1,21 @@
+=-=-=-=-=_ Todo _=-=-=-=-=
+
+mask extention
+qdecimal or https://codepen.io/pdanpdan/pen/KKKrwbe?editors=1010
+
+
+check prop names unity in fields
+
+pure calendar validation
+
+const mask = createMask(config)
+
+mask.resolve('value')
+
+date with input clearable
+
+
+=-=-=-=-=_ Done list _=-=-=-=-=
+25.11.2020
+* default required fields and rules fix
+* form reset() and clear() methods, form.onReset() and form.onClear() listeners in config. Clear button type added

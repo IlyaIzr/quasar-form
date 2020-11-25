@@ -24,7 +24,12 @@
         :settings="settings"
       />
 
-      <Buttons :buttons="settings.buttons" :modal="settings.modal" v-if="!settings.tabs"/>
+      <Buttons
+        :buttons="settings.buttons"
+        :modal="settings.modal"
+        v-if="!settings.tabs"
+        @clear="onClear"
+      />
     </q-form>
   </q-card>
 </template>
@@ -32,7 +37,7 @@
 <script>
 import FieldMapper from "./FieldMapper";
 import Buttons from "./Buttons";
-import { store } from "../store";
+import { store, vNodeStore } from "../store";
 export default {
   name: "FormWrap",
   components: {
@@ -81,6 +86,19 @@ export default {
       }
     },
     async onReset() {
+      let cb;
+      if (this.form.onReset) {
+        const res = await this.form.onReset(
+          this,
+          { ...this.valuesResponse },
+          this.$refs.form
+        );
+        cb = res && res.cb;
+      }
+      vNodeStore.resetComponents();
+      if (cb && typeof cb === "function") cb(this);
+    },
+    async onClear() {
       let exeption;
       let cb;
       if (this.form.onClear) {
@@ -92,8 +110,11 @@ export default {
         exeption = res && res.exeption;
         cb = res && res.cb;
       }
-      store.resetStore(exeption);
+      store.clearStore(exeption);
       if (cb && typeof cb === "function") cb(this);
+      this.$nextTick(() => {
+        this.$refs.form.resetValidation();
+      });
     },
     async onValidateSuccess() {
       if (this.form.onValidateSuccess) {
@@ -133,11 +154,13 @@ export default {
       const cb = await this.form.onMount(this, this.$refs.form);
       if (cb && typeof cb === "function") cb(this);
     }
-  },  
+  },
   beforeMount() {
-    import("quasar/lang/" + (this.settings.localization || 'ru')).then((lang) => {
-      this.$q.lang.set(lang.default);
-    });
+    import("quasar/lang/" + (this.settings.localization || "ru")).then(
+      (lang) => {
+        this.$q.lang.set(lang.default);
+      }
+    );
   },
 };
 </script>

@@ -208,7 +208,8 @@ export const config = {
       label: 'отправить', color: 'primary', class: 'customClassName' //not required
     },
     { type: 'reset', label: 'сбросить' },  // reset button not required
-    { type: 'close', label: 'x' },
+    { type: 'close', label: 'x' },    
+    { type: 'clear', label: 'очистить' },  // not required
   ],
 
   form: {
