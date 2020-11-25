@@ -19,3 +19,4 @@ date with input clearable
 25.11.2020
 * default required fields and rules fix
 * form reset() and clear() methods, form.onReset() and form.onClear() listeners in config. Clear button type added
+* autocomplete perfomance improvment

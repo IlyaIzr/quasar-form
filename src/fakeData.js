@@ -3,12 +3,12 @@ export const config = {
     {
       key: 'select', type: 'select', rowIndex: 1,
       options: [
-        { name: 'Ab 1', id: 'aletter' }, { name: 'Bd 2', id: 'bletter' }, { name: 'Cs 3', id: 'cletter' }
+        { name: 'Ab 1', id: 'aletter' }, { name: 'Bd 2', id: 'bletter' }, { name: 'Cs 3', id: 'cletter' }, { name: 'Dd 3', id: 'dletter' }
       ],
       label: 'Pesting',
       autocomplete: true,
       multiple: true,
-      value: []
+      value: ['cletter', 'dletter']
     },
   ],
 

@@ -18,7 +18,7 @@
       "
       :multiple="rest.multiple"
       @input="input"
-      @input-value="inputValue"
+      @input-value="shortOptions"
       @focus="onFocus"
       @blur="onBlur"
     >
@@ -77,32 +77,35 @@ export default {
       return arr;
     },
     parsedValue() {
+      let res = "";
+      res = this.parseValue(this.value, this.localOptions);
+      return res;
+    },
+  },
+  methods: {
+    parseValue(value, options) {
       let res = [];
-      this.localOptions &&
-        this.localOptions.map((option) => {
+      options &&
+        options.map((option) => {
           const noObserver = { ...option };
+
           // CASE single value
-          if (this.value === noObserver.id)
+          if (value === noObserver.id)
             res = { label: noObserver.name, value: noObserver.id };
           // CASE multivalue
-          else if (
-            typeof this.value === "object" &&
-            this.value.hasOwnProperty(length)
-          ) {
-            let ops = this.value.filter((value) => value === noObserver.id);
+          else if (typeof value === "object" && value.hasOwnProperty(length)) {
+            let ops = value.filter((val) => val === noObserver.id);
             if (ops[0])
               res.push({ label: noObserver.name, value: noObserver.id });
           }
         });
       // if (!res)
       //   console.log(
-      //     "option " + this.value + "wasnt found in options",
-      //     this.localOptions
+      //     "option " + value + "wasnt found in options",
+      //     options
       //   );
       return res;
     },
-  },
-  methods: {
     storeValue(val) {
       let noObserver =
         val && typeof val === "object"
@@ -144,9 +147,30 @@ export default {
       else optionsStore.setOptions(this.keyName, noObserver);
     },
     input(val) {
-      this.onInput(val);
+      if (val && this.rest.multiple) {
+        // check what values aren't in current options, to delete them later
+        const valToDelete = this.parsedOptions.filter(
+          ({ value: id1 }) => !val.some(({ value: id2 }) => id2 === id1)
+        );
+
+        const prevValue = this.parseValue(this.value, this.getStoreOptions());
+
+        const filteredPrev = prevValue.filter(
+          ({ value: id1 }) => !valToDelete.some(({ value: id2 }) => id2 === id1)
+        );
+
+        const connected = filteredPrev.concat(val);
+
+        const uniqueArray = (a) =>
+          [...new Set(a.map((o) => JSON.stringify(o)))].map((s) =>
+            JSON.parse(s)
+          );
+        const filtered = uniqueArray(connected);
+        this.onInput(filtered);
+      } else if (this.rest.multiple) this.onInput([]);
+      else this.onInput(val);
     },
-    inputValue(val) {
+    shortOptions(val) {
       const needle = val.toLocaleLowerCase();
       let newOptions = this.getStoreOptions();
       if (val)
@@ -178,6 +202,7 @@ export default {
           res = [
             (val) =>
               (val.value && val.value.length) ||
+              (val.length && val[0].value && val[0].value.length) ||
               this.rest.requiredMessage ||
               "Please select option",
             ...this.rest.rules,
@@ -186,6 +211,7 @@ export default {
           res = [
             (val) =>
               (val.value && val.value.length) ||
+              (val.length && val[0].value && val[0].value.length) ||
               this.rest.requiredMessage ||
               "Please select option",
           ];
