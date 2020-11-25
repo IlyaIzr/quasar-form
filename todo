@@ -20,3 +20,5 @@ date with input clearable
 * default required fields and rules fix
 * form reset() and clear() methods, form.onReset() and form.onClear() listeners in config. Clear button type added
 * autocomplete perfomance improvment
+* autocomplete with multiple options solved
+* tabs fixes and clear button

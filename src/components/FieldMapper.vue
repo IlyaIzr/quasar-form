@@ -5,6 +5,7 @@
       :fields="sortedFields"
       :tabs="tabs"
       :settings="settings || false"
+      @clear="$emit('clear')"
     />
 
     <div
@@ -88,12 +89,12 @@ export default {
             if (cell) {
               res[field.rowIndex - 1] = [...cell, { ...field }]; //fucking observers
             } else {
-              res[field.rowIndex - 1] = [{ ...field, value: field.value  }];
+              res[field.rowIndex - 1] = [{ ...field, value: field.value }];
               // res[field.rowIndex - 1][0].value = 'temsto'
               // console.log(field)
               // console.log(res[field.rowIndex - 1])
             }
-          }          
+          }
         });
 
         let resFiltered = res.filter((field) => field != null); //delete all empty indexes

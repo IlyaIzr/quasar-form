@@ -284,7 +284,8 @@ export const config = {
       next: { text: 'next step' },
       back: { text: 'go back', color: 'yellow', textColor: 'black' },
       submit: { text: 'send' },
-      reset: false
+      reset: false,
+      clear: false
     },
     tabNavigation: true,  //User can click on tabs
     validateTabNavigation: true,

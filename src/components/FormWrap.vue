@@ -22,6 +22,7 @@
         :values="values"
         :tabs="settings.tabs"
         :settings="settings"
+        @clear="onClear"
       />
 
       <Buttons

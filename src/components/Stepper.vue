@@ -21,22 +21,23 @@
     </q-step>
     <template v-slot:navigation>
       <q-stepper-navigation>
-        <!-- Next btn -->
-        <q-btn
-          v-if="buttons.next && step <= tabs.steps.length"
-          @click="onNextClick"
-          :color="buttons.next.color"
-          :label="buttons.next.label || 'Next'"
-          :text-color="buttons.back.textColor || 'black'"
-          :class="step === tabs.steps.length ? 'hidden' : 'q-mr-sm'"
-        />
         <!-- Back btn -->
         <q-btn
           v-if="buttons.back && step > 1"
           @click="onBackClick"
           :color="buttons.back.color"
-          :label="buttons.back.label || 'Back'"
+          :label="buttons.back.text || 'Back'"
           :text-color="buttons.back.textColor || 'black'"
+          class="q-mr-sm"
+        />
+        <!-- Next btn -->
+        <q-btn
+          v-if="buttons.next && step <= tabs.steps.length"
+          @click="onNextClick"
+          :color="buttons.next.color"
+          :label="buttons.next.text || 'Next'"
+          :text-color="buttons.back.textColor || 'black'"
+          :class="step === tabs.steps.length ? 'hidden' : 'q-mr-sm'"
           class="q-mr-sm"
         />
         <!-- Submit btn -->
@@ -45,7 +46,7 @@
           type="submit"
           @click="trySubmit"
           :color="buttons.submit.color || 'primary'"
-          :label="buttons.submit.label || 'Submit'"
+          :label="buttons.submit.text || 'Submit'"
           :text-color="buttons.submit.textColor || 'black'"
           class="q-mr-sm"
         />
@@ -54,9 +55,19 @@
           v-if="buttons.reset"
           type="reset"
           :color="buttons.reset.color || 'primary'"
-          :label="buttons.reset.label || 'Reset'"
+          :label="buttons.reset.text || 'Reset'"
           :text-color="buttons.reset.textColor || 'black'"
           class="q-mr-sm"
+        />
+        <!-- Clear btn -->
+        <q-btn
+          v-if="buttons.clear"
+          type="button"
+          :color="buttons.clear.color || 'primary'"
+          :label="buttons.clear.text || 'Clear'"
+          :text-color="buttons.clear.textColor || 'black'"
+          class="q-mr-sm"
+          @click="$emit('clear')"
         />
       </q-stepper-navigation>
     </template>
