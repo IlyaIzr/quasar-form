@@ -52,7 +52,7 @@ export default {
   },
   data() {
     return {
-      required: this.rest.required === undefined ? false : this.rest.required,
+      required: this.rest.required === undefined || this.rest.required,
       value: this.getStoreValue(),
     };
   },

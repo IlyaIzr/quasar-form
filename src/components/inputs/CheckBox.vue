@@ -12,7 +12,7 @@
         <q-checkbox
           ref="input"
           :value="value"
-          :label="rest.required ? (rest.label || '') + ' *' : rest.label"
+          :label="rest.label"
           :name="keyName"
           :disable="rest.disable"
           @focus="onFocus"
@@ -46,7 +46,10 @@ export default {
   data() {
     return {
       value: this.getStoreValue(),
-      rules: this.checkRules(this.rest.rules, this.rest.required),
+      rules: this.checkRules(
+        this.rest.rules,
+        this.rest.required === undefined || this.rest.required
+      ),
       archiveRest: { ...this.rest },
     };
   },
@@ -107,6 +110,7 @@ export default {
     checkRules(rules, required) {
       let res;
       if (required) {
+        this.rest.label = this.rest.label ? this.rest.label + " *" : " *";
         if (typeof rules === "object") {
           res = [
             // typeof because input stuff gives me [] as def empty value

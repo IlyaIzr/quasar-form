@@ -8,7 +8,7 @@
       :name="keyName"
       :readonly="rest.readonly"
       :disable="rest.disable"
-      :label="rest.required ? (rest.label || '') + ' *' : rest.label"
+      :label="rest.label"
       :rules="rules"
       :clearable="rest.clearable === undefined ? true : rest.clearable"
       v-bind:use-input="
@@ -60,7 +60,10 @@ export default {
     return {
       value: this.getStoreValue(),
       localOptions: this.getStoreOptions(),
-      rules: this.checkRules(this.rest.rules, this.rest.required),
+      rules: this.checkRules(
+        this.rest.rules,
+        this.rest.required === undefined || this.rest.required
+      ),
       archiveRest: { ...this.rest },
     };
   },
@@ -112,7 +115,7 @@ export default {
         noObserver = noObserver.value;
       }
       // handle array   of object values
-      if (typeof noObserver === 'object' && noObserver.hasOwnProperty(length)) {
+      if (typeof noObserver === "object" && noObserver.hasOwnProperty(length)) {
         let res = [];
         noObserver.forEach((option) => res.push(option.value));
         noObserver = res;
@@ -157,14 +160,21 @@ export default {
     checkRules(rules, required) {
       let res;
       if (required) {
+        this.rest.label = this.rest.label ? this.rest.label + " *" : " *";
         if (typeof rules === "object") {
           res = [
-            (val) => val || this.rest.requiredMessage || "Please select option",
+            (val) =>
+              (val.value && val.value.length) ||
+              this.rest.requiredMessage ||
+              "Please select option",
             ...this.rest.rules,
           ];
         } else
           res = [
-            (val) => val || this.rest.requiredMessage || "Please select option",
+            (val) =>
+              (val.value && val.value.length) ||
+              this.rest.requiredMessage ||
+              "Please select option",
           ];
       } else res = this.rest.rules;
       return res;

@@ -3,7 +3,7 @@
     <q-field
       borderless
       ref="slider"
-      :label="rest.required ? (rest.label || '') + ' *' : rest.label"
+      :label="rest.label"
       :rules="rules"
       :value="value"
     >
@@ -56,7 +56,10 @@ export default {
   data() {
     return {
       value: Number(this.getStoreValue()),
-      rules: this.checkRules(this.rest.rules, this.rest.required),
+      rules: this.checkRules(
+        this.rest.rules,
+        this.rest.required === undefined || this.rest.required
+      ),
       archiveRest: { ...this.rest },
     };
   },
@@ -112,9 +115,9 @@ export default {
     checkRules(rules, required) {
       let res;
       if (required) {
+        this.rest.label = this.rest.label ? this.rest.label + " *" : " *";
         if (typeof rules === "object") {
           res = [
-            // typeof because input stuff gives me [] as def empty value
             (val) =>
               Number(val) > 0 || this.rest.requiredMessage || "Please fill",
             ...this.rest.rules,

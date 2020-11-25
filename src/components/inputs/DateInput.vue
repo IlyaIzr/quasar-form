@@ -4,11 +4,9 @@
       v-if="!rest.withInput && rest.withInput !== undefined"
       class="q-gutter-md"
     >
-      <p class="text-subtitle1 q-mb-none">
-        {{ rest.required ? (rest.label || "") + " *" : rest.required }}
-      </p>
+      <p class="text-subtitle1 q-mb-none">{{ rest.label }}</p>
       <DateInp
-        :label="rest.required ? (rest.label || '') + ' *' : rest.label"
+        :label="rest.label"
         :keyName="keyName"
         :rest="rest"
         :store="store"
@@ -26,7 +24,7 @@
         :mask="rest.inputMask || textInputMask"
         :rules="rules"
         :key="fuckenMask"
-        :label="rest.required ? (rest.label || '') + ' *' : rest.label"
+        :label="rest.label"
         :clearable="rest.clearable === undefined ? true : rest.clearable"
         ref="input"
       >
@@ -38,7 +36,7 @@
               transition-hide="scale"
             >
               <DateInp
-                :label="rest.required ? (rest.label || '') + ' *' : rest.label"
+                :label="rest.label"
                 :keyName="keyName"
                 :rest="rest"
                 :store="store"
@@ -66,11 +64,6 @@ export default {
     DateInp,
   },
   props: {
-    type: {
-      type: String,
-      required: false,
-      default: "text",
-    },
     keyName: {
       type: String,
       required: true,
@@ -90,7 +83,10 @@ export default {
         this.rest.withInput || this.rest.withInput === undefined ? true : false,
       value: this.getStoreValue(),
       fuckenMask: 1,
-      rules: this.checkRules(this.rest.rules, this.rest.required),
+      rules: this.checkRules(
+        this.rest.rules,
+        this.rest.required === undefined || this.rest.required
+      ),
       archiveRest: { ...this.rest },
     };
   },
@@ -187,38 +183,30 @@ export default {
     checkRules(rules, required) {
       let res;
       if (required) {
+        this.rest.label = this.rest.label ? this.rest.label + " *" : " *";
         if (typeof rules === "object") {
           res = [
-            // typeof because input stuff gives me [] as def empty value
-            (val) =>
-              (val && typeof val === "string") ||
-              this.rest.requiredMessage ||
-              "Please fill",
+            (val) => val || this.rest.requiredMessage || "Please fill",
             ...this.rest.rules,
           ];
         } else
-          res = [
-            (val) =>
-              (val && typeof val === "string") ||
-              this.rest.requiredMessage ||
-              "Please fill",
-          ];
+          res = [(val) => val || this.rest.requiredMessage || "Please fill"];
       } else res = this.rest.rules;
       return res;
     },
     reset() {
-      this.setConfig(this.archiveRest)
-      this.setValue(this.archiveRest.value)
-      this.$nextTick(function(){
-        this.$refs.input.resetValidation()
-      })
+      this.setConfig(this.archiveRest);
+      this.setValue(this.archiveRest.value);
+      this.$nextTick(function () {
+        this.$refs.input.resetValidation();
+      });
     },
-    clear(){
-      this.setValue('')
-      this.$nextTick(function(){
-        this.$refs.input.resetValidation()
-      })
-    }
+    clear() {
+      this.setValue("");
+      this.$nextTick(function () {
+        this.$refs.input.resetValidation();
+      });
+    },
   },
   watch: {
     "store.state.watcher": function () {
