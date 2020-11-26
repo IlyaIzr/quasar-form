@@ -8,6 +8,7 @@
   "scripts": {
     "dev": "quasar dev",
     "build": "quasar build",
+    "postbuild": "node fsBuilder.js",
     "build:pwa": "quasar build -m pwa",
     "build:ssr": "quasar build -m ssr",
     "git": "git add . && git commit -m",
