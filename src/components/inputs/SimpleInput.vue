@@ -18,6 +18,7 @@
       :hint="rest.hint"
       :readonly="rest.readonly"
       :disable="rest.disable"
+      :class="rest.class"
       @focus="onFocus"
       @blur="onBlur"
       @input="input"
@@ -145,11 +146,21 @@ export default {
       });
     },
   },
+  mounted() {
+    if (this.rest.hasOwnProperty("visible") && !this.rest.visible) {
+      this.$parent.$el.parentNode.className += " hidden";
+    }
+  },
   watch: {
     "store.state.watcher": function () {
       const val = this.getStoreValue();
       if (val !== this.value) {
         this.value = val;
+      }
+    },
+    "this.rest.visible": function () {
+      if (this.rest.hasOwnProperty("visible") && !this.rest.visible) {
+        this.$parent.$el.parentNode.className += " hidden";
       }
     },
   },

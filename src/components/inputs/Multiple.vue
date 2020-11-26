@@ -122,11 +122,23 @@ export default {
     },
     setValue(val) {
       this.updateKeyValue(this.multiKey, val);
-      this.value = this.store.getValueByKey(this.multiKey)
+      this.value = this.store.getValueByKey(this.multiKey);
     },
     reset() {
-      this.setConfig(this.archiveRest)
-      this.setValue(this.archiveRest.value)
+      this.setConfig(this.archiveRest);
+      this.setValue(this.archiveRest.value);
+    },
+  },
+  mounted() {
+    if (this.rest.hasOwnProperty("visible") && !this.rest.visible) {
+      this.$parent.$el.parentNode.className += " hidden";
+    }
+  },
+  watch: {
+    "this.rest.visible": function () {
+      if (this.rest.hasOwnProperty("visible") && !this.rest.visible) {
+        this.$parent.$el.parentNode.className += " hidden";
+      }
     },
   },
 };

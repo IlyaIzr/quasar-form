@@ -97,15 +97,25 @@ export default {
       this.storeValue(val);
     },
     reset() {
-      this.setConfig(this.archiveRest)
-      this.setValue(this.archiveRest.value)
+      this.setConfig(this.archiveRest);
+      this.setValue(this.archiveRest.value);
     },
+  },
+  mounted() {
+    if (this.rest.hasOwnProperty("visible") && !this.rest.visible) {
+      this.$parent.$el.parentNode.className += " hidden";
+    }
   },
   watch: {
     "store.state.watcher": function () {
       const val = this.getStoreValue();
       if (val !== this.value) {
         this.value = val;
+      }
+    },
+    "this.rest.visible": function () {
+      if (this.rest.hasOwnProperty("visible") && !this.rest.visible) {
+        this.$parent.$el.parentNode.className += " hidden";
       }
     },
   },

@@ -8,7 +8,7 @@ export const config = {
     },
     
     {
-      key: 'select', type: 'select', rowIndex: 1,
+      key: 'select', type: 'select', rowIndex: 3,
       options: [
         { name: 'Ab 1', id: 'aletter' }, { name: 'Bd 2', id: 'bletter' }, { name: 'Cs 3', id: 'cletter' }, { name: 'Dd 3', id: 'dletter' }
       ],
@@ -16,19 +16,20 @@ export const config = {
       autocomplete: true,
       multiple: true,
       value: ['cletter', 'dletter'],
+      // visible: false, //true by default
     },
     {
       type: 'text', rowIndex: 2, key: 'bs2244a',
       tabIndex: 2,  // Index of Tab aka Wizard. Starting from 1
-      visible: false, //true by default
+      // visible: false, //true by default
       value: "Can't touch this",
       // required: true,
     },
     
     {
-      type: 'text', rowIndex: 2, key: 'bs2244a2',
+      type: 'text', rowIndex: 4, key: 'bs2244a2',
       tabIndex: 2,  // Index of Tab aka Wizard. Starting from 1
-      visible: false, //true by default
+      // visible: false, //true by default
       value: "C ",
       // required: true,
     },
@@ -42,23 +43,6 @@ export const config = {
     async onValidateError(vNode, data, formMethods, errorComponent) {
       console.log('validation error', errorComponent)
     },
-  },
-  // Tabs aka Stepper aka Wizard  
-  tabs: {
-    steps: [
-      { title: 'First', icon: 'settings' }, //Icon names: https://material.io/resources/icons/
-      { title: 'Second', icon: 'img:https://cdn.quasar.dev/logo/svg/quasar-logo.svg' }
-    ],
-    buttons: {  //Ovverrides default buttons
-      next: { text: 'next step' },
-      back: { text: 'go back', color: 'yellow', textColor: 'black' },
-      submit: { text: 'send' },
-      reset: false,
-      clear: false
-    },
-    tabNavigation: true,  //User can click on tabs
-    validateTabNavigation: true,
-    validateButtonNavigation: false,
   },
   
   buttons: [  // buttons NOT required

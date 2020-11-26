@@ -25,5 +25,7 @@ date with input clearable
 * multifield fixes
 
 26.11.2020
+* script for autobuild
 * '*' stack when tabs submit Error occurs
 * show validation error when pushed back in tabs
+* visible behavior improvment

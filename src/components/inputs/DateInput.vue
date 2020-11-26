@@ -193,7 +193,9 @@ export default {
             ...this.rest.rules,
           ];
         } else
-          res = [(val) => Boolean(val) || this.rest.requiredMessage || "Please fill"];
+          res = [
+            (val) => Boolean(val) || this.rest.requiredMessage || "Please fill",
+          ];
       } else res = this.rest.rules;
       return res;
     },
@@ -211,11 +213,21 @@ export default {
       });
     },
   },
+  mounted() {
+    if (this.rest.hasOwnProperty("visible") && !this.rest.visible) {
+      this.$parent.$el.parentNode.className += " hidden";
+    }
+  },
   watch: {
     "store.state.watcher": function () {
       const val = this.getStoreValue();
       if (val !== this.value) {
         this.value = val;
+      }
+    },
+    "this.rest.visible": function () {
+      if (this.rest.hasOwnProperty("visible") && !this.rest.visible) {
+        this.$parent.$el.parentNode.className += " hidden";
       }
     },
   },
