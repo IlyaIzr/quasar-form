@@ -114,7 +114,10 @@ export default {
     checkRules(rules, required) {
       let res;
       if (required) {
-        this.rest.label = this.rest.label ? this.rest.label + " *" : " *";
+        this.rest.label =
+          this.rest.label && !this.rest.label.endsWith(" *")
+            ? this.rest.label + " *"
+            : " *";
         if (typeof rules === "object") {
           res = [
             // typeof because input stuff gives me [] as def empty value
@@ -122,7 +125,9 @@ export default {
             ...this.rest.rules,
           ];
         } else
-          res = [(val) => Boolean(val) || this.rest.requiredMessage || "Please fill"];
+          res = [
+            (val) => Boolean(val) || this.rest.requiredMessage || "Please fill",
+          ];
       } else res = this.rest.rules;
       return res;
     },

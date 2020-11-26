@@ -1,32 +1,46 @@
 export const config = {
   fields: [
-    //Multiple fields
+    //Common input properties. Not including type: "Multiple"
     {
-      type: 'multiple', key: 'multi21', rowIndex: 4,
-      value: [
-        { 'field1key': 'Peter', select12: 'option2', dateKey: '2012/12/12' },
-        { 'field1key': 'Lois', select12: 'option1', dateKey: '2020/12/12' }
+      type: 'text', rowIndex: 2, key: 'as24a',
+      tabIndex: 1,  // Index of Tab aka Wizard. Starting from 1
+      // visible: false, //true by default
+    },
+    
+    {
+      key: 'select', type: 'select', rowIndex: 1,
+      options: [
+        { name: 'Ab 1', id: 'aletter' }, { name: 'Bd 2', id: 'bletter' }, { name: 'Cs 3', id: 'cletter' }, { name: 'Dd 3', id: 'dletter' }
       ],
-      fields: [
-        { type: 'text', rowIndex: 1, key: 'field1key', label: 'Name' },
-        {
-          type: 'select', rowIndex: 2, key: 'select12', label: 'Choose',
-          options: [
-            { id: 'option1', name: 'Your kids go to college' },
-            { id: 'option2', name: 'Batman glass' },
-            { id: 'option3', name: 'Meg' }
-          ]
-        },
-        { type: 'date', rowIndex: 1, key: 'dateKey', label: 'When?' }
-      ],
-      label: 'Multy fields!',
-      buttons: {
-        addField: { text: 'add', color: 'green', textColor: 'white' },
-        deleteField: { text: 'x', color: 'red', textColor: 'black', disabled: false }
+      label: 'Pesting',
+      autocomplete: true,
+      multiple: true,
+      value: ['cletter', 'dletter'],
+      onInput(vnode, value, m, vNodeStore) {
+        const sel2 = vNodeStore.get('select2')
+        console.log(sel2)
+        sel2.setOptions([{ name: 'A', id: 'aletter' },])
       },
-      shouldAddPreviousValue: false,
-      // defaultAddValues: {} //TBD,
-      rules: [val => val >= 2 || 'Select at least 2 fields']
+    },
+    {
+      key: 'select2', type: 'select', rowIndex: 2,
+      options: [
+      ],
+    },
+    {
+      type: 'text', rowIndex: 2, key: 'bs2244a',
+      tabIndex: 2,  // Index of Tab aka Wizard. Starting from 1
+      visible: false, //true by default
+      value: "Can't touch this",
+      // required: true,
+    },
+    
+    {
+      type: 'text', rowIndex: 2, key: 'bs2244a2',
+      tabIndex: 2,  // Index of Tab aka Wizard. Starting from 1
+      visible: false, //true by default
+      value: "C ",
+      // required: true,
     },
   ],
 
@@ -38,6 +52,23 @@ export const config = {
     async onValidateError(vNode, data, formMethods, errorComponent) {
       console.log('validation error', errorComponent)
     },
+  },
+  // Tabs aka Stepper aka Wizard  
+  tabs: {
+    steps: [
+      { title: 'First', icon: 'settings' }, //Icon names: https://material.io/resources/icons/
+      { title: 'Second', icon: 'img:https://cdn.quasar.dev/logo/svg/quasar-logo.svg' }
+    ],
+    buttons: {  //Ovverrides default buttons
+      next: { text: 'next step' },
+      back: { text: 'go back', color: 'yellow', textColor: 'black' },
+      submit: { text: 'send' },
+      reset: false,
+      clear: false
+    },
+    tabNavigation: true,  //User can click on tabs
+    validateTabNavigation: true,
+    validateButtonNavigation: false,
   },
   
   buttons: [  // buttons NOT required

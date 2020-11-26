@@ -197,7 +197,10 @@ export default {
     checkRules(rules, required) {
       let res;
       if (required) {
-        this.rest.label = this.rest.label ? this.rest.label + " *" : " *";
+        this.rest.label =
+          this.rest.label && !this.rest.label.endsWith(" *")
+            ? this.rest.label + " *"
+            : " *";
         if (typeof rules === "object") {
           res = [
             (val) =>
