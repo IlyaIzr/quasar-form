@@ -155,7 +155,7 @@ export default {
       } else {
         this.step = await this.errors[0];
         this.$nextTick(function () {
-          this.$parent.$parent.validate();
+          // this.$parent.$parent.validate && this.$parent.$parent.submit(); // TODO
         })
       }
     },
