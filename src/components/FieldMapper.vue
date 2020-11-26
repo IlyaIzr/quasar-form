@@ -6,6 +6,8 @@
       :tabs="tabs"
       :settings="settings || false"
       @clear="$emit('clear')"
+      @reset="$emit('reset')"
+      @submit="$emit('submit')"
     />
 
     <div

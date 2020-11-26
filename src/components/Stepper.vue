@@ -153,7 +153,10 @@ export default {
       if (this.errors.length === 0) {
         this.$emit("submit");
       } else {
-        this.step = this.errors[0];
+        this.step = await this.errors[0];
+        this.$nextTick(function () {
+          this.$parent.$parent.validate();
+        })
       }
     },
   },

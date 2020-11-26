@@ -16,16 +16,6 @@ export const config = {
       autocomplete: true,
       multiple: true,
       value: ['cletter', 'dletter'],
-      onInput(vnode, value, m, vNodeStore) {
-        const sel2 = vNodeStore.get('select2')
-        console.log(sel2)
-        sel2.setOptions([{ name: 'A', id: 'aletter' },])
-      },
-    },
-    {
-      key: 'select2', type: 'select', rowIndex: 2,
-      options: [
-      ],
     },
     {
       type: 'text', rowIndex: 2, key: 'bs2244a',
