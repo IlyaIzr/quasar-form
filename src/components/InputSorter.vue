@@ -269,7 +269,8 @@ export default {
             this.$children[0],
             val,
             this.$children[0].$refs.input,
-            vNodeStore
+            vNodeStore,
+            this.inputInfo.multiIndex
           );
           if (cb && typeof cb === "function") cb(this.$children[0]);
         });
@@ -283,7 +284,8 @@ export default {
             this.$children[0],
             e,
             this.$children[0].$refs.input,
-            vNodeStore
+            vNodeStore,
+            this.inputInfo.multiIndex
           );
           if (cb && typeof cb === "function") cb(this.$children[0]);
         });
@@ -297,7 +299,8 @@ export default {
             this.$children[0],
             e,
             this.$children[0].$refs.input,
-            vNodeStore
+            vNodeStore,
+            this.inputInfo.multiIndex
           );
           if (cb && typeof cb === "function") cb(this.$children[0]);
         });

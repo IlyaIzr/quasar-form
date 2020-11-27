@@ -79,7 +79,7 @@ export const config = {
       type: 'text', rowIndex: 3, key: '24assa21as',
       label: 'Event Handlers',
 
-      async onBlur(vNode, event, methods, vNodeStore) { // methods - quasar API methods
+      async onBlur(vNode, event, methods, vNodeStore, multiIndex) { // methods - quasar API methods
         console.log('blur happend')
         let res = 'this was blurred'
         // optional callback function
@@ -89,7 +89,7 @@ export const config = {
         }
       },
 
-      async onInput(vNode, value, methods, vNodeStore) {
+      async onInput(vNode, value, methods, vNodeStore, multiIndex) {
         const otherField = vNodeStore.getComponent('other Field Key') // alias vNodeStore.get('field Key')        
         const propsObject = {
           label: 'New label',
@@ -107,7 +107,7 @@ export const config = {
         // }
       },
 
-      async onFocus(vNode, value, methods, vNodeStore) {
+      async onFocus(vNode, value, methods, vNodeStore, multiIndex) {
         console.log('focus happend')
         console.log(vNode)
         return function (vNode) {
