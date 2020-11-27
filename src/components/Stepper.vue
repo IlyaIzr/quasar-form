@@ -171,7 +171,7 @@ export default {
             vNodeStore.state.firstFieldFailedValidation.$parent.rest.multiKey,
             vNodeStore.state.firstFieldFailedValidation.$parent.rest.multiIndex
           );  // Todo for multiple
-          if (f) f.$children[0].validate();
+          if (f) f.$children[0].focus();
         });
       }
     },

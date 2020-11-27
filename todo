@@ -14,6 +14,7 @@ mask.resolve('value')
 
 date with input clearable
 
+Multiple structure freed from multiple
 
 =-=-=-=-=_ Done list _=-=-=-=-=
 25.11.2020
@@ -32,3 +33,4 @@ date with input clearable
 
 27.11.2020
 * vNodeStore for multiple structure
+* tab refocus fix

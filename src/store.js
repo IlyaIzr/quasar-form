@@ -95,8 +95,7 @@ export const optionsStore = {
       if (this.debug) console.log(`key ${key} recieved options`, options)
       this.state[key] = options ? [...options] : []
     } else {
-      // if (this.debug) 
-      console.log(`multiKeys ${multiKey} field ${fieldNumber} updated key ${key} options`, options)
+      if (this.debug) console.log(`multiKeys ${multiKey} field ${fieldNumber} updated key ${key} options`, options)
       this.state[multiKey] = []
       this.state[multiKey][fieldNumber] = []
       this.state[multiKey][fieldNumber][key] = options
@@ -122,6 +121,7 @@ export const vNodeStore = {
   state: {
     // root: null,
     // watcher: ''
+    multiChildren: {}
   },
   setComponent(key, component, multiKey = "", fieldNumber = 0) {  //sorter component, parent to input
     if (!multiKey) {
@@ -129,9 +129,9 @@ export const vNodeStore = {
       this.state[key] = component
     } else {
       if (this.debug) console.log(`multiKeys ${multiKey} field ${fieldNumber} updated component with key ${key}`, component)
-      if (!this.state[multiKey].multiChildren) this.state[multiKey].multiChildren = []
-      this.state[multiKey].multiChildren[fieldNumber] = { ...this.state[multiKey].multiChildren[fieldNumber] }
-      this.state[multiKey].multiChildren[fieldNumber][key] = component
+      if (!this.state.multiChildren[multiKey]) this.state.multiChildren[multiKey] = []
+      this.state.multiChildren[multiKey][fieldNumber] = { ...this.state.multiChildren[multiKey][fieldNumber] }
+      this.state.multiChildren[multiKey][fieldNumber][key] = component
       // console.log('store of mKey now: ', this.state[multiKey].multiChildren)
     }
   },
@@ -140,7 +140,7 @@ export const vNodeStore = {
     if (!multiKey) {
       value = this.state[key]?.$children[0]
     } else {
-      value = this.state[multiKey]?.multiChildren?.[fieldNumber]?.[key]?.$children[0]
+      value = this.state.multiChildren[multiKey]?.[fieldNumber]?.[key]?.$children[0]
     }
     if (this.debug) console.log('key ' + key + ' request for options recieved. They are: ', value)
     return value
@@ -150,7 +150,7 @@ export const vNodeStore = {
   },
   getMultiSiblings(key, multiKey) {
     let res = []
-    const multiParentStore = this.state[multiKey]?.multiChildren
+    const multiParentStore = this.state.multiChildren[multiKey]
     multiParentStore?.map((children) => {
       if (children.hasOwnProperty(key)) res.push(children[key])
     })
