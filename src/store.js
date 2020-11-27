@@ -138,7 +138,7 @@ export const vNodeStore = {
   getComponent(key, multiKey = "", fieldNumber = 0) { //  child input component
     let value
     if (!multiKey) {
-      value = this.state[key].$children[0]
+      value = this.state[key]?.$children[0]
     } else {
       value = this.state[multiKey]?.multiChildren?.[fieldNumber]?.[key]?.$children[0]
     }

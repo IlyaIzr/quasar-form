@@ -22,6 +22,8 @@
         :values="values"
         :tabs="settings.tabs"
         :settings="settings"
+        @submit="onSubmit"
+        @reset="onReset"
         @clear="onClear"
       />
 
@@ -93,7 +95,7 @@ export default {
         const res = await this.form.onReset(
           this,
           { ...this.valuesResponse },
-          this.$refs.form,          
+          this.$refs.form,
           vNodeStore
         );
         cb = res && res.cb;
@@ -132,6 +134,7 @@ export default {
       }
     },
     async onValidateError(err) {
+      vNodeStore.setComponent("firstFieldFailedValidation", err);
       if (this.form.onValidateError) {
         const cb = await this.form.onValidateError(
           this,
@@ -156,6 +159,8 @@ export default {
   },
 
   async mounted() {
+    // console.log(this.$refs.form.validate())
+    vNodeStore.setComponent("formRef", this.$refs.form);
     if (this.form.onMount) {
       const cb = await this.form.onMount(this, this.$refs.form);
       if (cb && typeof cb === "function") cb(this);

@@ -32,7 +32,7 @@ export const config = {
 
   form: {
     async onSubmit(vNode, data, formMethods, vNodeStore) {
-
+      console.log('submitted')
       // f1.setConfig('label', 'WTF')
     },
     async onValidateError(vNode, data, formMethods, errorComponent) {

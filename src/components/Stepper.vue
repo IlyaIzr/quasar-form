@@ -49,7 +49,9 @@
           :label="buttons.submit.text || 'Submit'"
           :text-color="buttons.submit.textColor || 'black'"
           class="q-mr-sm"
+          ref="subButton"
         />
+
         <!-- Reset btn -->
         <q-btn
           v-if="buttons.reset"
@@ -69,6 +71,7 @@
           class="q-mr-sm"
           @click="$emit('clear')"
         />
+        <!-- <q-btn label="testo" @click="testo"></q-btn> -->
       </q-stepper-navigation>
     </template>
   </q-stepper>
@@ -76,6 +79,7 @@
 
 <script>
 import FormRow from "../components/FormRow";
+import { vNodeStore } from "../store";
 export default {
   name: "Stepper",
   components: {
@@ -145,19 +149,30 @@ export default {
     },
     async beforeStep(newVal, prevVal) {
       const res = await this.$parent.$parent.validate();
+
       if (res) this.errors = this.errors.filter((step) => step !== prevVal);
       else this.errors.push(prevVal);
     },
-    async trySubmit() {
+    // async testo() {
+    //   const res2 = await this.$parent.$parent.validate(false);
+    //   console.log(vNodeStore.state.firstFieldFailedValidation);
+    //   vNodeStore.state.firstFieldFailedValidation.focus();
+    // },
+    async trySubmit(e) {
+      e?.preventDefault();
       await this.beforeStep(null, this.step);
       if (this.errors.length === 0) {
         this.$emit("submit");
       } else {
-        this.step = await this.errors[0];
-        // this.$nextTick(async function () { // TODO
-        //   this.step += 1
-        //   this.$emit("submit");
-        // });
+        this.step = this.errors[0];
+        this.$nextTick(async function () {
+          const f = vNodeStore.get(
+            vNodeStore.state.firstFieldFailedValidation.name,
+            vNodeStore.state.firstFieldFailedValidation.$parent.rest.multiKey,
+            vNodeStore.state.firstFieldFailedValidation.$parent.rest.multiIndex
+          );  // Todo for multiple
+          if (f) f.$children[0].validate();
+        });
       }
     },
   },
