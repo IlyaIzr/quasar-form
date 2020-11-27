@@ -108,8 +108,6 @@ export const optionsStore = {
       value = this.state[key] || []
     } else {
       value = this.state[multiKey] && this.state[multiKey][fieldNumber] && this.state[multiKey][fieldNumber][key] || []
-      let value2 = this.state
-      console.log(value2)
     }
     if (this.debug) console.log('key ' + key + ' request for options recieved. They are: ', value)
     return [...value]
@@ -125,17 +123,41 @@ export const vNodeStore = {
     // root: null,
     // watcher: ''
   },
-  setComponent(key, component) {  //sorter component, parent to input
-    if (this.debug) console.log('updated ', component)
-    this.state[key] = component
+  setComponent(key, component, multiKey = "", fieldNumber = 0) {  //sorter component, parent to input
+    if (!multiKey) {
+      if (this.debug) console.log(`component ${key} recieved vNode`)
+      this.state[key] = component
+    } else {
+      if (this.debug) console.log(`multiKeys ${multiKey} field ${fieldNumber} updated component with key ${key}`, component)
+      if (!this.state[multiKey].multiChildren) this.state[multiKey].multiChildren = []
+      this.state[multiKey].multiChildren[fieldNumber] = { ...this.state[multiKey].multiChildren[fieldNumber] }
+      this.state[multiKey].multiChildren[fieldNumber][key] = component
+      // console.log('store of mKey now: ', this.state[multiKey].multiChildren)
+    }
   },
-  getComponent(key) { //  child input component
-    return this.state[key].$children[0]
+  getComponent(key, multiKey = "", fieldNumber = 0) { //  child input component
+    let value
+    if (!multiKey) {
+      value = this.state[key].$children[0]
+    } else {
+      value = this.state[multiKey]?.multiChildren?.[fieldNumber]?.[key]?.$children[0]
+    }
+    if (this.debug) console.log('key ' + key + ' request for options recieved. They are: ', value)
+    return value
   },
-  get(key) {
-    return this.getComponent(key)
+  get(key, multiKey, fieldNumber) {
+    return this.getComponent(key, multiKey, fieldNumber)
   },
-  resetComponents(){    
+  getMultiSiblings(key, multiKey) {
+    let res = []
+    const multiParentStore = this.state[multiKey]?.multiChildren
+    multiParentStore?.map((children) => {
+      if (children.hasOwnProperty(key)) res.push(children[key])
+    })
+    if (res.length) return res
+    else return null
+  },
+  resetComponents() {
     for (const [key] of Object.entries(this.state)) {
       this.state[key].$children[0].reset()
     }

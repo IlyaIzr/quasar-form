@@ -81,7 +81,8 @@ export default {
         const cb = await this.form.onSubmit(
           this,
           valuesResponse,
-          this.$refs.form
+          this.$refs.form,
+          vNodeStore
         );
         if (cb && typeof cb === "function") cb(this);
       }
@@ -92,7 +93,8 @@ export default {
         const res = await this.form.onReset(
           this,
           { ...this.valuesResponse },
-          this.$refs.form
+          this.$refs.form,          
+          vNodeStore
         );
         cb = res && res.cb;
       }
@@ -106,7 +108,8 @@ export default {
         const res = await this.form.onClear(
           this,
           { ...this.valuesResponse },
-          this.$refs.form
+          this.$refs.form,
+          vNodeStore
         );
         exeption = res && res.exeption;
         cb = res && res.cb;
@@ -122,7 +125,8 @@ export default {
         const cb = await this.form.onValidateSuccess(
           this,
           { ...this.valuesResponse },
-          this.$refs.form
+          this.$refs.form,
+          vNodeStore
         );
         if (cb && typeof cb === "function") cb(this);
       }
@@ -133,7 +137,8 @@ export default {
           this,
           { ...this.valuesResponse },
           this.$refs.form,
-          err
+          err,
+          vNodeStore
         );
         if (cb && typeof cb === "function") cb(this);
       }

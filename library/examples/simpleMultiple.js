@@ -1,8 +1,7 @@
-export const config = {
+const config = {
   fields: [
-    //Multiple fields
     {
-      type: 'multiple', key: 'multi21', rowIndex: 4,
+      type: 'multiple', key: 'multiKey', rowIndex: 4,
       value: [
         { 'field1key': 'Peter',  },
         { 'field1key': 'Lois',  }
@@ -16,7 +15,6 @@ export const config = {
         deleteField: { text: 'x', color: 'red', textColor: 'black', disabled: false }
       },
       shouldAddPreviousValue: false,
-      // defaultAddValues: {} //TBD,
       rules: [val => val >= 2 || 'Select at least 2 fields']
     },
   ],
@@ -24,9 +22,18 @@ export const config = {
 
   form: {
     async onSubmit(vNode, data, formMethods, vNodeStore) {
-      const f1 = vNodeStore.getMultiSiblings('field1key', 'multi21', 2)
-      console.log(f1)
-      // f1.setConfig('label', 'WTF')
+
+      // Get all mullti children
+      const siblings = vNodeStore.getMultiSiblings('field1key', 'multiKey')
+      typeof siblings // Array (of vNodes siblings)
+
+      // Get single mullti children
+
+      const multiRow = 0
+      const singleMultipleField = vNodeStore.getComponent('field1key', 'multiKey', multiRow)
+      typeof singleMultipleField // Object (vNode)
+
+      singleMultipleField.setConfig('label', 'new label')
     },
     async onValidateError(vNode, data, formMethods, errorComponent) {
       console.log('validation error', errorComponent)

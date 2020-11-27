@@ -27,5 +27,8 @@ date with input clearable
 26.11.2020
 * script for autobuild
 * '*' stack when tabs submit Error occurs
-* show validation error when pushed back in tabs
-* visible behavior improvment
+?* show validation error when pushed back in tabs
+* visible classes improvment
+
+27.11.2020
+* vNodeStore for multiple structure

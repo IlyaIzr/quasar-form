@@ -196,7 +196,7 @@ export default {
   },
   beforeMount() {
     // store.updateKeyValue(this.inputInfo.key, this.inputInfo.value);  //set value even if field invisible
-    const multiKey = this.inputInfo.multiKey ? this.inputInfo.multiKey : "";
+    const multiKey = this.inputInfo.multiKey || "";
     // Check if other component was rendered
     if (this.inputInfo.renderIf) {
       if (store.getValueByKey(this.inputInfo.renderIf)) {
@@ -211,7 +211,12 @@ export default {
     if (this.isRendered && multiKey) {
       // Set options if they're provided
       if (this.inputInfo.options && this.inputInfo.options.length)
-        optionsStore.setOptions(this.inputInfo.key, this.inputInfo.options, multiKey, this.inputInfo.multiIndex);
+        optionsStore.setOptions(
+          this.inputInfo.key,
+          this.inputInfo.options,
+          multiKey,
+          this.inputInfo.multiIndex
+        );
 
       const isStoredAlready =
         store.getValueByKey(
@@ -242,7 +247,19 @@ export default {
     }
   },
   mounted() {
-    vNodeStore.setComponent(this.inputInfo.key, this);
+    const multiKey = this.inputInfo.multiKey || "";
+    // CASE MULTIKEY
+    if (multiKey) {
+      vNodeStore.setComponent(
+        this.inputInfo.key,
+        this,
+        multiKey,
+        this.inputInfo.multiIndex
+      );
+    } else {
+      // CASE SINGLE KEY
+      vNodeStore.setComponent(this.inputInfo.key, this);
+    }
   },
   methods: {
     async onInput(val) {
