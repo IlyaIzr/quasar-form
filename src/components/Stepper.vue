@@ -154,9 +154,10 @@ export default {
         this.$emit("submit");
       } else {
         this.step = await this.errors[0];
-        this.$nextTick(function () {
-          // this.$parent.$parent.validate && this.$parent.$parent.submit(); // TODO
-        })
+        // this.$nextTick(async function () { // TODO
+        //   this.step += 1
+        //   this.$emit("submit");
+        // });
       }
     },
   },
