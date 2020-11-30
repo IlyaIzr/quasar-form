@@ -184,7 +184,6 @@ export const configStore = {
     let value
     if (!multiKey) {
       value = this.state[key] || {}
-      // console.log('key ' + key + ' request for config recieved. Config is: ', value)
     } else {
       value = this.state[multiKey]?.[fieldNumber]?.[key] || {}
     }
@@ -194,13 +193,17 @@ export const configStore = {
   create(key, config, multiKey = "", fieldNumber = "") {
     // creates item only if it hasn't existed yet
     if (!multiKey) {
-      if (this.debug) console.log(`key ${key} recieved config`, config)
-      if (!this.state[key]) { this.state[key] = config; console.log('created rest for', key) }
+      if (!this.state[key]) {
+        this.state[key] = config;
+        if (this.debug) console.log('created rest for', key)
+      }
     } else {
-      if (this.debug) console.log(`multiKeys ${multiKey} field ${fieldNumber} updated key ${key} config`, config)
       if (!this.state[multiKey]) this.state[multiKey] = []
       if (!this.state[multiKey][fieldNumber]) this.state[multiKey][fieldNumber] = {}
-      if (!this.state[multiKey][fieldNumber][key]) this.state[multiKey][fieldNumber][key] = config
+      if (!this.state[multiKey][fieldNumber][key]) {
+        this.state[multiKey][fieldNumber][key] = config
+        if (this.debug) console.log(`multiKeys ${multiKey} field ${fieldNumber} updated key ${key} config`, config)
+      }
     }
     this.state.w = Math.random()
   },

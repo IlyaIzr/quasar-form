@@ -106,7 +106,7 @@ export default {
       store,
       isRendered: undefined,
       vNodeStore,
-      rest: configStore.get(this.inputInfo.key),
+      rest: {},
     };
   },
   props: {
@@ -218,6 +218,10 @@ export default {
           this.inputInfo.multiIndex
         );
 
+        // Create config if it wasn't created
+      configStore.create(this.inputInfo.key, this.inputInfo, multiKey, this.inputInfo.multiIndex);
+      this.rest = configStore.get(this.inputInfo.key, multiKey, this.inputInfo.multiIndex);
+
       //Check if stored already
       const isStoredAlready =
         store.getValueByKey(
@@ -259,11 +263,16 @@ export default {
         multiKey,
         this.inputInfo.multiIndex
       );
+      this.rest = configStore.get(
+        this.inputInfo.key,
+        multiKey,
+        this.inputInfo.multiIndex
+      );
     } else {
       // CASE SINGLE KEY
       vNodeStore.setComponent(this.inputInfo.key, this);
+      this.rest = configStore.get(this.inputInfo.key);
     }
-    // this.rest = configStore.get(this.inputInfo.key)
   },
   methods: {
     async onInput(val) {
@@ -308,15 +317,6 @@ export default {
           );
           if (cb && typeof cb === "function") cb(this.$children[0]);
         });
-      }
-    },
-  },
-  watch: {
-    "configStore.state.w": function () {
-      console.log('watched')
-      const val = configStore.get(this.inputInfo.key);
-      if (val !== this.rest) {
-        this.rest = val;
       }
     },
   },

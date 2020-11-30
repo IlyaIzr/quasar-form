@@ -1,20 +1,25 @@
 export const config = {
   fields: [
-    //Multiple fields
     {
-      value: '2', hint: 'constant lavehintl',
-      onInput(node, val, m, vstore) {
-        const f = vstore.get('12')
-        f.setConfig('hint', 'new HHHint!')
+      value: 'peps'
+    },
+    {
+      type: 'multiple', key: 'multiKey', rowIndex: 4, tabIndex: 2,
+      value: [
+        { 'field1key': 'Peter',  },
+        { 'field1key': 'Lois',  }
+      ],
+      fields: [
+        { type: 'text', rowIndex: 1, key: 'field1key', label: 'Name' },
+      ],
+      label: 'Multy fields!',
+      buttons: {
+        addField: { text: 'add', color: 'green', textColor: 'white' },
+        deleteField: { text: 'x', color: 'red', textColor: 'black', disabled: false }
       },
+      shouldAddPreviousValue: false,
+      rules: [val => val >= 2 || 'Select at least 2 fields']
     },
-    {
-      key: '12'
-    },
-    
-    {
-      tabIndex: 2, value: '11', key: '42'
-    }
   ],
 
   // Tabs aka Stepper aka Wizard  
@@ -36,8 +41,10 @@ export const config = {
   },
 
   form: {
-    async onSubmit(vNode, data, formMethods, vNodeStore) {
-      console.log('subbed', data)
+    async onSubmit(vNode, data, formMethods, vNodeStore, cs) {
+      const f = vNodeStore.get('field1key', 'multiKey')
+      f.setConfig('hint', 'NEW HINT PETA')
+      f.setConfig('label', 'NEW LABEL PETA')
     },
     async onValidateError(vNode, data, formMethods, errorComponent, vNodeStore) {
       console.log('validation error', errorComponent)
