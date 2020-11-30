@@ -119,8 +119,6 @@ export const optionsStore = {
 export const vNodeStore = {
   debug: false,
   state: {
-    // root: null,
-    // watcher: ''
     multiChildren: {}
   },
   setComponent(key, component, multiKey = "", fieldNumber = 0) {  //sorter component, parent to input
@@ -161,5 +159,52 @@ export const vNodeStore = {
     for (const [key] of Object.entries(this.state)) {
       this.state[key].$children[0].reset()
     }
+  }
+}
+
+export const configStore = {
+  debug: false,
+  state: { w: 'a' },
+  set(key, config, multiKey = "", fieldNumber = "") {
+    if (!multiKey) {
+      if (this.debug) console.log(`key ${key} recieved config`, config)
+      if (this.state[key]) this.state[key] = { ...this.state[key], ...config }
+      else this.state[key] = config
+    } else {
+      if (this.debug) console.log(`multiKeys ${multiKey} field ${fieldNumber} updated key ${key} config`, config)
+      if (!this.state[multiKey]) this.state[multiKey] = []
+      if (!this.state[multiKey][fieldNumber]) this.state[multiKey][fieldNumber] = {}
+      if (this.state[multiKey][fieldNumber][key])
+        this.state[multiKey][fieldNumber][key] = { ...this.state[multiKey][fieldNumber][key], ...config }
+      else this.state[multiKey][fieldNumber][key] = config
+    }
+    this.state.w = Math.random()
+  },
+  get(key, multiKey = "", fieldNumber = "") {
+    let value
+    if (!multiKey) {
+      value = this.state[key] || {}
+      // console.log('key ' + key + ' request for config recieved. Config is: ', value)
+    } else {
+      value = this.state[multiKey]?.[fieldNumber]?.[key] || {}
+    }
+    if (this.debug) console.log('key ' + key + ' request for config recieved. They are: ', value)
+    return { ...value }
+  },
+  create(key, config, multiKey = "", fieldNumber = "") {
+    // creates item only if it hasn't existed yet
+    if (!multiKey) {
+      if (this.debug) console.log(`key ${key} recieved config`, config)
+      if (!this.state[key]) { this.state[key] = config; console.log('created rest for', key) }
+    } else {
+      if (this.debug) console.log(`multiKeys ${multiKey} field ${fieldNumber} updated key ${key} config`, config)
+      if (!this.state[multiKey]) this.state[multiKey] = []
+      if (!this.state[multiKey][fieldNumber]) this.state[multiKey][fieldNumber] = {}
+      if (!this.state[multiKey][fieldNumber][key]) this.state[multiKey][fieldNumber][key] = config
+    }
+    this.state.w = Math.random()
+  },
+  reset() {
+    this.state = {}
   }
 }

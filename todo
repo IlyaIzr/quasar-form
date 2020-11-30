@@ -14,7 +14,23 @@ mask.resolve('value')
 
 date with input clearable
 
-Multiple structure freed from multiple
+check options for multiple or remake setOptions to do setConfig
+
+-=-=
+Fixed title and buttons (right side)
+!!! inputs design - frames
+!!!! icons
+!!!!! check visible
+multiple item border, bigger label, and centered and capitalize, close button over border
+! multiple field value and setValue
+!! whole field validation running = bad
+opt out close title
+wrapper around some rows
+distance between required and unrequired fields
+different clear  button (smaller)
+vnode.closeModal()
+.validate() without $refs.validate()
+getMultiSiblings(el) => el.$children[0]
 
 =-=-=-=-=_ Done list _=-=-=-=-=
 25.11.2020
@@ -34,3 +50,6 @@ Multiple structure freed from multiple
 27.11.2020
 * vNodeStore for multiple structure
 * tab refocus fix
+
+30.11.2020
+* configStore and setConfig()

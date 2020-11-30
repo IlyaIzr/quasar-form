@@ -5,7 +5,7 @@
       :type="inputInfo.type"
       :value="inputInfo.value"
       :keyName="inputInfo.key"
-      :rest="inputInfo"
+      :rest="rest"
       :store="store"
       @input="onInput"
       @blur="onBlur"
@@ -97,7 +97,7 @@ import Multiple from "./inputs/Multiple";
 import Html from "./inputs/Html";
 import Editor from "./inputs/Editor";
 import File from "./inputs/File";
-import { optionsStore, store, vNodeStore } from "../store";
+import { configStore, optionsStore, store, vNodeStore } from "../store";
 
 export default {
   name: "InputSorter",
@@ -106,6 +106,7 @@ export default {
       store,
       isRendered: undefined,
       vNodeStore,
+      rest: configStore.get(this.inputInfo.key),
     };
   },
   props: {
@@ -207,7 +208,6 @@ export default {
     if (this.inputInfo.type === "html") return null;
 
     // CASE MULTIKEY
-    //Check if stored already
     if (this.isRendered && multiKey) {
       // Set options if they're provided
       if (this.inputInfo.options && this.inputInfo.options.length)
@@ -218,6 +218,7 @@ export default {
           this.inputInfo.multiIndex
         );
 
+      //Check if stored already
       const isStoredAlready =
         store.getValueByKey(
           this.inputInfo.key,
@@ -244,6 +245,8 @@ export default {
       if (isStoredAlready) return null;
 
       store.updateKeyValue(this.inputInfo.key, this.inputInfo.value);
+      configStore.create(this.inputInfo.key, this.inputInfo);
+      this.rest = configStore.get(this.inputInfo.key);
     }
   },
   mounted() {
@@ -260,6 +263,7 @@ export default {
       // CASE SINGLE KEY
       vNodeStore.setComponent(this.inputInfo.key, this);
     }
+    // this.rest = configStore.get(this.inputInfo.key)
   },
   methods: {
     async onInput(val) {
@@ -304,6 +308,15 @@ export default {
           );
           if (cb && typeof cb === "function") cb(this.$children[0]);
         });
+      }
+    },
+  },
+  watch: {
+    "configStore.state.w": function () {
+      console.log('watched')
+      const val = configStore.get(this.inputInfo.key);
+      if (val !== this.rest) {
+        this.rest = val;
       }
     },
   },

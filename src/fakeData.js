@@ -2,14 +2,18 @@ export const config = {
   fields: [
     //Multiple fields
     {
-      value: '2'
+      value: '2', hint: 'constant lavehintl',
+      onInput(node, val, m, vstore) {
+        const f = vstore.get('12')
+        f.setConfig('hint', 'new HHHint!')
+      },
     },
     {
       key: '12'
     },
     
     {
-      tabIndex: 2, value: '11'
+      tabIndex: 2, value: '11', key: '42'
     }
   ],
 
@@ -33,10 +37,9 @@ export const config = {
 
   form: {
     async onSubmit(vNode, data, formMethods, vNodeStore) {
-      console.log('submitted')
-      // f1.setConfig('label', 'WTF')
+      console.log('subbed', data)
     },
-    async onValidateError(vNode, data, formMethods, errorComponent) {
+    async onValidateError(vNode, data, formMethods, errorComponent, vNodeStore) {
       console.log('validation error', errorComponent)
     },
   },

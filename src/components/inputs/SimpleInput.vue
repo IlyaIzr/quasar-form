@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import { store } from "../../store";
+import { store, configStore } from "../../store";
 export default {
   name: "SimpleInput",
   props: {
@@ -98,16 +98,14 @@ export default {
     },
     setConfig(arg1 = "", arg2) {
       if (arguments.length === 2) {
-        if (arg1) this.rest[arg1] = arg2;
+        if (arg1) configStore.set(this.keyName, { [arg1]: arg2 });
         else console.log("WARNING! No name provided!");
       } else if (arguments.length === 1) {
         if (arg1 && typeof arg1 === "object") {
-          for (const [key, value] of Object.entries(arg1)) {
-            this.rest[key] = value;
-          }
+          configStore.set(this.keyName, arg1);
         } else console.log("WARNING! No value object provided!");
       }
-      this.$forceUpdate();
+      this.$parent.rest = configStore.get(this.keyName)
     },
     setValue(val) {
       this.storeValue(val);
@@ -159,6 +157,7 @@ export default {
       }
     },
     "this.rest.visible": function () {
+      console.log("check for visibility watched");
       if (this.rest.hasOwnProperty("visible") && !this.rest.visible) {
         this.$parent.$el.parentNode.className += " hidden";
       }
