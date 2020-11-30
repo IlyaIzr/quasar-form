@@ -53,3 +53,4 @@ getMultiSiblings(el) => el.$children[0]
 
 30.11.2020
 * configStore and setConfig()
+* multiple base values

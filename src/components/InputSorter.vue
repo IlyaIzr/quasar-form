@@ -16,7 +16,7 @@
       :value="inputInfo.value"
       :options="inputInfo.options"
       :keyName="inputInfo.key"
-      :rest="inputInfo"
+      :rest="rest"
       :store="store"
       @input="onInput"
       @blur="onBlur"
@@ -26,7 +26,7 @@
       v-if="inputType === 'checkbox'"
       :value="inputInfo.value"
       :keyName="inputInfo.key"
-      :rest="inputInfo"
+      :rest="rest"
       :store="store"
       @input="onInput"
       @blur="onBlur"
@@ -36,7 +36,7 @@
       v-if="inputType === 'slider'"
       :value="inputInfo.value"
       :keyName="inputInfo.key"
-      :rest="inputInfo"
+      :rest="rest"
       :store="store"
       @input="onInput"
       @blur="onBlur"
@@ -45,7 +45,7 @@
       v-if="inputType === 'date'"
       :value="inputInfo.value"
       :keyName="inputInfo.key"
-      :rest="inputInfo"
+      :rest="rest"
       :store="store"
       @input="onInput"
     />
@@ -53,21 +53,21 @@
       v-if="inputType === 'multiple'"
       :value="inputInfo.value"
       :multiKey="inputInfo.key"
-      :rest="inputInfo"
+      :rest="rest"
       :store="store"
       @input="onInput"
     />
     <Html
       v-if="inputType === 'html'"
       :keyName="inputInfo.key"
-      :rest="inputInfo"
+      :rest="rest"
       :value="inputInfo.value"
       @focus="onFocus"
     />
     <Editor
       v-if="inputType === 'editor'"
       :keyName="inputInfo.key"
-      :rest="inputInfo"
+      :rest="rest"
       :value="inputInfo.value"
       :store="store"
       @input="onInput"
@@ -77,7 +77,7 @@
     <File
       v-if="inputType === 'file'"
       :keyName="inputInfo.key"
-      :rest="inputInfo"
+      :rest="rest"
       :value="inputInfo.value"
       :store="store"
       @input="onInput"
@@ -223,13 +223,13 @@ export default {
       this.rest = configStore.get(this.inputInfo.key, multiKey, this.inputInfo.multiIndex);
 
       //Check if stored already
-      const isStoredAlready =
+      const stored =
         store.getValueByKey(
           this.inputInfo.key,
           multiKey,
           this.inputInfo.multiIndex
-        ) !== undefined;
-      if (isStoredAlready) return null;
+        )
+      if (stored) return null;
       // Store value inside multyfield
       store.updateKeyValue(
         this.inputInfo.key,
@@ -237,16 +237,14 @@ export default {
         multiKey,
         this.inputInfo.multiIndex
       );
-
       // CASE SINGLE KEY
     } else if (this.isRendered && !multiKey) {
       // Set options if they're provided
       if (this.inputInfo.options && this.inputInfo.options.length)
         optionsStore.setOptions(this.inputInfo.key, this.inputInfo.options);
       //Check if stored already
-      const isStoredAlready =
-        store.getValueByKey(this.inputInfo.key) !== undefined;
-      if (isStoredAlready) return null;
+      const stored = store.getValueByKey(this.inputInfo.key);
+      if (stored) return null;
 
       store.updateKeyValue(this.inputInfo.key, this.inputInfo.value);
       configStore.create(this.inputInfo.key, this.inputInfo);

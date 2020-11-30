@@ -72,7 +72,7 @@ export default {
           }
 
           //Assign value from values source, or else assign default value if it's not in config
-          if (this.values && this.values[field.key] !== undefined) {
+          if (this.values && this.values[field.key] !== undefined && !this.multiKey) {
             field.value = this.values[field.key];
           } else if (field.value === undefined) field.value = "";
           //Assign default field type as 'text'

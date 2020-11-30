@@ -6,11 +6,11 @@ export const config = {
     {
       type: 'multiple', key: 'multiKey', rowIndex: 4, tabIndex: 2,
       value: [
-        { 'field1key': 'Peter',  },
-        { 'field1key': 'Lois',  }
+        { 'field1key': 'Sas',  },
+        { 'field1key': '',  }
       ],
       fields: [
-        { type: 'text', rowIndex: 1, key: 'field1key', label: 'Name' },
+        { type: 'text', rowIndex: 1, key: 'field1key', label: 'Name', value: 'Abso val' },
       ],
       label: 'Multy fields!',
       buttons: {
@@ -23,7 +23,7 @@ export const config = {
   ],
 
   // Tabs aka Stepper aka Wizard  
-  tabs: {
+  tabs1: {
     steps: [
       { title: 'First', icon: 'settings' }, //Icon names: https://material.io/resources/icons/
       { title: 'Second', icon: 'img:https://cdn.quasar.dev/logo/svg/quasar-logo.svg' }
@@ -42,6 +42,7 @@ export const config = {
 
   form: {
     async onSubmit(vNode, data, formMethods, vNodeStore, cs) {
+      console.log(data)
       const f = vNodeStore.get('field1key', 'multiKey')
       f.setConfig('hint', 'NEW HINT PETA')
       f.setConfig('label', 'NEW LABEL PETA')
