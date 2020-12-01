@@ -1,5 +1,5 @@
 <template>
-  <div v-if="isRendered">
+  <div v-if="isRendered" :class="(rest.visible || rest.visible === undefined) ? 'col' : 'hidden'">
     <SimpleInput
       v-if="inputType === 'simple'"
       :type="inputInfo.type"
@@ -218,17 +218,25 @@ export default {
           this.inputInfo.multiIndex
         );
 
-        // Create config if it wasn't created
-      configStore.create(this.inputInfo.key, this.inputInfo, multiKey, this.inputInfo.multiIndex);
-      this.rest = configStore.get(this.inputInfo.key, multiKey, this.inputInfo.multiIndex);
+      // Create config if it wasn't created
+      configStore.create(
+        this.inputInfo.key,
+        this.inputInfo,
+        multiKey,
+        this.inputInfo.multiIndex
+      );
+      this.rest = configStore.get(
+        this.inputInfo.key,
+        multiKey,
+        this.inputInfo.multiIndex
+      );
 
       //Check if stored already
-      const stored =
-        store.getValueByKey(
-          this.inputInfo.key,
-          multiKey,
-          this.inputInfo.multiIndex
-        )
+      const stored = store.getValueByKey(
+        this.inputInfo.key,
+        multiKey,
+        this.inputInfo.multiIndex
+      );
       if (stored) return null;
       // Store value inside multyfield
       store.updateKeyValue(

@@ -10,7 +10,7 @@ export const config = {
         { type: 'text', rowIndex: 1, key: 'field1key', label: 'Name', outlined: true, append: 'event', 
         async appendOnClick(vNode, value, ref, vNodeStore){
           console.log(vNode)
-          vNode.setValue(value+'*')
+          vNode.setConfig('visible', false)
         }
       },
         {key: 'p', rowIndex: 1,label: 'some pe', filled: true, type: 'password'}

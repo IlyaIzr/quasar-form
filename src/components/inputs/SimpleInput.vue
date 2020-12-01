@@ -1,7 +1,6 @@
 <template>
   <div class="q-gutter-md">
     <q-input
-      v-if="rest.visible === undefined ? true : rest.visible"
       ref="input"
       :value="value"
       :label="rest.label"
@@ -216,11 +215,6 @@ export default {
         this.$refs.input.resetValidation();
       });
     },
-  },
-  mounted() {
-    if (this.rest.hasOwnProperty("visible") && !this.rest.visible) {
-      this.$parent.$el.parentNode.className += " hidden";
-    }
   },
   watch: {
     "store.state.watcher": function () {

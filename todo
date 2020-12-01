@@ -18,7 +18,6 @@ check options for multiple or remake setOptions to do setConfig
 
 -=-=
 Fixed title and buttons (right side)
-!!!!! check visible
 multiple item border, bigger label, and centered and capitalize, close button over border
 !! whole field validation running = bad -- tested. Working already
 opt out close title
@@ -55,3 +54,4 @@ getMultiSiblings(el) => el.$children[0]
 01.12.2020
 * reveal password interactive icon
 * appended and prepend input icons and functions
+* visibility fix
