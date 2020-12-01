@@ -27,7 +27,33 @@
       @input="input"
       :rules="rules"
     >
-      <template v-slot:append>
+      <template v-slot:prepend v-if="prependType">
+        <q-icon v-if="prependType === 'icon'" :name="rest.prepend" />
+        <q-avatar v-else-if="prependType === 'img'">
+          <img :src="rest.prepend" />
+        </q-avatar>
+        <q-btn
+          v-else-if="prependType === 'btn'"
+          round
+          dense
+          flat
+          :icon="rest.prepend"
+          @click="prependClick"
+        />
+      </template>
+      <template v-slot:append v-if="appendType || rest.type === 'password'">
+        <q-icon v-if="appendType === 'icon'" :name="rest.append" />
+        <q-avatar v-if="appendType === 'img'">
+          <img :src="rest.append" />
+        </q-avatar>
+        <q-btn
+          v-if="appendType === 'btn'"
+          round
+          dense
+          flat
+          :icon="rest.append"
+          @click="appendClick"
+        />
         <q-icon
           v-if="archiveRest.type === 'password'"
           :name="isPassword ? 'visibility_off' : 'visibility'"
@@ -40,7 +66,7 @@
 </template>
 
 <script>
-import { store, configStore } from "../../store";
+import { store, configStore, vNodeStore } from "../../store";
 export default {
   name: "SimpleInput",
   props: {
@@ -68,7 +94,29 @@ export default {
       isPassword: this.rest.type === "password",
     };
   },
+  computed: {
+    appendType() {
+      let r = "";
+      if (this.rest.append)
+        r = this.rest.append.startsWith("http") ? "img" : "icon";
+      if (this.rest.appendOnClick) r = "btn";
+      return r;
+    },
+    prependType() {
+      let r = "";
+      if (this.rest.prepend)
+        r = this.rest.prepend.startsWith("http") ? "img" : "icon";
+      if (this.rest.prependOnClick) r = "btn";
+      return r;
+    },
+  },
   methods: {
+    async appendClick(e) {
+      this.rest.appendOnClick(this, this.value, this.$refs.input, vNodeStore);
+    },
+    async prependClick(e) {
+      this.rest.prependOnClick(this, this.value, this.$refs.input, vNodeStore);
+    },
     onFocus(e) {
       this.$emit("focus", e);
     },

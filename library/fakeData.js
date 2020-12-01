@@ -28,6 +28,12 @@ export const config = {
       readonly: false,
       outlined: false,
       filled: false,
+      prepend: 'event', //icon or img url
+      // prependOnClick: ()=>{},
+      append: 'https://cdn.quasar.dev/img/avatar5.jpg',
+      async appendOnClick(vNode, value, ref, vNodeStore){
+        vNode.setValue(value+'*')
+      }
     },
     // Text area
     {
