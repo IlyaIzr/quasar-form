@@ -5,7 +5,7 @@
       ref="input"
       :value="value"
       :label="rest.label"
-      :type="type"
+      :type="rest.type"
       :name="keyName"
       :mask="rest.mask"
       :fill-mask="rest.fillMask || false"
@@ -19,11 +19,23 @@
       :readonly="rest.readonly"
       :disable="rest.disable"
       :class="rest.class"
+      :filled="rest.filled"
+      :outlined="rest.outlined"
+      clear-icon="close"
       @focus="onFocus"
       @blur="onBlur"
       @input="input"
       :rules="rules"
-    />
+    >
+      <template v-slot:append>
+        <q-icon
+          v-if="archiveRest.type === 'password'"
+          :name="isPassword ? 'visibility_off' : 'visibility'"
+          class="cursor-pointer"
+          @click="rest.type = rest.type === 'password' ? 'text' : 'password'"
+        />
+      </template>
+    </q-input>
   </div>
 </template>
 
@@ -32,11 +44,6 @@ import { store, configStore } from "../../store";
 export default {
   name: "SimpleInput",
   props: {
-    type: {
-      type: String,
-      required: false,
-      default: "text",
-    },
     keyName: {
       type: String,
       required: true,
@@ -58,6 +65,7 @@ export default {
         this.rest.required === undefined || this.rest.required
       ),
       archiveRest: { ...this.rest },
+      isPassword: this.rest.type === "password",
     };
   },
   methods: {
@@ -137,7 +145,6 @@ export default {
             : " *";
         if (typeof rules === "object") {
           res = [
-            // typeof because input stuff gives me [] as def empty value
             (val) => Boolean(val) || this.rest.requiredMessage || "Please fill",
             ...this.rest.rules,
           ];

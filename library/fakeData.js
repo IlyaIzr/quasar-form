@@ -26,6 +26,8 @@ export const config = {
       suffix: '@gmail.com',
       hint: 'helper-message',
       readonly: false,
+      outlined: false,
+      filled: false,
     },
     // Text area
     {

@@ -18,12 +18,10 @@ check options for multiple or remake setOptions to do setConfig
 
 -=-=
 Fixed title and buttons (right side)
-!!! inputs design - frames
 !!!! icons
 !!!!! check visible
 multiple item border, bigger label, and centered and capitalize, close button over border
-! multiple field value and setValue
-!! whole field validation running = bad
+!! whole field validation running = bad -- tested. Working already
 opt out close title
 wrapper around some rows
 distance between required and unrequired fields
@@ -54,3 +52,6 @@ getMultiSiblings(el) => el.$children[0]
 30.11.2020
 * configStore and setConfig()
 * multiple base values
+
+01.12.2020
+* reveal password interactive icon

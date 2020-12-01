@@ -1,16 +1,14 @@
 export const config = {
   fields: [
     {
-      value: 'peps'
-    },
-    {
-      type: 'multiple', key: 'multiKey', rowIndex: 4, tabIndex: 2,
+      type: 'multiple', key: 'multiKey', rowIndex: 4,
       value: [
-        { 'field1key': 'Sas',  },
-        { 'field1key': '',  }
+        { 'field1key': '', p: '' },
+        { 'field1key': '', p: '' }
       ],
       fields: [
-        { type: 'text', rowIndex: 1, key: 'field1key', label: 'Name', value: 'Abso val' },
+        { type: 'text', rowIndex: 1, key: 'field1key', label: 'Name', outlined: true },
+        {key: 'p', rowIndex: 1,label: 'some pe', filled: true, type: 'password'}
       ],
       label: 'Multy fields!',
       buttons: {
@@ -23,7 +21,7 @@ export const config = {
   ],
 
   // Tabs aka Stepper aka Wizard  
-  tabs1: {
+  tabs: {
     steps: [
       { title: 'First', icon: 'settings' }, //Icon names: https://material.io/resources/icons/
       { title: 'Second', icon: 'img:https://cdn.quasar.dev/logo/svg/quasar-logo.svg' }
@@ -41,11 +39,8 @@ export const config = {
   },
 
   form: {
-    async onSubmit(vNode, data, formMethods, vNodeStore, cs) {
-      console.log(data)
-      const f = vNodeStore.get('field1key', 'multiKey')
-      f.setConfig('hint', 'NEW HINT PETA')
-      f.setConfig('label', 'NEW LABEL PETA')
+    async onSubmit(vNode, data, formMethods, vNodeStore) {
+      console.log('subbed', data)
     },
     async onValidateError(vNode, data, formMethods, errorComponent, vNodeStore) {
       console.log('validation error', errorComponent)
