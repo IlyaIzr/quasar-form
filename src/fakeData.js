@@ -1,27 +1,21 @@
 export const config = {
-  fields: [//Multiple fields
+  fields: [
     {
-      type: 'multiple', key: 'multi21', rowIndex: 4,
+      type: 'multiple', key: 'multiKey', rowIndex: 4,
       value: [
+        { 'field1key': '', p: '' },
+        { 'field1key': '', p: '' },
+        { 'field1key': '', p: '' },
       ],
       fields: [
         {
-          type: 'select', rowIndex: 2, key: 'select12', label: 'Choose',
-          options: [
-            { id: 'option1', name: 'Your kids go to college' },
-            { id: 'option2', name: 'Batman glass' },
-            { id: 'option3', name: 'Meg' }
-          ]
+          type: 'text', rowIndex: 1, key: 'field1key', label: 'Name', outlined: true, append: 'event',
+          async appendOnClick(vNode, value, ref, vNodeStore) {
+            console.log(vNode)
+            vNode.setConfig('visible', false)
+          }
         },
-        {
-          type: 'select', rowIndex: 2, key: 'select122', label: 'Choose2',
-          options: [
-            { id: 'option1', name: 'Your kids go to college' },
-            { id: 'option2', name: 'Batman glass' },
-            { id: 'option3', name: 'Meg' }
-          ]
-        },
-        { type: 'date', rowIndex: 3, key: 'dateKey', label: 'When?' }
+        { key: 'p', rowIndex: 1, label: 'some pe', filled: true, type: 'password' }
       ],
       label: 'Multy fields!',
       buttons: {
@@ -29,28 +23,31 @@ export const config = {
         deleteField: { text: 'x', color: 'red', textColor: 'black', disabled: false }
       },
       shouldAddPreviousValue: false,
-      // defaultAddValues: {} //TBD,
       rules: [val => val >= 2 || 'Select at least 2 fields']
     },
   ],
 
-  // Tabs aka Stepper aka Wizard  
-  tabs: {
-    steps: [
-      { title: 'First', icon: 'settings' }, //Icon names: https://material.io/resources/icons/
-      { title: 'Second', icon: 'img:https://cdn.quasar.dev/logo/svg/quasar-logo.svg' }
-    ],
-    buttons: {  //Ovverrides default buttons
-      next: { text: 'next step' },
-      back: { text: 'go back', color: 'yellow', textColor: 'black' },
-      submit: { text: 'send' },
-      reset: false,
-      clear: false
+  modal: {  //Nothing is required
+    triggerButton: {
+      label: 'run form', color: 'white', textColor: 'red'
     },
-    tabNavigation: true,  //User can click on tabs
-    validateTabNavigation: true,
-    validateButtonNavigation: false,
+    persistent: true,  // rest if false by default. Можно ли закрыть кликом вне формы
+    maximized: false,
+    transitionShow: "slide-up", // one of https://quasar.dev/options/transitions
+    transitionHide: "jump-right",
+    seamless: false, // Можно ли взаимодействовать с контентом вне формы (по сторонам)
+    fullWidth: false,
+    fullHeigh: true,
+    position: 'left', // one of 'standard' 'top' 'right' 'bottom' 'left'
   },
+  buttons: [  // buttons NOT required
+    {
+      type: 'submit', // required IF buttons declared
+      label: 'отправить', color: 'primary', class: 'customClassName' //not required
+    },
+    { type: 'reset', label: 'сбросить' },  // reset button not required
+    { type: 'close', label: 'x' },    
+  ],
 
   form: {
     async onSubmit(vNode, data, formMethods, vNodeStore) {

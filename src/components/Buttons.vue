@@ -3,6 +3,7 @@
     <q-btn
       v-if="resBtn.type"
       type="reset"
+      @click="$emit('reset')"
       :label="resBtn.label"
       :color="resBtn.color"
       :text-color="resBtn.textColor"
@@ -20,6 +21,7 @@
     <q-btn
       :label="subBtn.label"
       type="submit"
+      @click="$emit('submit')"
       :color="subBtn.color"
       :text-color="subBtn.textColor"
       :class="subBtn.class"

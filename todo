@@ -16,8 +16,9 @@ date with input clearable
 
 check options for multiple or remake setOptions to do setConfig
 
--=-=
-Fixed title and buttons (right side)
+close buttons for tabs
+
+-=-= Agenda =-=-
 multiple item border, bigger label, and centered and capitalize, close button over border
 opt out close title
 wrapper around some rows
@@ -27,7 +28,9 @@ vnode.closeModal()
 .validate() without $refs.validate()
 getMultiSiblings(el) => el.$children[0]
 
+
 =-=-=-=-=_ Done list _=-=-=-=-=
+
 25.11.2020
 * default required fields and rules fix
 * form reset() and clear() methods, form.onReset() and form.onClear() listeners in config. Clear button type added
@@ -57,3 +60,5 @@ getMultiSiblings(el) => el.$children[0]
 
 02.12.2020
 * multiple validation check
+* multiple reset () fix
+* form tabs fixed headers and control buttons

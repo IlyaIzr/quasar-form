@@ -121,7 +121,7 @@ export default {
       this.$forceUpdate();
     },
     setValue(val) {
-      this.updateKeyValue(this.multiKey, val);
+      store.updateKeyValue(this.multiKey, val);
       this.value = this.store.getValueByKey(this.multiKey);
     },
     reset() {

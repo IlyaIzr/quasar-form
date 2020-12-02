@@ -1,39 +1,55 @@
 <template>
   <q-card>
-    <q-bar v-if="settings.modal">
-      <q-space />
-      <q-btn dense flat icon="close" v-close-popup>
-        <q-tooltip content-class="bg-white text-primary">Close</q-tooltip>
-      </q-btn>
-    </q-bar>
+    <q-card-section style="max-height: 8vh">
+      <q-bar v-if="settings.modal" class="float-right">
+        <q-space />
+        <q-btn dense flat icon="close" v-close-popup>
+          <q-tooltip content-class="bg-white text-primary">Закрыть</q-tooltip>
+        </q-btn>
+      </q-bar>
 
-    <q-form
-      class="bg-white q-pa-md"
-      ref="form"
-      @submit="onSubmit"
-      @reset="onReset"
-      @validation-success="onValidateSuccess"
-      @validation-error="onValidateError"
-    >
-      <div class="text-h6">{{ settings.title }}</div>
+      <div class="text-h5">{{ settings.title }}</div>
+    </q-card-section>
 
-      <FieldMapper
-        :fields="settings.fields"
-        :values="values"
-        :tabs="settings.tabs"
-        :settings="settings"
+    <q-separator />
+
+    <q-card-section>
+      <q-form
+        style="max-height: 65vh"
+        class="scroll bg-white q-pa-md"
+        ref="form"
         @submit="onSubmit"
         @reset="onReset"
-        @clear="onClear"
-      />
+        @validation-success="onValidateSuccess"
+        @validation-error="onValidateError"
+      >
+        <FieldMapper
+          :fields="settings.fields"
+          :values="values"
+          :tabs="settings.tabs"
+          :settings="settings"
+          @submit="onSubmit"
+          @reset="onReset"
+          @clear="onClear"
+        />
+      </q-form>
+    </q-card-section>
 
+    <q-separator />
+
+    <q-card-section
+      style="max-height: 12vh"
+      :class="settings.modal && ' float-right q-mr-md' + ' scroll '"
+    >
       <Buttons
         :buttons="settings.buttons"
         :modal="settings.modal"
         v-if="!settings.tabs"
+        @submit="onSubmit"
+        @reset="onReset"
         @clear="onClear"
       />
-    </q-form>
+    </q-card-section>
   </q-card>
 </template>
 
@@ -71,6 +87,8 @@ export default {
   methods: {
     // Event Handlers
     async onSubmit(e) {
+      const res = await this.$refs.form.validate();
+      if (!res) return null;
       const valuesResponse = { ...this.valuesResponse };
       delete valuesResponse.watcher;
       // Check for calndar range object

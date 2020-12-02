@@ -157,7 +157,7 @@ export const vNodeStore = {
   },
   resetComponents() {
     for (const [key] of Object.entries(this.state)) {
-      this.state[key].$children[0].reset()
+      this.state[key]?.$children?.[0]?.reset?.()
     }
   }
 }
