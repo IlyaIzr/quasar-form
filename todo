@@ -61,3 +61,4 @@ getMultiSiblings(el) => el.$children[0]
 * multiple reset () fix
 * form tabs fixed headers and control buttons
 * modal styling
+* multiFields styling
