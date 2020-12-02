@@ -1,26 +1,43 @@
 <template>
-  <div class="q-my-md" v-if="rest.visible === undefined ? true : rest.visible">
-    <p class="text-subtitle1 q-mb-none">{{ rest.label }}</p>
-    <div v-for="(item, index) in value" v-bind:key="item.key" class="col">
-      <FieldMapper
-        :fields="rest.fields || []"
-        :multiKey="multiKey"
-        :values="value[index]"
-        :rowIndexMultiple="Number(index)"
-      />
-      <div class="col text-right">
+  <div v-if="rest.visible === undefined ? true : rest.visible" class="q-my-md" >
+    <q-card-section class="relative-position q-pa-md q-pt-none q-ma-lg" style="min-width: 420px">
+      <q-separator class="bg-primary absolute-center" />
+      <p
+        class="text-h6 q-qx-md absolute-center bg-white"
+        style="border: 5px white solid"
+      >
+        {{ rest.label }}
+      </p>
+    </q-card-section>
+    <q-card
+      v-for="(item, index) in value"
+      v-bind:key="item.key"
+      class="col my-card q-ma-sm q-mb-md q-pa-sm q-pb-xs"
+      flat
+      bordered
+    >
+      <q-card-section class="relative-position q-mx-sm q-pa-xs">
         <q-btn
-          class="q-my-sm"
-          size="small"
+          class="q-my-sm absolute-top-right"
+          style="top: -25px"
+          size="xs"
           :label="buttons.deleteField.text || 'x'"
           :color="buttons.deleteField.color || 'red'"
           :text-color="buttons.deleteField.textColor || 'white'"
           :disable="buttons.deleteField.disabled"
           @click="deleteField(index)"
         />
-      </div>
-    </div>
+      </q-card-section>
+
+      <FieldMapper
+        :fields="rest.fields || []"
+        :multiKey="multiKey"
+        :values="value[index]"
+        :rowIndexMultiple="Number(index)"
+      />
+    </q-card>
     <q-btn
+      class="float-right q-mr-lg"
       :label="buttons.addField.text || '+'"
       :color="buttons.addField.color || 'green'"
       :text-color="buttons.addField.textColor"

@@ -1,22 +1,16 @@
 <template>
   <q-card>
-    <q-card-section style="max-height: 8vh">
-      <q-bar v-if="settings.modal" class="float-right">
-        <q-space />
-        <q-btn dense flat icon="close" v-close-popup>
-          <q-tooltip content-class="bg-white text-primary">Закрыть</q-tooltip>
-        </q-btn>
-      </q-bar>
-
+    <q-card-section style="max-height: 8vh" class="q-pb-none relative-position">
+      <q-btn dense flat icon="close" v-close-popup class="absolute" style="right: 20px">
+        <q-tooltip content-class="bg-white text-primary">Закрыть</q-tooltip>
+      </q-btn>
       <div class="text-h5">{{ settings.title }}</div>
     </q-card-section>
 
-    <q-separator />
-
-    <q-card-section>
+    <q-card-section class="q-py-none">
       <q-form
         style="max-height: 65vh"
-        class="scroll bg-white q-pa-md"
+        class="scroll bg-white q-pa-md q-py-none"
         ref="form"
         @submit="onSubmit"
         @reset="onReset"

@@ -3,9 +3,6 @@ export const config = {
     {
       type: 'multiple', key: 'multiKey', rowIndex: 4,
       value: [
-        { 'field1key': '', p: '' },
-        { 'field1key': '', p: '' },
-        { 'field1key': '', p: '' },
       ],
       fields: [
         {
@@ -19,7 +16,7 @@ export const config = {
       ],
       label: 'Multy fields!',
       buttons: {
-        addField: { text: 'add', color: 'green', textColor: 'white' },
+        addField: { text: '+', color: 'green', textColor: 'white' },
         deleteField: { text: 'x', color: 'red', textColor: 'black', disabled: false }
       },
       shouldAddPreviousValue: false,
@@ -27,7 +24,7 @@ export const config = {
     },
   ],
 
-  modal: {  //Nothing is required
+  modal1: {  //Nothing is required
     triggerButton: {
       label: 'run form', color: 'white', textColor: 'red'
     },
@@ -36,7 +33,7 @@ export const config = {
     transitionShow: "slide-up", // one of https://quasar.dev/options/transitions
     transitionHide: "jump-right",
     seamless: false, // Можно ли взаимодействовать с контентом вне формы (по сторонам)
-    fullWidth: false,
+    fullWidth: true,
     fullHeigh: true,
     position: 'left', // one of 'standard' 'top' 'right' 'bottom' 'left'
   },

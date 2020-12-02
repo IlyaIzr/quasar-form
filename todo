@@ -19,8 +19,6 @@ check options for multiple or remake setOptions to do setConfig
 close buttons for tabs
 
 -=-= Agenda =-=-
-multiple item border, bigger label, and centered and capitalize, close button over border
-opt out close title
 wrapper around some rows
 distance between required and unrequired fields
 different clear  button (smaller)
@@ -62,3 +60,4 @@ getMultiSiblings(el) => el.$children[0]
 * multiple validation check
 * multiple reset () fix
 * form tabs fixed headers and control buttons
+* modal styling
