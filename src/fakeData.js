@@ -1,19 +1,27 @@
 export const config = {
-  fields: [
+  fields: [//Multiple fields
     {
-      type: 'multiple', key: 'multiKey', rowIndex: 4,
+      type: 'multiple', key: 'multi21', rowIndex: 4,
       value: [
-        { 'field1key': '', p: '' },
-        { 'field1key': '', p: '' }
       ],
       fields: [
-        { type: 'text', rowIndex: 1, key: 'field1key', label: 'Name', outlined: true, append: 'event', 
-        async appendOnClick(vNode, value, ref, vNodeStore){
-          console.log(vNode)
-          vNode.setConfig('visible', false)
-        }
-      },
-        {key: 'p', rowIndex: 1,label: 'some pe', filled: true, type: 'password'}
+        {
+          type: 'select', rowIndex: 2, key: 'select12', label: 'Choose',
+          options: [
+            { id: 'option1', name: 'Your kids go to college' },
+            { id: 'option2', name: 'Batman glass' },
+            { id: 'option3', name: 'Meg' }
+          ]
+        },
+        {
+          type: 'select', rowIndex: 2, key: 'select122', label: 'Choose2',
+          options: [
+            { id: 'option1', name: 'Your kids go to college' },
+            { id: 'option2', name: 'Batman glass' },
+            { id: 'option3', name: 'Meg' }
+          ]
+        },
+        { type: 'date', rowIndex: 3, key: 'dateKey', label: 'When?' }
       ],
       label: 'Multy fields!',
       buttons: {
@@ -21,6 +29,7 @@ export const config = {
         deleteField: { text: 'x', color: 'red', textColor: 'black', disabled: false }
       },
       shouldAddPreviousValue: false,
+      // defaultAddValues: {} //TBD,
       rules: [val => val >= 2 || 'Select at least 2 fields']
     },
   ],

@@ -19,7 +19,6 @@ check options for multiple or remake setOptions to do setConfig
 -=-=
 Fixed title and buttons (right side)
 multiple item border, bigger label, and centered and capitalize, close button over border
-!! whole field validation running = bad -- tested. Working already
 opt out close title
 wrapper around some rows
 distance between required and unrequired fields
@@ -55,3 +54,6 @@ getMultiSiblings(el) => el.$children[0]
 * reveal password interactive icon
 * appended and prepend input icons and functions
 * visibility fix
+
+02.12.2020
+* multiple validation check
