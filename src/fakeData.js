@@ -1,50 +1,36 @@
 export const config = {
   fields: [
     {
-      type: 'multiple', key: 'multiKey', rowIndex: 4,
-      value: [
-      ],
-      fields: [
-        {
-          type: 'text', rowIndex: 1, key: 'field1key', label: 'Name', outlined: true, append: 'event',
-          async appendOnClick(vNode, value, ref, vNodeStore) {
-            console.log(vNode)
-            vNode.setConfig('visible', false)
-          }
-        },
-        { key: 'p', rowIndex: 1, label: 'some pe', filled: true, type: 'password' }
-      ],
-      label: 'Multy fields!',
-      buttons: {
-        addField: { text: '+', color: 'green', textColor: 'white' },
-        deleteField: { text: 'x', color: 'red', textColor: 'black', disabled: false }
-      },
-      shouldAddPreviousValue: false,
-      rules: [val => val >= 2 || 'Select at least 2 fields']
+      rowIndex: 1, label: 'no wrpap'
+    },
+    {
+      rowIndex: 2, label: 'wrpap us'
+    },
+    {
+      rowIndex: 3, label: 'wrpap us'
+    },
+    {
+      rowIndex: 4, label: 'not completed wrap'
     },
   ],
 
-  modal: {  //Nothing is required
-    triggerButton: {
-      label: 'run form', color: 'white', textColor: 'red'
+  wrap: [[2, 3], [4, 5, 6]], 
+  tabs: {
+    steps: [
+      { title: 'First', icon: 'settings' }, //Icon names: https://material.io/resources/icons/
+      { title: 'Second', icon: 'img:https://cdn.quasar.dev/logo/svg/quasar-logo.svg' }
+    ],
+    buttons: {  //Ovverrides default buttons
+      next: { text: 'next step' },
+      back: { text: 'go back', color: 'yellow', textColor: 'black' },
+      submit: { text: 'send' },
+      reset: false,
+      clear: false
     },
-    persistent: true,  // rest if false by default. Можно ли закрыть кликом вне формы
-    maximized: false,
-    transitionShow: "slide-up", // one of https://quasar.dev/options/transitions
-    transitionHide: "jump-right",
-    seamless: false, // Можно ли взаимодействовать с контентом вне формы (по сторонам)
-    fullWidth: true,
-    fullHeigh: true,
-    position: 'left', // one of 'standard' 'top' 'right' 'bottom' 'left'
+    tabNavigation: true,  //User can click on tabs
+    validateTabNavigation: true,
+    validateButtonNavigation: false,
   },
-  buttons: [  // buttons NOT required
-    {
-      type: 'submit', // required IF buttons declared
-      label: 'отправить', color: 'primary', class: 'customClassName' //not required
-    },
-    { type: 'reset', label: 'сбросить' },  // reset button not required
-    { type: 'close', label: 'x' },    
-  ],
 
   form: {
     async onSubmit(vNode, data, formMethods, vNodeStore) {

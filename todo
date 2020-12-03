@@ -65,3 +65,4 @@ getMultiSiblings(el) => el.$children[0]
 
 03.12.2020
 * modal close button mini-fix
+* wrap for simple fields

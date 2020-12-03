@@ -11,6 +11,19 @@
     />
 
     <div
+      v-else-if="wrappedFields"
+      v-for="row in wrappedFields"
+      v-bind:key="wrappedFields.indexOf(row)"
+    >
+      <q-card flat bordered v-if="row[0]" class="q-pa-sm q-my-sm">
+        <div v-for="subRow in row" v-bind:key="row.indexOf(subRow)">
+          <FormRow v-if="typeof subRow === 'object'" :row="subRow" />
+        </div>
+      </q-card>
+      <FormRow v-else :row="row[1]" />
+    </div>
+
+    <div
       v-else
       v-for="row in sortedFields"
       v-bind:key="sortedFields.indexOf(row)"
@@ -72,7 +85,11 @@ export default {
           }
 
           //Assign value from values source, or else assign default value if it's not in config
-          if (this.values && this.values[field.key] !== undefined && !this.multiKey) {
+          if (
+            this.values &&
+            this.values[field.key] !== undefined &&
+            !this.multiKey
+          ) {
             field.value = this.values[field.key];
           } else if (field.value === undefined) field.value = "";
           //Assign default field type as 'text'
@@ -129,6 +146,32 @@ export default {
 
       return tabbedAndSorted;
     },
+    wrappedFields() {
+      let res = null;
+      const wrap = this.settings.wrap;
+      if (wrap) {
+        res = [];
+        this.sortedFields?.map((row) => {
+          const thisIndex = row[0]?.rowIndex;
+          const needsWrap = wrap.find(
+            (wrapItem) => wrapItem.indexOf(thisIndex) > -1
+          );
+          const prevFieldNeedsWrap = res?.[res.length - 1]?.[0];
+          const prevFieldRowIndex = res?.[res.length - 1]?.[1]?.[0]?.rowIndex;
+          const prevFieldBelongsToUs =
+            needsWrap?.indexOf(prevFieldRowIndex) > -1;
+          if (needsWrap) {
+            if (prevFieldNeedsWrap && prevFieldBelongsToUs)
+              res[res.length - 1].push(row);
+            else res.push([true, row]);
+          } else res.push([false, row]);
+        });
+      }
+      return res;
+    },
+  },
+  mounted() {
+    console.log(this.wrappedFields);
   },
 };
 </script>
