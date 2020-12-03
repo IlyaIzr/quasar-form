@@ -1,7 +1,7 @@
 <template>
   <q-card>
     <q-card-section style="max-height: 8vh" class="q-pb-none relative-position">
-      <q-btn dense flat icon="close" v-close-popup class="absolute" style="right: 20px">
+      <q-btn v-if="settings.modal" dense flat icon="close" v-close-popup class="absolute" style="right: 20px">
         <q-tooltip content-class="bg-white text-primary">Закрыть</q-tooltip>
       </q-btn>
       <div class="text-h5">{{ settings.title }}</div>

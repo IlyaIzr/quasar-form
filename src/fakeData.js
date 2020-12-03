@@ -24,7 +24,7 @@ export const config = {
     },
   ],
 
-  modal1: {  //Nothing is required
+  modal: {  //Nothing is required
     triggerButton: {
       label: 'run form', color: 'white', textColor: 'red'
     },

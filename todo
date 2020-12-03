@@ -62,3 +62,6 @@ getMultiSiblings(el) => el.$children[0]
 * form tabs fixed headers and control buttons
 * modal styling
 * multiFields styling
+
+03.12.2020
+* modal close button mini-fix
