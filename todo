@@ -19,8 +19,6 @@ check options for multiple or remake setOptions to do setConfig
 close buttons for tabs
 
 -=-= Agenda =-=-
-wrapper around some rows
-distance between required and unrequired fields
 different clear  button (smaller)
 vnode.closeModal()
 .validate() without $refs.validate()
@@ -66,3 +64,4 @@ getMultiSiblings(el) => el.$children[0]
 03.12.2020
 * modal close button mini-fix
 * wrap for simple fields
+* even distance between required and unrequired fields

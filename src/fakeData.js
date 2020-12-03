@@ -1,7 +1,7 @@
 export const config = {
   fields: [
     {
-      rowIndex: 1, label: 'no wrpap'
+      rowIndex: 2, label: 'no wrpap'
     },
     {
       rowIndex: 2, label: 'wrpap us'
@@ -12,9 +12,11 @@ export const config = {
     {
       rowIndex: 4, label: 'not completed wrap'
     },
+    {
+      rowIndex: 5, label: 'not completed wrap'
+    },
   ],
 
-  wrap: [[2, 3], [4, 5, 6]], 
   tabs: {
     steps: [
       { title: 'First', icon: 'settings' }, //Icon names: https://material.io/resources/icons/

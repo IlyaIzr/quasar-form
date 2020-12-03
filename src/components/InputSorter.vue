@@ -1,5 +1,5 @@
 <template>
-  <div v-if="isRendered" :class="(rest.visible || rest.visible === undefined) ? 'col' : 'hidden'">
+  <div v-if="isRendered" :class="classNames">
     <SimpleInput
       v-if="inputType === 'simple'"
       :type="inputInfo.type"
@@ -127,6 +127,17 @@ export default {
     File,
   },
   computed: {
+    classNames() {
+      let r = "";
+      const basic =
+        this.rest.visible || this.rest.visible === undefined ? "col" : "hidden";
+      const margin =
+        this.rest.hasOwnProperty("required") && !this.rest.required
+          ? " q-mb-sm"
+          : "";
+      r = basic + margin;
+      return r;
+    },
     inputType: function () {
       const type = this.inputInfo.type;
       let inputType;

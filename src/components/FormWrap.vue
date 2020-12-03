@@ -9,7 +9,7 @@
 
     <q-card-section class="q-py-none">
       <q-form
-        style="max-height: 65vh"
+        :style="settings.modal && 'max-height: 65vh'"
         class="scroll bg-white q-pa-md q-py-none"
         ref="form"
         @submit="onSubmit"
