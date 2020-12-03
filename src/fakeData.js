@@ -1,19 +1,21 @@
 export const config = {
   fields: [
     {
-      rowIndex: 2, label: 'no wrpap'
-    },
-    {
-      rowIndex: 2, label: 'wrpap us'
-    },
-    {
-      rowIndex: 3, label: 'wrpap us'
-    },
-    {
-      rowIndex: 4, label: 'not completed wrap'
-    },
-    {
-      rowIndex: 5, label: 'not completed wrap'
+      type: 'multiple', key: 'multiKey', rowIndex: 4,
+      value: [
+        { 'field1key': 'Peter',  },
+        { 'field1key': 'Lois',  }
+      ],
+      fields: [
+        { type: 'text', rowIndex: 1, key: 'field1key', label: 'Name' },
+      ],
+      label: 'Multy fields!',
+      buttons: {
+        addField: { text: 'add', color: 'green', textColor: 'white' },
+        deleteField: { text: 'x', color: 'red', textColor: 'black', disabled: false }
+      },
+      shouldAddPreviousValue: false,
+      rules: [val => val >= 2 || 'Select at least 2 fields']
     },
   ],
 

@@ -148,7 +148,7 @@ export default {
     },
     wrappedFields() {
       let res = null;
-      const wrap = this.settings.wrap;
+      const wrap = this.settings?.wrap;
       if (wrap) {
         res = [];
         this.sortedFields?.map((row) => {
