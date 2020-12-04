@@ -150,7 +150,7 @@ export const vNodeStore = {
     let res = []
     const multiParentStore = this.state.multiChildren[multiKey]
     multiParentStore?.map((children) => {
-      if (children.hasOwnProperty(key)) res.push(children[key])
+      if (children.hasOwnProperty(key)) res.push(children[key].$children[0])
     })
     if (res.length) return res
     else return null
