@@ -28,6 +28,7 @@
 </template>
 
 <script>
+import { vNodeStore } from "src/store";
 import FormWrap from "./FormWrap";
 export default {
   name: "ModalWrapper",
@@ -36,7 +37,10 @@ export default {
     return {
       modal: { ...this.settings.modal },
       isModal: Boolean(this.settings.modal),
-      isOpen: this.settings.modal && this.settings.modal.opened === false ? false : true,
+      isOpen:
+        this.settings.modal && this.settings.modal.opened === false
+          ? false
+          : true,
       maximized: Boolean(this.settings.modal && this.settings.modal.maximized),
     };
   },
@@ -49,6 +53,9 @@ export default {
       type: Object,
       required: false,
     },
+  },
+  mounted() {
+    if (this.isModal) vNodeStore.closeModal = () => (this.isOpen = false);
   },
 };
 </script>

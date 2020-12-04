@@ -222,7 +222,7 @@ export const config = {
 
   form: {
     //Form events
-    async onSubmit(vNode, data, formMethods) {
+    async onSubmit(vNode, data, formMethods, vNodeStore) {
       console.log('submited', vNode)
       console.log('submited', data)
       // vNode.clear()  // Clear form
@@ -232,7 +232,8 @@ export const config = {
       //   icon: "cloud_done",
       //   message: "Submitted",
       //   position: 'bottom-right'
-      // });
+      // });      
+      vNodeStore.closeModal()
       return function (vNode) {
         console.log('callback function')
       }

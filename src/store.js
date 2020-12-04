@@ -159,7 +159,9 @@ export const vNodeStore = {
     for (const [key] of Object.entries(this.state)) {
       this.state[key]?.$children?.[0]?.reset?.()
     }
-  }
+  },
+  //helper global methods
+  closeModal: () => { console.log('no modal to close') }
 }
 
 export const configStore = {
