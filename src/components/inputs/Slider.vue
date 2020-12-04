@@ -147,6 +147,7 @@ export default {
     },
   },
   mounted() {
+    this.validate = this.$refs.slider.validate
     if (this.rest.hasOwnProperty("visible") && !this.rest.visible) {
       this.$parent.$el.parentNode.className += " hidden";
     }

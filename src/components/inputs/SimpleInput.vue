@@ -230,6 +230,9 @@ export default {
       }
     },
   },
+  mounted() {
+    this.validate = this.$refs.input.validate
+  },
 };
 </script>
 

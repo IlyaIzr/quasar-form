@@ -214,6 +214,7 @@ export default {
     },
   },
   mounted() {
+    this.validate = this.$refs.input.validate
     if (this.rest.hasOwnProperty("visible") && !this.rest.visible) {
       this.$parent.$el.parentNode.className += " hidden";
     }

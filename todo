@@ -19,7 +19,6 @@ check options for multiple or remake setOptions to do setConfig
 close buttons for tabs
 
 -=-= Agenda =-=-
-.validate() without $refs.validate()
 getMultiSiblings(el) => el.$children[0]
 
 
@@ -67,3 +66,4 @@ getMultiSiblings(el) => el.$children[0]
 04.12.2020
 * multivalues tested - all Ok, and smaller clear icon
 * vNodeStore.closeModal() global method
+* vNode.validate() alias $refs.validate()
