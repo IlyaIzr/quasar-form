@@ -10,6 +10,7 @@ export const config = {
       value: "Can't touch this",
       required: true,
       requiredMessage: 'Fill the field', // Не знаю какое поставить по дефолту. Просто пустое?
+      service: true, // - value not submited
     },
 
     // Text input

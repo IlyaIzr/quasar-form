@@ -8,9 +8,9 @@ export const config = {
         { 'field1key': 'Lois', select12: 'option1', dateKey: '2020/12/12' }
       ],
       fields: [
-        { type: 'text', rowIndex: 1, key: 'field1key', label: 'Name' },
+        { type: 'text', rowIndex: 1, key: 'field1key', label: 'Name', service: false, },
         {
-          type: 'select', rowIndex: 2, key: 'select12', label: 'Choose',
+          type: 'select', rowIndex: 2, key: 'select12', label: 'Choose', service: true,
           options: [
             { id: 'option1', name: 'Your kids go to college' },
             { id: 'option2', name: 'Batman glass' },
@@ -28,6 +28,9 @@ export const config = {
       // defaultAddValues: {} //TBD,
       rules: [val => val >= 2 || 'Select at least 2 fields']
     },
+    {
+      key: 'testo', service: true, value: 'bob'
+    }
 
   ],
 

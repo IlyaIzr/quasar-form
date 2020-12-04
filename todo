@@ -21,7 +21,6 @@ close buttons for tabs
 -=-= Agenda =-=-
 
 
-
 =-=-=-=-=_ Done list _=-=-=-=-=
 
 25.11.2020
@@ -68,3 +67,4 @@ close buttons for tabs
 * vNodeStore.closeModal() global method
 * vNode.validate() alias $refs.validate()
 * getMultiSiblings unification
+* service fields aren't submited. Also inside multiple

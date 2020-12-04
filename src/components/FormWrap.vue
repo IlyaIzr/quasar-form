@@ -1,7 +1,15 @@
 <template>
   <q-card>
     <q-card-section style="max-height: 8vh" class="q-pb-none relative-position">
-      <q-btn v-if="settings.modal" dense flat icon="close" v-close-popup class="absolute" style="right: 20px">
+      <q-btn
+        v-if="settings.modal"
+        dense
+        flat
+        icon="close"
+        v-close-popup
+        class="absolute"
+        style="right: 20px"
+      >
         <q-tooltip content-class="bg-white text-primary">Закрыть</q-tooltip>
       </q-btn>
       <div class="text-h5">{{ settings.title }}</div>
@@ -85,10 +93,39 @@ export default {
       if (!res) return null;
       const valuesResponse = { ...this.valuesResponse };
       delete valuesResponse.watcher;
-      // Check for calndar range object
-      for (const [key, value] of Object.entries(valuesResponse)) {
+      // Remove service keys
+      let seriveKeys = [];
+      let multiKeys = [];
+      this.settings.fields.map((field) => {
+        field.service && seriveKeys.push(field.key);
+        if (field.type === "multiple") {
+          multiKeys.push(field.key);
+          field.fields.map(
+            (miniF) => miniF.service && seriveKeys.push(miniF.key)
+          );
+        }
+      });
+      const checkDates = (value) => {
         if (typeof value === "object" && value.from && value.to) {
-          valuesResponse[key] = { start: value.from, finish: value.to };
+          return { start: value.from, finish: value.to };
+        }
+      };
+      for (const [key, value] of Object.entries(valuesResponse)) {
+        if (seriveKeys.indexOf(key) > -1) delete valuesResponse[key];
+        // Check for calndar range object, in simple fields
+        const res = checkDates(value);
+        if (res) valuesResponse[key] = res;
+        // Case multiKey
+        if (multiKeys.indexOf(key) > -1) {
+          valuesResponse[key].map((multiRow) => {
+            for (const [miniKey, miniValue] of Object.entries(multiRow)) {
+              // Check for service keys in multiFields
+              if (seriveKeys.indexOf(miniKey) > -1) delete multiRow[miniKey];
+              // Calendar range in multiFields
+              const res = checkDates(miniValue);
+              if (res) multiRow[key] = res;
+            }
+          });
         }
       }
       if (this.form.onSubmit) {
