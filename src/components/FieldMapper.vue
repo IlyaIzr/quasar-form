@@ -170,9 +170,6 @@ export default {
       return res;
     },
   },
-  mounted() {
-    console.log(this.wrappedFields);
-  },
 };
 </script>
 
