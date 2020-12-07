@@ -26,6 +26,13 @@
     </div>
     <template v-slot:default class="q-ma-none">
       <q-icon name="cancel" @click="onInput('')" class="cursor-pointer" />
+      <q-field
+        ref="calendarCheck"
+        :value="rest.range ? rangeValues : value"
+        :rules="rules"
+        borderless
+        dense
+      />
     </template>
   </q-date>
 </template>
@@ -66,6 +73,32 @@ export default {
         if (this.value.start && this.value.finish)
           res = { from: this.value.start, to: this.value.finish };
         else res = { ...this.value };
+      }
+      return res;
+    },
+    rules() {
+      let res = [];
+      if (this.required && !this.rest.range) {
+        res = [
+          (dateString) =>
+            (dateString.split(".")[0] < 32 &&
+              dateString.split(".")[1] < 13 &&
+              dateString.split(".")[2] > 1900) ||
+            this.rest.requiredMessage ||
+            "Incorrect date",
+        ];
+      } else if (this.required) {
+        res = [
+          (rangeObject) =>
+            (rangeObject.from.split(".")[0] < 2 &&
+              rangeObject.from.split(".")[1] < 13 &&
+              rangeObject.from.split(".")[2] > 1900 &&
+              rangeObject.to.split(".")[0] < 32 &&
+              rangeObject.to.split(".")[1] < 13 &&
+              rangeObject.to.split(".")[2] > 1900) ||
+            this.rest.requiredMessage ||
+            "Incorrect date",
+        ];
       }
       return res;
     },

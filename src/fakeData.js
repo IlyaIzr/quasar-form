@@ -4,8 +4,8 @@ export const config = {
     {
       type: 'multiple', key: 'multi21', rowIndex: 4,
       value: [
-        { 'field1key': 'Peter', select12: 'option2', dateKey: '2012/12/12' },
-        { 'field1key': 'Lois', select12: 'option1', dateKey: '2020/12/12' }
+        { 'field1key': 'Peter', select12: 'option2',  },
+        // { 'field1key': '', select12: '',  }
       ],
       fields: [
         { type: 'text', rowIndex: 1, key: 'field1key', label: 'Name', service: false, },
@@ -17,7 +17,7 @@ export const config = {
             { id: 'option3', name: 'Meg' }
           ]
         },
-        { type: 'date', rowIndex: 1, key: 'dateKey', label: 'When?', withInput: false }
+        { type: 'date', rowIndex: 1, key: 'dateKey', label: 'When?', withInput: true, range: true }
       ],
       label: 'Multy fields!',
       buttons: {
@@ -26,7 +26,7 @@ export const config = {
       },
       shouldAddPreviousValue: false,
       // defaultAddValues: {} //TBD,
-      rules: [val => val >= 2 || 'Select at least 2 fields']
+      rules: [val => val >= 1 || 'Select at least 1 field']
     },
     {
       key: 'testo', service: true, value: 'bob'

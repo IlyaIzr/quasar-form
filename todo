@@ -71,3 +71,5 @@ close buttons for tabs
 
 07.12.2020
 * clear button for no-input calendar and little fix for validate() pass up
+* date validation for no-input calendar. Default required
+* multiple submit of dates range fixed

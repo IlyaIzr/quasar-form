@@ -123,7 +123,7 @@ export default {
               if (seriveKeys.indexOf(miniKey) > -1) delete multiRow[miniKey];
               // Calendar range in multiFields
               const res = checkDates(miniValue);
-              if (res) multiRow[key] = res;
+              if (res) multiRow[miniKey] = res;
             }
           });
         }
