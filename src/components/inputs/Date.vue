@@ -24,6 +24,9 @@
     <div v-if="hasInput" class="row items-center justify-end">
       <q-btn v-close-popup label="Close" color="primary" flat ref="btn" />
     </div>
+    <template v-slot:default class="q-ma-none">
+      <q-icon name="cancel" @click="onInput('')" class="cursor-pointer" />
+    </template>
   </q-date>
 </template>
 

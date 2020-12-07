@@ -17,7 +17,7 @@ export const config = {
             { id: 'option3', name: 'Meg' }
           ]
         },
-        { type: 'date', rowIndex: 1, key: 'dateKey', label: 'When?' }
+        { type: 'date', rowIndex: 1, key: 'dateKey', label: 'When?', withInput: false }
       ],
       label: 'Multy fields!',
       buttons: {

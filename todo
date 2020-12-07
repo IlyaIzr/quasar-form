@@ -68,3 +68,6 @@ close buttons for tabs
 * vNode.validate() alias $refs.validate()
 * getMultiSiblings unification
 * service fields aren't submited. Also inside multiple
+
+07.12.2020
+* clear button for no-input calendar and little fix for validate() pass up

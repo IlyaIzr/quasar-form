@@ -214,7 +214,9 @@ export default {
     },
   },
   mounted() {
-    this.validate = this.$refs.input.validate
+    if (this.rest.withInput || this.rest.withInput === undefined)
+      this.validate = this.$refs.input.validate;
+    else this.validate = this.$children[0].$refs.calendar;
     if (this.rest.hasOwnProperty("visible") && !this.rest.visible) {
       this.$parent.$el.parentNode.className += " hidden";
     }
