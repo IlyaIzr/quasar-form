@@ -12,7 +12,6 @@ const mask = createMask(config)
 
 mask.resolve('value')
 
-date with input clearable
 
 check options for multiple or remake setOptions to do setConfig
 
