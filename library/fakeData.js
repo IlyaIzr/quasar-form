@@ -273,14 +273,14 @@ export const config = {
     triggerButton: {
       label: 'run form', color: 'white', textColor: 'red'
     },
+    fullWidth: false,
+    fullHeigh: true,
     opened: false, // true by default if no 'opened' key provided
     persistent: true,  // rest if false by default. Можно ли закрыть кликом вне формы
     maximized: false,
     transitionShow: "slide-up", // one of https://quasar.dev/options/transitions
     transitionHide: "jump-right",
     seamless: false, // Можно ли взаимодействовать с контентом вне формы (по сторонам)
-    fullWidth: false,
-    fullHeigh: true,
     position: 'left', // one of 'standard' 'top' 'right' 'bottom' 'left'
   },
 

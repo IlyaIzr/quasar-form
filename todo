@@ -18,9 +18,6 @@ check options for multiple or remake setOptions to do setConfig
 close buttons for tabs
 
 -=-= Agenda =-=-
-quasar update
-npm check updates
-full width height by def, and max-width 75% wv or ~1800px
 remove tabs border
 footer delimeter for tabs showed even without buttons, make title with delimeter too
 several empty multiples styles
@@ -87,3 +84,8 @@ required?
 * clear button for no-input calendar and little fix for validate() pass up
 * date validation for no-input calendar. Default required
 * multiple submit of dates range fixed
+
+10.12.2020
+* quasar update work checked
+* conditional form title
+* fullWidth fullHeight modal options are true now by def, and min-width is 75% wv or ~1800px (for 4k)

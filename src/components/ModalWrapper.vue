@@ -1,14 +1,14 @@
 <template>
-  <div v-if="isModal">
-    <q-dialog
+  <div v-if="isModal" >
+    <q-dialog 
       v-model="isOpen"
       :persistent="modal.persistent"
       :maximized="modal.maximized"
       :transition-show="modal.transitionShow"
       :transition-hide="modal.transitionHide"
       :seamless="modal.seamless"
-      :full-width="modal.fullWidth"
-      :full-height="modal.fullHeigh"
+      :full-width="modal.fullWidth === undefined || modal.maximized"
+      :full-height="modal.fullHeigh === undefined || modal.maximized"
       :position="modal.position"
     >
       <FormWrap :settings="settings" :values="values" />
