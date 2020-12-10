@@ -1,9 +1,9 @@
 <template>
-  <div v-if="rest.visible === undefined ? true : rest.visible" class="q-my-md" >
-    <q-card-section class="relative-position q-pa-md q-pt-none q-ma-lg" style="min-width: 420px">
+  <div v-if="rest.visible === undefined ? true : rest.visible" class="q-my-md relative-position" >
+    <q-card-section class="relative-position q-pa-md q-pt-none q-ma-lg">
       <q-separator class="bg-primary absolute-center" />
       <p
-        class="text-h6 q-qx-md absolute-center bg-white"
+        class="text-subtitle1 q-qx-md absolute-center bg-white"
         style="border: 5px white solid"
       >
         {{ rest.label }}
@@ -12,7 +12,7 @@
     <q-card
       v-for="(item, index) in value"
       v-bind:key="item.key"
-      class="col my-card q-ma-sm q-mb-md q-pa-sm q-pb-xs"
+      class="col my-card q-mb-md q-pa-sm q-pb-xs"
       flat
       bordered
     >
@@ -37,7 +37,9 @@
       />
     </q-card>
     <q-btn
-      class="float-right q-mr-lg"
+      :style="value.length ? 'position: absolute; right: 0px; bottom: 60px;' : 'position: absolute; right: 20px; bottom: 45px;'"
+      class="q-mr-md"
+      size="sm"
       :label="buttons.addField.text || '+'"
       :color="buttons.addField.color || 'green'"
       :text-color="buttons.addField.textColor"
@@ -49,6 +51,7 @@
       :value="value.length"
       :rules="rest.rules"
       borderless
+      style="height: 1px"
       dense
     >
       <template v-slot:control>

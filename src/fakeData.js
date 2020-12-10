@@ -18,25 +18,11 @@ export const config = {
     {
       label: '3', rowIndex: 3
     },
-    {
-      rowIndex:5
-    },
-    {
-      rowIndex:6
-    },
-    {
-      rowIndex:7
-    },
-    {
-      rowIndex:8
-    },
     
     //Multiple fields
     {
       type: 'multiple', key: 'multi21', rowIndex: 4,
       value: [
-        { 'field1key': 'Peter', select12: 'option2', dateKey: '20.12.2012' },
-        { 'field1key': 'Lois', select12: 'option1', dateKey: '20.12.2020' }
       ],
       fields: [
         { type: 'text', rowIndex: 1, key: 'field1key', label: 'Name' },
@@ -51,10 +37,28 @@ export const config = {
         { type: 'date', rowIndex: 1, key: 'dateKey', label: 'When?' }
       ],
       label: 'Multy fields!',
-      buttons: {
-        addField: { text: 'add', color: 'green', textColor: 'white' },
-        deleteField: { text: 'x', color: 'red', textColor: 'black', disabled: false }
-      },
+      shouldAddPreviousValue: false,
+      // defaultAddValues: {} //TBD,
+      rules: [val => val >= 2 || 'Select at least 2 fields']
+    },
+    
+    {
+      type: 'multiple', key: 'multi21', rowIndex: 5,
+      value: [
+      ],
+      fields: [
+        { type: 'text', rowIndex: 1, key: 'field1key', label: 'Name' },
+        {
+          type: 'select', rowIndex: 2, key: 'select12', label: 'Choose',
+          options: [
+            { id: 'option1', name: 'Your kids go to college' },
+            { id: 'option2', name: 'Batman glass' },
+            { id: 'option3', name: 'Meg' }
+          ]
+        },
+        { type: 'date', rowIndex: 1, key: 'dateKey', label: 'When?' }
+      ],
+      label: 'Multy fields!',
       shouldAddPreviousValue: false,
       // defaultAddValues: {} //TBD,
       rules: [val => val >= 2 || 'Select at least 2 fields']

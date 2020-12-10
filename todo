@@ -20,10 +20,6 @@ close buttons for tabs
 -=-= Agenda =-=-
 remove tabs border
 footer delimeter for tabs showed even without buttons, make title with delimeter too
-several empty multiples styles
-multiple headers make smaller
-multiple padding compare to simple fields
-smaller plus button on border of multiple segment
 smaller multiple title and make it 'wrap' following blocks, wired margin
 dont show multiple line when no multiple titile
 select clearable icon
@@ -89,3 +85,5 @@ required?
 * quasar update work checked
 * conditional form title
 * fullWidth fullHeight modal options are true now by def, and min-width is 75% wv or ~1800px (for 4k)
+* multiple label smaller, padding fix, less vertical spacing
+* smaller add field button
