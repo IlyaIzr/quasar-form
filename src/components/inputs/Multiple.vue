@@ -37,7 +37,7 @@
       />
     </q-card>
     <q-btn
-      :style="value.length ? 'position: absolute; right: 0px; bottom: 60px;' : 'position: absolute; right: 20px; bottom: 45px;'"
+      :style="value.length ? 'position: absolute; right: 0px; bottom: 20px;' : 'position: absolute; right: 20px; bottom: 45px;'"
       class="q-mr-md"
       size="sm"
       :label="buttons.addField.text || '+'"
@@ -51,7 +51,7 @@
       :value="value.length"
       :rules="rest.rules"
       borderless
-      style="height: 1px"
+      style="height: 1px; padding-right: 60px;"
       dense
     >
       <template v-slot:control>

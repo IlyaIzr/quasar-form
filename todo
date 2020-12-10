@@ -20,11 +20,11 @@ close buttons for tabs
 -=-= Agenda =-=-
 remove tabs border
 footer delimeter for tabs showed even without buttons, make title with delimeter too
-smaller multiple title and make it 'wrap' following blocks, wired margin
 dont show multiple line when no multiple titile
 select clearable icon
 Html setValue and others
 form with no buttons
+Multiple make label 'wrap' following blocks, wired margin
 required?
 
 
