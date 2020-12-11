@@ -1,6 +1,6 @@
 <template>
   <q-card style="min-width: min(75vw, 1800px)">
-    <q-card-section v-if="settings.title" style="max-height: 8vh" class="q-pb-none relative-position">
+    <q-card-section v-if="settings.title" style="max-height: 8vh" class="q-px-md q-py-xs relative-position">
       <q-btn
         v-if="settings.modal"
         dense

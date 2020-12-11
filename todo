@@ -24,7 +24,6 @@ dont show multiple line when no multiple titile
 select clearable icon
 Html setValue and others
 form with no buttons
-Multiple make label 'wrap' following blocks, wired margin
 required?
 
 
@@ -87,3 +86,6 @@ required?
 * fullWidth fullHeight modal options are true now by def, and min-width is 75% wv or ~1800px (for 4k)
 * multiple label smaller, padding fix, less vertical spacing
 * smaller add field button
+
+11.12.2020
+* multiple label wraps field with border

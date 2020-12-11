@@ -1,14 +1,14 @@
 <template>
-  <div v-if="rest.visible === undefined ? true : rest.visible" class="q-my-md relative-position" >
-    <q-card-section class="relative-position q-pa-md q-pt-none q-ma-lg">
-      <q-separator class="bg-primary absolute-center" />
+  <div v-if="rest.visible === undefined ? true : rest.visible" 
+    class="relative-position q-my-sm q-px-sm q-pt-lg" 
+    style="border: 1px solid gray; border-bottom: none; border-top-left-radius: 12px; border-top-right-radius: 12px"
+  >
       <p
-        class="text-subtitle1 q-qx-md absolute-center bg-white"
-        style="border: 5px white solid"
+        class="text-subtitle1 q-px-xs absolute-center bg-white "
+        style="top: 0;"
       >
         {{ rest.label }}
       </p>
-    </q-card-section>
     <q-card
       v-for="(item, index) in value"
       v-bind:key="item.key"
@@ -37,7 +37,7 @@
       />
     </q-card>
     <q-btn
-      :style="value.length ? 'position: absolute; right: 0px; bottom: 20px;' : 'position: absolute; right: 20px; bottom: 45px;'"
+      :style="value.length ? 'position: absolute; right: 0px; bottom: 20px;' : 'position: absolute; right: 20px; bottom: 30px;'"
       class="q-mr-md"
       size="sm"
       :label="buttons.addField.text || '+'"

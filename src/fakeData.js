@@ -36,7 +36,7 @@ export const config = {
         },
         { type: 'date', rowIndex: 1, key: 'dateKey', label: 'When?' }
       ],
-      label: 'Multy fields!',
+      label: 'Somelong shittybang!',
       shouldAddPreviousValue: false,
       // defaultAddValues: {} //TBD,
       rules: [val => val >= 2 || 'Select at least 2 fields']
@@ -58,7 +58,7 @@ export const config = {
         },
         { type: 'date', rowIndex: 1, key: 'dateKey', label: 'When?' }
       ],
-      label: 'Multy fields!',
+      label: 'Somelong shittybang!',
       shouldAddPreviousValue: false,
       // defaultAddValues: {} //TBD,
       rules: [val => val >= 2 || 'Select at least 2 fields']
@@ -66,7 +66,7 @@ export const config = {
 
   ],
 
-  modal: {  //Nothing is required
+  modal1: {  //Nothing is required
     triggerButton: {
       label: 'run form', color: 'white', textColor: 'red'
     },
