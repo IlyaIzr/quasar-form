@@ -17,9 +17,11 @@ check options for multiple or remake setOptions to do setConfig
 
 close buttons for tabs
 
+Responsive
+- buttons sizes
+
 -=-= Agenda =-=-
-footer delimeter for tabs showed even without buttons, make title with delimeter too
-dont show multiple line when no multiple titile
+? dont show multiple line when no multiple titile
 select clearable icon
 form with no buttons
 required?
@@ -89,3 +91,4 @@ required?
 * multiple label wraps field with border
 * html field setValue()
 * smaller tabs border and less spacing for it
+* tabs more organized spacing

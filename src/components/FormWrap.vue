@@ -43,7 +43,7 @@
 
     <q-card-section
       style="max-height: 12vh"
-      :class="settings.modal && ' float-right q-mr-md' + ' scroll '"
+      :class="`'scroll ' ${settings.modal && ' float-right q-mr-md'}  ${settings.tabs && 'q-pa-none'} `"
     >
       <Buttons
         :buttons="settings.buttons"

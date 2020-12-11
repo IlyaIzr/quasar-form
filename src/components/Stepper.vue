@@ -20,6 +20,7 @@
       <div v-for="(row, index) in fields[index]" v-bind:key="index">
         <FormRow :row="row" />
       </div>
+    <q-separator class="absolute" style="left: 0;"/>
     </q-step>
     <template v-slot:navigation>
       <q-stepper-navigation>
