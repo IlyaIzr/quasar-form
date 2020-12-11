@@ -1,68 +1,33 @@
 export const config = {
   fields: [
     {
-      rowIndex: 1
+      rowIndex: 1, service: true, value: 'cant submit',
+      onInput(v, value, m, vNodeStor){
+        const html = vNodeStor.get('html')
+        html.setValue('Mega Peter says ' + v.value)
+      }
     },
     {
-      rowIndex: 1
+      rowIndex: 1,
+      required: false
     },
     {
-      rowIndex: 1
+      rowIndex: 1,
+      required: false
     },
     {
-      rowIndex: 1
+      rowIndex: 1,
+      required: false
     },
     {
-      key: 'testo', service: true, value: 'bob', rowIndex: 2
+      key: 'testo', service: true, value: 'bob', rowIndex: 2,
+      required: false
     },
     {
-      label: '3', rowIndex: 3
+      type: 'html', value: 'Pete<b>r</b>', key: 'html'
     },
     
-    //Multiple fields
-    {
-      type: 'multiple', key: 'multi21', rowIndex: 4,
-      value: [
-      ],
-      fields: [
-        { type: 'text', rowIndex: 1, key: 'field1key', label: 'Name' },
-        {
-          type: 'select', rowIndex: 2, key: 'select12', label: 'Choose',
-          options: [
-            { id: 'option1', name: 'Your kids go to college' },
-            { id: 'option2', name: 'Batman glass' },
-            { id: 'option3', name: 'Meg' }
-          ]
-        },
-        { type: 'date', rowIndex: 1, key: 'dateKey', label: 'When?' }
-      ],
-      label: 'Somelong shittybang!',
-      shouldAddPreviousValue: false,
-      // defaultAddValues: {} //TBD,
-      rules: [val => val >= 2 || 'Select at least 2 fields']
-    },
     
-    {
-      type: 'multiple', key: 'multi21', rowIndex: 5,
-      value: [
-      ],
-      fields: [
-        { type: 'text', rowIndex: 1, key: 'field1key', label: 'Name' },
-        {
-          type: 'select', rowIndex: 2, key: 'select12', label: 'Choose',
-          options: [
-            { id: 'option1', name: 'Your kids go to college' },
-            { id: 'option2', name: 'Batman glass' },
-            { id: 'option3', name: 'Meg' }
-          ]
-        },
-        { type: 'date', rowIndex: 1, key: 'dateKey', label: 'When?' }
-      ],
-      label: 'Somelong shittybang!',
-      shouldAddPreviousValue: false,
-      // defaultAddValues: {} //TBD,
-      rules: [val => val >= 2 || 'Select at least 2 fields']
-    },
 
   ],
 

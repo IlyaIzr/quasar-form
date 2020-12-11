@@ -5,13 +5,14 @@
       ref="editor"
       :name="keyName"
       :disable="rest.disable"
-      v-html="localValue"
+      v-html="value"
       @focus="onFocus"
     />
   </div>
 </template>
 
 <script>
+import { store } from "../../store";
 export default {
   name: "Html",
   props: {
@@ -23,15 +24,10 @@ export default {
       type: Object,
       required: true,
     },
-    value: {
-      type: String,
-      required: true,
-      default: "",
-    },
   },
   data() {
     return {
-      localValue: this.value,
+      value: this.getStoreValue(),
       archiveRest: { ...this.rest },
     };
   },
@@ -54,19 +50,42 @@ export default {
       this.$forceUpdate();
     },
     setValue(val) {
-      this.localValue = val;
+      this.storeValue(val);
     },
     reset() {
       this.setConfig(this.archiveRest);
       this.setValue(this.archiveRest.value);
     },
-  },
-  mounted() {
-    if (this.rest.hasOwnProperty("visible") && !this.rest.visible) {
-      this.$parent.$el.parentNode.className += " hidden";
-    }
+    storeValue(val) {
+      if (this.rest.multiKey)
+        store.updateKeyValue(
+          this.keyName,
+          val,
+          this.rest.multiKey,
+          this.rest.multiIndex
+        );
+      else store.updateKeyValue(this.keyName, val);
+      this.value = this.getStoreValue();
+    },
+    getStoreValue() {
+      let res;
+      if (this.rest.multiKey)
+        res = store.getValueByKey(
+          this.keyName,
+          this.rest.multiKey,
+          this.rest.multiIndex
+        );
+      else res = store.getValueByKey(this.keyName);
+      return res;
+    },
   },
   watch: {
+    "store.state.watcher": function () {
+      const val = this.getStoreValue();
+      if (val !== this.value) {
+        this.value = val;
+      }
+    },
     "this.rest.visible": function () {
       if (this.rest.hasOwnProperty("visible") && !this.rest.visible) {
         this.$parent.$el.parentNode.className += " hidden";

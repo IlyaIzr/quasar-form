@@ -3,7 +3,6 @@
     <SimpleInput
       v-if="inputType === 'simple'"
       :type="inputInfo.type"
-      :value="inputInfo.value"
       :keyName="inputInfo.key"
       :rest="rest"
       :store="store"
@@ -61,7 +60,6 @@
       v-if="inputType === 'html'"
       :keyName="inputInfo.key"
       :rest="rest"
-      :value="inputInfo.value"
       @focus="onFocus"
     />
     <Editor
@@ -216,7 +214,6 @@ export default {
       } else this.isRendered = false;
     } else this.isRendered = true;
 
-    if (this.inputInfo.type === "html") return null;
 
     // CASE MULTIKEY
     if (this.isRendered && multiKey) {

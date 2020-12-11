@@ -22,7 +22,6 @@ remove tabs border
 footer delimeter for tabs showed even without buttons, make title with delimeter too
 dont show multiple line when no multiple titile
 select clearable icon
-Html setValue and others
 form with no buttons
 required?
 
@@ -89,3 +88,4 @@ required?
 
 11.12.2020
 * multiple label wraps field with border
+* html field setValue()

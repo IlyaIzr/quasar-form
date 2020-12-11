@@ -99,11 +99,11 @@ export default {
       let seriveKeys = [];
       let multiKeys = [];
       this.settings.fields.map((field) => {
-        field.service && seriveKeys.push(field.key);
-        if (field.type === "multiple") {
+        if (field.service || field.type === 'html') seriveKeys.push(field.key);
+        else if (field.type === "multiple") {
           multiKeys.push(field.key);
           field.fields.map(
-            (miniF) => miniF.service && seriveKeys.push(miniF.key)
+            (miniF) => { if (miniF.service || miniF.field.type === 'html') seriveKeys.push(miniF.key) }
           );
         }
       });
