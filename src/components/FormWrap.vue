@@ -17,10 +17,10 @@
     
     <q-separator />
 
-    <q-card-section class="q-py-none">
+    <q-card-section class="q-pa-none">
       <q-form
         :style="settings.modal && 'max-height: 65vh'"
-        class="scroll bg-white q-pa-md q-py-none"
+        :class="`scroll bg-white ${settings.tabs ? '' : 'q-pa-md q-py-none' }`"
         ref="form"
         @submit="onSubmit"
         @reset="onReset"

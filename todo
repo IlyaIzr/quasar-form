@@ -18,7 +18,6 @@ check options for multiple or remake setOptions to do setConfig
 close buttons for tabs
 
 -=-= Agenda =-=-
-remove tabs border
 footer delimeter for tabs showed even without buttons, make title with delimeter too
 dont show multiple line when no multiple titile
 select clearable icon
@@ -89,3 +88,4 @@ required?
 11.12.2020
 * multiple label wraps field with border
 * html field setValue()
+* smaller tabs border and less spacing for it

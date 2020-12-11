@@ -4,6 +4,8 @@
     @input="onInput"
     ref="stepper"
     animated
+    flat
+    style="padding: 0"
     :header-nav="tabs.tabNavigation"
     @before-transition="beforeStep"
   >
