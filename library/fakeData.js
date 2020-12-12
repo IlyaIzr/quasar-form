@@ -220,6 +220,8 @@ export const config = {
     { type: 'close', label: 'x' },    
     { type: 'clear', label: 'очистить' },  // not required
   ],
+  
+  noButtons: true, // no form buttons. false by default
 
   form: {
     //Form events

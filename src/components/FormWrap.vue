@@ -42,6 +42,7 @@
     <q-separator />
 
     <q-card-section
+      v-if="!settings.noButtons"
       style="max-height: 12vh"
       :class="`'scroll ' ${settings.modal && ' float-right q-mr-md'}  ${settings.tabs && 'q-pa-none'} `"
     >

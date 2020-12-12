@@ -22,7 +22,6 @@ Responsive
 
 -=-= Agenda =-=-
 ? dont show multiple line when no multiple titile
-form with no buttons
 required?
 
 
@@ -94,3 +93,4 @@ required?
 
 12.12.2020
 * similar clearable icon for Select, DateInput and File input
+* noButtons setting option
