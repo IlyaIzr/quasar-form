@@ -22,7 +22,6 @@ Responsive
 
 -=-= Agenda =-=-
 ? dont show multiple line when no multiple titile
-select clearable icon
 form with no buttons
 required?
 
@@ -92,3 +91,6 @@ required?
 * html field setValue()
 * smaller tabs border and less spacing for it
 * tabs more organized spacing
+
+12.12.2020
+* similar clearable icon for Select, DateInput and File input

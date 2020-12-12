@@ -1,31 +1,26 @@
 export const config = {
   fields: [
     {
-      rowIndex: 1, service: true, value: 'cant submit',
-      onInput(v, value, m, vNodeStor){
-        const html = vNodeStor.get('html')
-        html.setValue('Mega Peter says ' + v.value)
-      }
+      key: 'select', type: 'select', rowIndex: 1,
+      options: [
+        { name: 'Ab 1', id: 'aletter' }, { name: 'Bd 2', id: 'bletter' }, { name: 'Cs 3', id: 'cletter' }, { name: 'Dd 3', id: 'dletter' }
+      ],
+      label: 'Pesting',
+      autocomplete: true,
+      multiple: true,
+      value: ['cletter', 'dletter'],
+      onInput(vnode, value, m, vNodeStore) {
+        const sel2 = vNodeStore.get('select2')
+        console.log(sel2)
+        sel2.setOptions([{ name: 'A', id: 'aletter' },])
+      },
     },
     {
-      rowIndex: 1,
-      required: false
+      key: 'select2', type: 'select', rowIndex: 2,
+      options: [
+      ],
     },
-    {
-      rowIndex: 1,
-      required: false
-    },
-    {
-      rowIndex: 1,
-      required: false
-    },
-    {
-      key: 'testo', service: true, value: 'bob', rowIndex: 2,
-      required: false
-    },
-    {
-      type: 'html', value: 'Pete<b>r</b>', key: 'html'
-    },
+    
     
     
 

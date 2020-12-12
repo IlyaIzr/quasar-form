@@ -7,6 +7,7 @@
       :label="rest.label"
       :disable="rest.disable"
       :clearable="rest.clearable === undefined ? true : rest.clearable"
+      clear-icon="close"
       @blur="onBlur"
       @input="input"
     >

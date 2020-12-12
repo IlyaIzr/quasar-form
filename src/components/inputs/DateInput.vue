@@ -26,6 +26,7 @@
         :key="fuckenMask"
         :label="rest.label"
         :clearable="rest.clearable === undefined ? true : rest.clearable"
+        clear-icon="close"
         ref="input"
       >
         <template v-slot:append>
