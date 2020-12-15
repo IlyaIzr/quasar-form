@@ -23,6 +23,20 @@ Responsive
 -=-= Agenda =-=-
 ? dont show multiple line when no multiple titile
 required?
+make core elements with self-describing classes
+margin bottom for tabs wrapper
+extract css
++ button in multiple
+buttons aren't fixed
+password reveal button 
+tooltip for field buttons
+setConfig('hint') - check
+outlined and filled in global level
+and other global values if possible (local have higher priorities)
+postfix slot - not important
+out of fields icons - not important
+no validation error when sumbitting on tabs buttons
+
 
 
 =-=-=-=-=_ Done list _=-=-=-=-=
@@ -94,3 +108,6 @@ required?
 12.12.2020
 * similar clearable icon for Select, DateInput and File input
 * noButtons setting option
+
+15.12.2020
+* build with select-chips

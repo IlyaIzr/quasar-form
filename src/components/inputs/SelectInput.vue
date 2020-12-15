@@ -12,6 +12,7 @@
       :rules="rules"
       :clearable="rest.clearable === undefined ? true : rest.clearable"
       clear-icon="close"
+      use-chips
       v-bind:use-input="
         rest.autocomplete === undefined && rest.multiple === undefined
           ? true
