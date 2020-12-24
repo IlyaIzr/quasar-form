@@ -2,15 +2,17 @@ export const config = {
   fields: [
     
     {
-      label: "ФИО",
-      key: "FIOs",
-      type: "multiple",
-      value: [],
-      fields: [
-        { type: "text", rowIndex: 1, key: "firstname", label: "Имя", required: false },
-        { type: "text", rowIndex: 1, key: "lastname", label: "Фамилия", required: false },
-        { type: "text", rowIndex: 1, key: "middlename", label: "Отчество", required: false },
-      ],
+      label: "Аккаунты neteller",
+      key: "netellers",
+      type: "selectCreatable",
+      required: false,
+      outlined: true,
+    },
+    {
+      label: "Аккаунты skrill",
+      key: "skrills",
+      type: "selectCreatable",
+      outlined: true,
     },
     
 

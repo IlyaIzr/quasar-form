@@ -30,11 +30,6 @@ import { store, optionsStore } from "../../store";
 export default {
   name: "SelectCreatable",
   props: {
-    options: {
-      type: Array,
-      required: false,
-      default: [],
-    },
     keyName: {
       type: String,
       required: true,
@@ -51,7 +46,6 @@ export default {
   data() {
     return {
       value: this.getStoreValue() || null,
-      localOptions: this.getStoreOptions(),
       rules: this.checkRules(
         this.rest.rules,
         this.rest.required === undefined || this.rest.required
@@ -95,8 +89,7 @@ export default {
         if (typeof rules === "object") {
           res = [
             (val) =>
-              (val.value && val.value.length) ||
-              (val.length && val[0].value && val[0].value.length) ||
+              val ||
               this.rest.requiredMessage ||
               "Please select option",
             ...this.rest.rules,
@@ -104,8 +97,7 @@ export default {
         } else
           res = [
             (val) =>
-              (val.value && val.value.length) ||
-              (val.length && val[0].value && val[0].value.length) ||
+              Boolean(val) ||
               this.rest.requiredMessage ||
               "Please select option",
           ];
@@ -121,22 +113,8 @@ export default {
           this.rest.multiIndex
         );
       else res = store.getValueByKey(this.keyName);
+      if (res === "") res = null
       return res;
-    },
-    getStoreOptions() {
-      let res;
-      if (this.rest.multiKey)
-        res = optionsStore.getOptions(
-          this.keyName,
-          this.rest.multiKey,
-          this.rest.multiIndex
-        );
-      else res = optionsStore.getOptions(this.keyName);
-      return res;
-    },
-    setOptions(options) {
-      optionsStore.setOptions(this.keyName, options);
-      this.localOptions = options;
     },
     setConfig(arg1 = "", arg2) {
       if (arguments.length === 2) {
