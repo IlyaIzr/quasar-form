@@ -78,6 +78,13 @@ export const config = {
       }
     },
 
+    // selectCreatable
+    {
+      type: 'selectCreatable',
+      value: [], // required?
+      
+    }
+
     //Html
     {
       type: 'html', key: 'data2', value: '<b>Bold</b> simple'

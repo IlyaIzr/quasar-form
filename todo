@@ -112,3 +112,7 @@ renderIf resets this.rest for unrendered inputs. Remove renderIf
 
 15.12.2020
 * build with select-chips
+
+24.12.2020
+* vNodeStore for onMount() from method
+* selectCreatable type of field added

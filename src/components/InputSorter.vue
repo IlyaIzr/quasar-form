@@ -21,6 +21,17 @@
       @blur="onBlur"
       @focus="onFocus"
     />
+    <SelectCreatable
+      v-if="inputType === 'selectCreatable'"
+      :value="inputInfo.value"
+      :options="inputInfo.options"
+      :keyName="inputInfo.key"
+      :rest="rest"
+      :store="store"
+      @input="onInput"
+      @blur="onBlur"
+      @focus="onFocus"
+    />
     <CheckBox
       v-if="inputType === 'checkbox'"
       :value="inputInfo.value"
@@ -88,6 +99,7 @@
 <script>
 import SimpleInput from "./inputs/SimpleInput";
 import SelectInput from "./inputs/SelectInput";
+import SelectCreatable from "./inputs/SelectCreatable";
 import CheckBox from "./inputs/CheckBox";
 import Slider from "./inputs/Slider";
 import DateInput from "./inputs/DateInput";
@@ -123,6 +135,7 @@ export default {
     Html,
     Editor,
     File,
+    SelectCreatable
   },
   computed: {
     classNames() {
@@ -157,6 +170,10 @@ export default {
         switch (type) {
           case "select":
             inputType = "select";
+            return inputType;
+            break;
+          case "selectCreatable":
+            inputType = "selectCreatable";
             return inputType;
             break;
           case "checkbox":

@@ -21,8 +21,8 @@ export const config = {
     // },          
     {
       label: "Пользователь",
-      key: "userId",
-      type: 'select',
+      key: "userId2",
+      type: 'selectCreatable',
       options: [],
       required: false,
     },
