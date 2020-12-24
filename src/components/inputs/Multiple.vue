@@ -37,7 +37,7 @@
       />
     </q-card>
     <q-btn
-      :style="value.length ? 'position: absolute; right: 0px; bottom: 20px;' : 'position: absolute; right: 20px; bottom: 30px;'"
+      :style="value.length ? 'position: absolute; right: 0px; bottom: 0px;' : 'position: absolute; right: 20px; bottom: 10px;'"
       class="q-mr-md"
       size="sm"
       :label="buttons.addField.text || '+'"

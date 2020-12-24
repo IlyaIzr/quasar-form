@@ -104,7 +104,7 @@ export default {
         else if (field.type === "multiple") {
           multiKeys.push(field.key);
           field.fields.map(
-            (miniF) => { if (miniF.service || miniF.field.type === 'html') seriveKeys.push(miniF.key) }
+            (miniF) => { if (miniF.service || miniF.field?.type === 'html') seriveKeys.push(miniF.key) }
           );
         }
       });

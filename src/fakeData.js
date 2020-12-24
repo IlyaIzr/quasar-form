@@ -1,30 +1,16 @@
 export const config = {
   fields: [
     
-    // {
-    //   label: "Выберите категорию",
-    //   key: "category",
-    //   type: 'select',
-    //   options: [
-    //     { name: "Менеджер", id: "managers" },
-    //     { name: "Обычный пользователь", id: "users" },
-    //     { name: "Только чтение", id: "readonlys" },
-    //   ],
-    //   onInput(node, val, ref, store) {
-    //     const user = store.get('userId')
-    //     user.setOptions([
-    //       { name: "Менеджер", id: "managers" },
-    //       { name: "Обычный пользователь", id: "users" },
-    //       { name: "Только чтение", id: "readonlys" },
-    //     ])
-    //   }
-    // },          
     {
-      label: "Пользователь",
-      key: "userId2",
-      type: 'selectCreatable',
-      options: [],
-      required: false,
+      label: "ФИО",
+      key: "FIOs",
+      type: "multiple",
+      value: [],
+      fields: [
+        { type: "text", rowIndex: 1, key: "firstname", label: "Имя", required: false },
+        { type: "text", rowIndex: 1, key: "lastname", label: "Фамилия", required: false },
+        { type: "text", rowIndex: 1, key: "middlename", label: "Отчество", required: false },
+      ],
     },
     
 

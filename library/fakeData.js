@@ -82,8 +82,8 @@ export const config = {
     {
       type: 'selectCreatable',
       value: [], // required?
-      
-    }
+
+    },
 
     //Html
     {
