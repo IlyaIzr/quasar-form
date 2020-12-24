@@ -214,7 +214,7 @@ export default {
     // console.log(this.$refs.form.validate())
     vNodeStore.setComponent("formRef", this.$refs.form);
     if (this.form.onMount) {
-      const cb = await this.form.onMount(this, this.$refs.form);
+      const cb = await this.form.onMount(this, this.$refs.form, vNodeStore);
       if (cb && typeof cb === "function") cb(this);
     }
   },

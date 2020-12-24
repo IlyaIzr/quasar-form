@@ -1,25 +1,31 @@
 export const config = {
   fields: [
+    
+    // {
+    //   label: "Выберите категорию",
+    //   key: "category",
+    //   type: 'select',
+    //   options: [
+    //     { name: "Менеджер", id: "managers" },
+    //     { name: "Обычный пользователь", id: "users" },
+    //     { name: "Только чтение", id: "readonlys" },
+    //   ],
+    //   onInput(node, val, ref, store) {
+    //     const user = store.get('userId')
+    //     user.setOptions([
+    //       { name: "Менеджер", id: "managers" },
+    //       { name: "Обычный пользователь", id: "users" },
+    //       { name: "Только чтение", id: "readonlys" },
+    //     ])
+    //   }
+    // },          
     {
-      key: 'select', type: 'select', rowIndex: 1,
-      options: [
-        { name: 'Ab 1', id: 'aletter' }, { name: 'Bd 2', id: 'bletter' }, { name: 'Cs 3', id: 'cletter' }, { name: 'Dd 3', id: 'dletter' }
-      ],
-      label: 'Pesting',
-      autocomplete: true,
-      multiple: true,
-      value: ['cletter', 'dletter'],
-      onInput(vnode, value, m, vNodeStore) {
-        const sel2 = vNodeStore.get('select2')
-        console.log(sel2)
-        sel2.setOptions([{ name: 'A', id: 'aletter' },])
-      },
+      label: "Пользователь",
+      key: "userId",
+      type: 'select',
+      options: [],
+      required: false,
     },
-    {
-      key: 'select2', type: 'select', rowIndex: 2,
-      options: [
-      ],
-    },   
     
 
   ],
@@ -34,7 +40,7 @@ export const config = {
     },
   },
   
-  modal: {  //Nothing is required
+  modal1: {  //Nothing is required
     triggerButton: {
       label: 'run form', color: 'white', textColor: 'red'
     },
@@ -50,7 +56,7 @@ export const config = {
   },
 
   // Tabs aka Stepper aka Wizard  
-  tabs: {
+  tabs1: {
     steps: [
       { title: 'First', icon: 'settings' }, //Icon names: https://material.io/resources/icons/
       { title: 'Second', icon: 'img:https://cdn.quasar.dev/logo/svg/quasar-logo.svg' }
@@ -65,9 +71,7 @@ export const config = {
     tabNavigation: true,  //User can click on tabs
     validateTabNavigation: true,
     validateButtonNavigation: false,
-  },
-  
-  noButtons: false,
+  },  
 
   title: 'Development mode'
 }

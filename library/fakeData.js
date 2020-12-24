@@ -263,7 +263,7 @@ export const config = {
       // }
     },
     // Component lifecycle method
-    async onMount(vNode, formMethods) {
+    async onMount(vNode, formMethods, vNodeStore) {
       formMethods.focus()
       return function (vNode) {
         console.log('callback function')

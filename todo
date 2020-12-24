@@ -36,6 +36,7 @@ and other global values if possible (local have higher priorities)
 postfix slot - not important
 out of fields icons - not important
 no validation error when sumbitting on tabs buttons
+renderIf resets this.rest for unrendered inputs. Remove renderIf
 
 
 
