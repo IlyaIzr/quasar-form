@@ -27,7 +27,6 @@ make core elements with self-describing classes
 margin bottom for tabs wrapper
 extract css
 buttons aren't fixed
-password reveal button 
 tooltip for field buttons
 setConfig('hint') - check
 outlined and filled in global level
@@ -120,3 +119,4 @@ no validation error when sumbitting on tabs buttons
 07.01.2021
 * renderIf removed
 * label for required fix and little code structure improv
+* password reveal button fix

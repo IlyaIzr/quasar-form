@@ -40,7 +40,7 @@
           @click="prependClick"
         />
       </template>
-      <template v-slot:append v-if="appendType || rest.type === 'password'">
+      <template v-slot:append v-if="appendType || isPassword">
         <q-icon v-if="appendType === 'icon'" :name="rest.append" />
         <q-avatar v-if="appendType === 'img'">
           <img :src="rest.append" />
@@ -54,7 +54,7 @@
           @click="appendClick"
         />
         <q-icon
-          v-if="archiveRest.type === 'password'"
+          v-if="isPassword"
           :name="isPassword ? 'visibility_off' : 'visibility'"
           class="cursor-pointer"
           @click="rest.type = rest.type === 'password' ? 'text' : 'password'"

@@ -10,6 +10,7 @@ export const config = {
     {
       label: "Текущий пароль",
       key: "oldPassword",
+      type: 'password',
       hint: "Введите, чтобы подтвердить изменения",
       required: false
     },
