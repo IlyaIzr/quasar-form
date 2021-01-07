@@ -5,21 +5,12 @@ export const config = {
       label: "E-mail",
       type: "email",
       key: "email",
-    },
-    {
-      label: "Имя пользователя",
-      key: "name",
+      value: 'b'
     },
     {
       label: "Текущий пароль",
       key: "oldPassword",
-      type: "password",
       hint: "Введите, чтобы подтвердить изменения",
-    },
-    {
-      label: "Новый пароль",
-      key: "password",
-      type: "password",
       required: false
     },
     {
@@ -29,13 +20,13 @@ export const config = {
       service: true,
     },
 
-
   ],
 
 
   form: {
     async onSubmit(vNode, data, formMethods, vNodeStore) {
       console.log('subbed', data)
+      vNode.clear()
     },
     async onValidateError(vNode, data, formMethods, errorComponent, vNodeStore) {
       console.log('validation error', errorComponent)

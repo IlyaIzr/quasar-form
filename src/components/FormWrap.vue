@@ -203,7 +203,7 @@ export default {
       this.onReset();
     },
     async clear() {
-      this.onReset();
+      this.onClear();
     },
     async submit() {
       this.onSubmit();

@@ -36,8 +36,6 @@ postfix slot - not important
 out of fields icons - not important
 no validation error when sumbitting on tabs buttons
 
-My notes:
-form methods, onSubmit (a, b, formMethods) aren't working
 
 
 
@@ -121,3 +119,4 @@ form methods, onSubmit (a, b, formMethods) aren't working
 
 07.01.2021
 * renderIf removed
+* label for required fix and little code structure improv

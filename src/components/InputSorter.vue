@@ -134,7 +134,7 @@ export default {
     Html,
     Editor,
     File,
-    SelectCreatable
+    SelectCreatable,
   },
   computed: {
     classNames() {
@@ -263,6 +263,14 @@ export default {
       if (stored) return null;
 
       store.updateKeyValue(this.inputInfo.key, this.inputInfo.value);
+
+      // Set label required * sign
+      if (this.inputInfo.required || this.inputInfo.required === undefined)
+        this.inputInfo.label =
+          this.inputInfo.label && !this.inputInfo.label.endsWith(" *")
+            ? this.inputInfo.label + " *"
+            : " *";
+
       configStore.create(this.inputInfo.key, this.inputInfo);
       this.rest = configStore.get(this.inputInfo.key);
     }
