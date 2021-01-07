@@ -12,6 +12,7 @@
         :store="store"
         :hasInput="hasInput"
         :value="value"
+        :class="rest.class + ' input-'+keyName"
         @input="onInput"
         @focus="onFocus"
         @blur="onBlur"
@@ -27,6 +28,7 @@
         :label="rest.label"
         :clearable="rest.clearable === undefined ? true : rest.clearable"
         clear-icon="close"
+        :class="rest.class + ' input-'+keyName"
         ref="input"
       >
         <template v-slot:append>

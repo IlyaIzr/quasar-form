@@ -15,6 +15,7 @@
           :label="rest.label"
           :name="keyName"
           :disable="rest.disable"
+          :class="rest.class + ' input-'+keyName"
           @focus="onFocus"
           @blur="onBlur"
           @input="input"

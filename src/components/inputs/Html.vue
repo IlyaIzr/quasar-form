@@ -5,6 +5,7 @@
       ref="editor"
       :name="keyName"
       :disable="rest.disable"
+      :class="rest.class + ' input-'+keyName"
       v-html="value"
       @focus="onFocus"
     />

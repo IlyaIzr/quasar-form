@@ -1,6 +1,6 @@
 <template>
   <div v-if="rest.visible === undefined ? true : rest.visible" 
-    class="relative-position q-my-sm q-px-sm q-pt-lg" 
+    :class="'relative-position q-my-sm q-px-sm q-pt-lg + input-'+multiKey" 
     style="border: 1px solid gray; border-bottom: none; border-top-left-radius: 12px; border-top-right-radius: 12px"
   >
       <p

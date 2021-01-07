@@ -140,12 +140,12 @@ export default {
     classNames() {
       let r = "";
       const basic =
-        this.rest.visible || this.rest.visible === undefined ? "col" : "hidden";
+        this.rest.visible || this.rest.visible === undefined ? "col " : "hidden ";
       const margin =
         this.rest.hasOwnProperty("required") && !this.rest.required
           ? " q-mb-sm"
           : "";
-      r = basic + margin;
+      r = basic + ' field-' + this.inputInfo.key + margin;
       return r;
     },
     inputType: function () {

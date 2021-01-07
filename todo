@@ -23,7 +23,6 @@ Responsive
 -=-= Agenda =-=-
 ? dont show multiple line when no multiple titile
 required?
-make core elements with self-describing classes
 margin bottom for tabs wrapper
 extract css
 buttons aren't fixed
@@ -120,3 +119,4 @@ no validation error when sumbitting on tabs buttons
 * renderIf removed
 * label for required fix and little code structure improv
 * password reveal button fix
+* self-discribing classes

@@ -11,6 +11,7 @@
       :max-height="rest.maxHeight"
       :height="rest.height"
       :toolbar="rest.toolbar"
+      :class="rest.class + ' input-'+keyName"
       @focus="onFocus"
       @blur="onBlur"
       @input="input"

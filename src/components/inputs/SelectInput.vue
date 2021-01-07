@@ -19,6 +19,7 @@
           : rest.autocomplete
       "
       :multiple="rest.multiple"
+      :class="rest.class + ' input-'+keyName"
       @input="input"
       @input-value="shortOptions"
       @focus="onFocus"

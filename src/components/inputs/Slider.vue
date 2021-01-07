@@ -23,6 +23,7 @@
         :color="rest.color"
         :label-color="rest.labelColor"
         :label-text-color="rest.labelTextColor"
+        :class="rest.class + ' input-' + keyName"
         @change="onChange"
         @input="onInput"
       />
@@ -143,7 +144,7 @@ export default {
     },
   },
   mounted() {
-    this.validate = this.$refs.slider.validate
+    this.validate = this.$refs.slider.validate;
     if (this.rest.hasOwnProperty("visible") && !this.rest.visible) {
       this.$parent.$el.parentNode.className += " hidden";
     }

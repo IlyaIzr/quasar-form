@@ -18,7 +18,7 @@
       :hint="rest.hint"
       :readonly="rest.readonly"
       :disable="rest.disable"
-      :class="rest.class"
+      :class="rest.class + ' input-'+keyName"
       :filled="rest.filled"
       :outlined="rest.outlined"
       @focus="onFocus"

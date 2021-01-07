@@ -23,7 +23,7 @@
     <q-separator class="absolute" style="left: 0;"/>
     </q-step>
     <template v-slot:navigation>
-      <q-stepper-navigation>
+      <q-stepper-navigation class="formButtons ">
         <!-- Back btn -->
         <q-btn
           v-if="buttons.back && step > 1"

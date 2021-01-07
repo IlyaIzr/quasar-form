@@ -1,6 +1,6 @@
 <template>
-  <q-card style="min-width: min(75vw, 1800px)">
-    <q-card-section v-if="settings.title" style="max-height: 8vh" class="q-px-md q-py-xs relative-position">
+  <q-card style="min-width: min(75vw, 1800px)" class="form">
+    <q-card-section v-if="settings.title" style="max-height: 8vh" class="formTitle q-px-md q-py-xs relative-position">
       <q-btn
         v-if="settings.modal"
         dense
@@ -17,7 +17,7 @@
     
     <q-separator />
 
-    <q-card-section class="q-pa-none">
+    <q-card-section class="formContent q-pa-none">
       <q-form
         :style="settings.modal && 'max-height: 65vh'"
         :class="`scroll bg-white ${settings.tabs ? '' : 'q-pa-md q-py-none' }`"
@@ -44,7 +44,7 @@
     <q-card-section
       v-if="!settings.noButtons"
       style="max-height: 12vh"
-      :class="`'scroll ' ${settings.modal && ' float-right q-mr-md'}  ${settings.tabs && 'q-pa-none'} `"
+      :class="`formButtons ${settings.modal && ' float-right q-mr-md '}  ${settings.tabs && ' q-pa-none'} `"
     >
       <Buttons
         :buttons="settings.buttons"

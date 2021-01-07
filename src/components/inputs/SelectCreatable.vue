@@ -17,6 +17,7 @@
       hide-dropdown-icon
       input-debounce="0"
       new-value-mode="add-unique"
+      :class="rest.class + ' input-'+keyName"
       @input="input"
       @focus="onFocus"
       @blur="onBlur"
