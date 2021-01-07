@@ -1,20 +1,34 @@
 export const config = {
   fields: [
-    
+
     {
-      label: "Аккаунты neteller",
-      key: "netellers",
-      type: "selectCreatable",
-      required: false,
-      outlined: true,
+      label: "E-mail",
+      type: "email",
+      key: "email",
     },
     {
-      label: "Аккаунты skrill",
-      key: "skrills",
-      type: "selectCreatable",
-      outlined: true,
+      label: "Имя пользователя",
+      key: "name",
     },
-    
+    {
+      label: "Текущий пароль",
+      key: "oldPassword",
+      type: "password",
+      hint: "Введите, чтобы подтвердить изменения",
+    },
+    {
+      label: "Новый пароль",
+      key: "password",
+      type: "password",
+      required: false
+    },
+    {
+      type: "html",
+      value: "",
+      key: "message",
+      service: true,
+    },
+
 
   ],
 
@@ -27,7 +41,7 @@ export const config = {
       console.log('validation error', errorComponent)
     },
   },
-  
+
   modal1: {  //Nothing is required
     triggerButton: {
       label: 'run form', color: 'white', textColor: 'red'
@@ -59,7 +73,7 @@ export const config = {
     tabNavigation: true,  //User can click on tabs
     validateTabNavigation: true,
     validateButtonNavigation: false,
-  },  
+  },
 
   title: 'Development mode'
 }

@@ -1,5 +1,5 @@
 <template>
-  <div v-if="isRendered" :class="classNames">
+  <div :class="classNames">
     <SimpleInput
       v-if="inputType === 'simple'"
       :type="inputInfo.type"
@@ -114,7 +114,6 @@ export default {
   data() {
     return {
       store,
-      isRendered: undefined,
       vNodeStore,
       rest: {},
     };
@@ -212,28 +211,12 @@ export default {
         }
     },
   },
-  watch: {
-    "store.state.watcher": function () {
-      if (this.inputInfo.renderIf) {
-        if (store.getValueByKey(this.inputInfo.renderIf)) {
-          this.isRendered = true;
-        } else this.isRendered = false;
-      } else this.isRendered = true;
-    },
-  },
   beforeMount() {
     // store.updateKeyValue(this.inputInfo.key, this.inputInfo.value);  //set value even if field invisible
     const multiKey = this.inputInfo.multiKey || "";
-    // Check if other component was rendered
-    if (this.inputInfo.renderIf) {
-      if (store.getValueByKey(this.inputInfo.renderIf)) {
-        this.isRendered = true;
-      } else this.isRendered = false;
-    } else this.isRendered = true;
-
 
     // CASE MULTIKEY
-    if (this.isRendered && multiKey) {
+    if (multiKey) {
       // Set options if they're provided
       if (this.inputInfo.options && this.inputInfo.options.length)
         optionsStore.setOptions(
@@ -271,7 +254,7 @@ export default {
         this.inputInfo.multiIndex
       );
       // CASE SINGLE KEY
-    } else if (this.isRendered && !multiKey) {
+    } else if (!multiKey) {
       // Set options if they're provided
       if (this.inputInfo.options && this.inputInfo.options.length)
         optionsStore.setOptions(this.inputInfo.key, this.inputInfo.options);

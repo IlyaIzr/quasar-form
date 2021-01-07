@@ -26,7 +26,6 @@ required?
 make core elements with self-describing classes
 margin bottom for tabs wrapper
 extract css
-+ button in multiple
 buttons aren't fixed
 password reveal button 
 tooltip for field buttons
@@ -36,7 +35,9 @@ and other global values if possible (local have higher priorities)
 postfix slot - not important
 out of fields icons - not important
 no validation error when sumbitting on tabs buttons
-renderIf resets this.rest for unrendered inputs. Remove renderIf
+
+My notes:
+form methods, onSubmit (a, b, formMethods) aren't working
 
 
 
@@ -117,3 +118,6 @@ renderIf resets this.rest for unrendered inputs. Remove renderIf
 * vNodeStore for onMount() from method
 * selectCreatable type of field added
 * multiple style fix and submit fix
+
+07.01.2021
+* renderIf removed
