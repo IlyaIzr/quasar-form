@@ -120,3 +120,6 @@ no validation error when sumbitting on tabs buttons
 * label for required fix and little code structure improv
 * password reveal button fix
 * self-discribing classes
+
+08.01.2021
+* tab buttons validation fix

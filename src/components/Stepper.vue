@@ -140,8 +140,12 @@ export default {
         if (res) this.$refs.stepper.next();
       } else this.step += 1;
     },
-    onBackClick() {
-      this.$refs.stepper.previous();
+    async onBackClick() {      
+      if (this.tabs.validateButtonNavigation) {
+        console.log('case')
+        const res = await this.$parent.$parent.validate();
+        if (res) this.$refs.stepper.previous();
+      } else this.step -= 1;      
     },
     async onInput(val) {
       let res;
