@@ -23,8 +23,6 @@ Responsive
 -=-= Agenda =-=-
 ? dont show multiple line when no multiple titile
 required?
-margin bottom for tabs wrapper
-extract css
 buttons aren't fixed
 tooltip for field buttons
 setConfig('hint') - check
@@ -124,3 +122,4 @@ no validation error when sumbitting on tabs buttons
 08.01.2021
 * tab buttons validation fix
 * tab y-margins
+* extracted css to build
