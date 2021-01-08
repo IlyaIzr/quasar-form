@@ -187,4 +187,8 @@ export default {
 </script>
 
 <style>
+.q-stepper__step .q-stepper__step-inner{
+  padding-top: 0;
+  padding-bottom: 0;
+}
 </style>
