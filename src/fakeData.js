@@ -2,21 +2,6 @@ export const config = {
   fields: [
 
     {
-      label: "E-mail",
-      type: "email",
-      key: "email",
-      value: 'b'
-    },
-    {
-      label: "E-mail",
-      type: "email",
-      key: "email",
-      value: 'b', tabIndex: 2
-    },
-    {
-      tabIndex: 2, label: 'C bobba'
-    },
-    {
       label: "Текущий пароль",
       key: "oldPassword",
       type: 'password',
@@ -59,7 +44,7 @@ export const config = {
   },
 
   // Tabs aka Stepper aka Wizard  
-  tabs: {
+  tabs1: {
     steps: [
       { title: 'First', icon: 'settings' }, //Icon names: https://material.io/resources/icons/
       { title: 'Second', icon: 'img:https://cdn.quasar.dev/logo/svg/quasar-logo.svg' }
