@@ -75,6 +75,9 @@ export const config = {
           vTarget.reset()
           vTarget.value
         }
+      },
+      async onOptionInput(/**Same args */){
+        // Runs with autocomplete
       }
     },
 

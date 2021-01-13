@@ -1,18 +1,15 @@
 export const config = {
   fields: [
 
+
     {
-      label: "Текущий пароль",
-      key: "oldPassword",
-      type: 'password',
-      hint: "Введите, чтобы подтвердить изменения",
-      required: false
-    },
-    {
-      type: "html",
-      value: "",
-      key: "message",
-      service: true,
+      label: "Создатель",
+      key: "owner",
+      options: [],
+      type: 'select',
+      async onOptionInput(v, val, methods, store) {
+        console.log(val)
+      }
     },
 
   ],

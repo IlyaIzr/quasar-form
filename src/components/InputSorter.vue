@@ -20,6 +20,7 @@
       @input="onInput"
       @blur="onBlur"
       @focus="onFocus"
+      @optionInput="onOptionInput"
     />
     <SelectCreatable
       v-if="inputType === 'selectCreatable'"
@@ -341,7 +342,22 @@ export default {
         });
       }
     },
-  },
+    async onOptionInput(val) {
+      if (this.inputInfo.onOptionInput) {
+        this.$nextTick(async function () {
+          const cb = await this.inputInfo.onOptionInput(
+            this.$children[0],
+            val,
+            this.$children[0].$refs.input,
+            vNodeStore,
+            this.inputInfo.multiIndex
+          );
+          if (cb && typeof cb === "function") cb(this.$children[0]);
+        });
+      }
+    },
+  }, 
+  
 };
 </script>
 

@@ -183,6 +183,7 @@ export default {
           }
         });
       this.localOptions = newOptions;
+      this.$emit("optionInput", val);
       this.$nextTick(function () {
         this.$refs.input.resetValidation();
       });
