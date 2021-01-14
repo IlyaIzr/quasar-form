@@ -25,12 +25,12 @@ export const config = {
     },
   },
 
-  modal1: {  //Nothing is required
+  modal: {  //Nothing is required
     triggerButton: {
       label: 'run form', color: 'white', textColor: 'red'
     },
     fullWidth: false,
-    fullHeigh: true,
+    fullHeigh: false,
     opened: false, // true by default if no 'opened' key provided
     persistent: true,  // rest if false by default. Можно ли закрыть кликом вне формы
     maximized: false,

@@ -23,6 +23,7 @@ Responsive
 -=-= Agenda =-=-
 ? dont show multiple line when no multiple titile
 required?
+fullHeight - make false by def
 buttons aren't fixed
 tooltip for field buttons
 setConfig('hint') - check
