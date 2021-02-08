@@ -10,6 +10,7 @@
       :disable="rest.disable"
       :label="rest.label"
       :rules="rules"
+      :hint="rest.hint"      
       :clearable="rest.clearable === undefined ? true : rest.clearable"
       clear-icon="close"
       :use-chips="Boolean(value.length)"

@@ -7,6 +7,7 @@ export const config = {
       key: "owner",
       options: [],
       type: 'select',
+      hint: 'sass',
       async onOptionInput(v, val, methods, store) {
         console.log(val)
       }
@@ -25,7 +26,7 @@ export const config = {
     },
   },
 
-  modal: {  //Nothing is required
+  modal1: {  //Nothing is required
     triggerButton: {
       label: 'run form', color: 'white', textColor: 'red'
     },

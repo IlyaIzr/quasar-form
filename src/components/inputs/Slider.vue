@@ -6,6 +6,7 @@
       :label="rest.label"
       :rules="rules"
       :value="value"
+      :hint="rest.hint"
     >
       <q-slider
         v-if="rest.visible === undefined ? true : rest.visible"

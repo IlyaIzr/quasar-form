@@ -8,6 +8,7 @@
       :disable="rest.disable"
       :clearable="rest.clearable === undefined ? true : rest.clearable"
       clear-icon="close"
+      :hint="rest.hint"
       :class="rest.class + ' input-'+keyName"
       @blur="onBlur"
       @input="input"

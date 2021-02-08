@@ -5,6 +5,7 @@
       v-if="rest.visible === undefined ? true : rest.visible"
       :value="value"
       :rules="rules"
+      :hint="rest.hint"
       borderless
       dense
     >
