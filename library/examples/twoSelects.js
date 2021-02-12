@@ -7,7 +7,7 @@ const config = {
         { name: 'Ab 1', id: 'aletter' }, { name: 'Bd 2', id: 'bletter' }, { name: 'Cs 3', id: 'cletter' }, { name: 'Dd 3', id: 'dletter' }
       ],
       label: 'Pesting',
-      autocomplete: true,
+      writable: true,
       multiple: true,
       value: ['cletter', 'dletter'],
       onInput(vnode, value, m, vNodeStore) {

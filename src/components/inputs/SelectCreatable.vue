@@ -2,15 +2,9 @@
   <div class="q-gutter-md">
     <q-select
       v-if="rest.visible === undefined ? true : rest.visible"
-      ref="input"
+      v-bind="filtered"
       :value="value"
-      :name="keyName"
-      :readonly="rest.readonly"
-      :disable="rest.disable"
-      :label="rest.label"
       :rules="rules"
-      :hint="rest.hint"
-      :clearable="rest.clearable === undefined ? true : rest.clearable"
       clear-icon="close"
       use-chips
       use-input
@@ -18,7 +12,7 @@
       hide-dropdown-icon
       input-debounce="0"
       new-value-mode="add-unique"
-      :class="rest.class + ' input-'+keyName"
+      :class="rest.class + ' input-' + keyName"
       @input="input"
       @focus="onFocus"
       @blur="onBlur"
@@ -28,7 +22,7 @@
 </template>
 
 <script>
-import { store, optionsStore } from "../../store";
+import { store } from "../../store";
 export default {
   name: "SelectCreatable",
   props: {
@@ -55,6 +49,16 @@ export default {
       archiveRest: { ...this.rest },
     };
   },
+  computed: {
+    filtered() {
+      let res = {};
+      res = { ...this.rest };
+      for (const [key, value] of Object.entries(res)) {
+        if (typeof value === "function") delete res[key];
+      }
+      return res;
+    },
+  },
   methods: {
     storeValue(val) {
       if (this.rest.multiKey)
@@ -67,7 +71,7 @@ export default {
       else store.updateKeyValue(this.keyName, val);
       this.value = this.getStoreValue();
     },
-    input(val) {      
+    input(val) {
       this.storeValue(val);
       this.$emit("input", val);
     },
@@ -86,10 +90,7 @@ export default {
       if (required) {
         if (typeof rules === "object") {
           res = [
-            (val) =>
-              val ||
-              this.rest.requiredMessage ||
-              "Please select option",
+            (val) => val || this.rest.requiredMessage || "Please select option",
             ...this.rest.rules,
           ];
         } else
@@ -111,7 +112,7 @@ export default {
           this.rest.multiIndex
         );
       else res = store.getValueByKey(this.keyName);
-      if (res === "") res = null
+      if (res === "") res = null;
       return res;
     },
     setConfig(arg1 = "", arg2) {

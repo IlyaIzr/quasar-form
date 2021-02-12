@@ -2,25 +2,17 @@
   <div class="q-gutter-md">
     <q-select
       v-if="rest.visible === undefined ? true : rest.visible"
-      ref="input"
+      v-bind="filtered"
       :value="parsedValue"
       :options="parsedOptions"
-      :name="keyName"
-      :readonly="rest.readonly"
-      :disable="rest.disable"
-      :label="rest.label"
       :rules="rules"
-      :hint="rest.hint"      
-      :clearable="rest.clearable === undefined ? true : rest.clearable"
-      clear-icon="close"
       :use-chips="Boolean(value.length)"
-      v-bind:use-input="
-        rest.autocomplete === undefined && rest.multiple === undefined
+      :use-input="
+        rest.writable === undefined && rest.multiple === undefined
           ? true
-          : rest.autocomplete
+          : rest.writable
       "
-      :multiple="rest.multiple"
-      :class="rest.class + ' input-'+keyName"
+      :class="rest.class + ' input-' + keyName"
       @input="input"
       @input-value="shortOptions"
       @focus="onFocus"
@@ -72,6 +64,14 @@ export default {
     };
   },
   computed: {
+    filtered() {
+      let res = {};
+      res = { ...this.rest };
+      for (const [key, value] of Object.entries(res)) {
+        if (typeof value === "function") delete res[key];
+      }
+      return res;
+    },
     parsedOptions() {
       const arr = [];
       this.localOptions.map((option) => {
@@ -280,7 +280,7 @@ export default {
     },
   },
   mounted() {
-    this.validate = this.$refs.input.validate
+    this.validate = this.$refs.input.validate;
     if (this.rest.hasOwnProperty("visible") && !this.rest.visible) {
       this.$parent.$el.parentNode.className += " hidden";
     }

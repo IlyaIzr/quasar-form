@@ -3,14 +3,8 @@
     <p class="text-subtitle1 q-mb-none">{{ rest.label }}</p>
     <q-editor
       v-if="rest.visible === undefined ? true : rest.visible"
-      ref="input"
+      v-bind="filtered"
       :value="value"
-      :readonly="rest.readonly"
-      :disable="rest.disable"
-      :min-height="rest.minHeight"
-      :max-height="rest.maxHeight"
-      :height="rest.height"
-      :toolbar="rest.toolbar"
       :class="rest.class + ' input-'+keyName"
       @focus="onFocus"
       @blur="onBlur"
@@ -45,6 +39,16 @@ export default {
       lang: this.rest.localization || "ru",
       archiveRest: { ...this.rest },
     };
+  },
+  computed: {
+    filtered() {
+      let res = {};
+      res = { ...this.rest };
+      for (const [key, value] of Object.entries(res)) {
+        if (typeof value === "function") delete res[key];
+      }
+      return res;
+    },
   },
   methods: {
     onFocus(e) {

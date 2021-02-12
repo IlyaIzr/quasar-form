@@ -62,7 +62,6 @@
 </template>
 
 <script>
-import FieldMapper from "../FieldMapper";
 import { store } from "../../store";
 export default {
   name: "Multiple",

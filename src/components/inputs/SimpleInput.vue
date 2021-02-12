@@ -1,26 +1,9 @@
 <template>
   <div class="q-gutter-md">
     <q-input
-      ref="input"
+      v-bind="filtered"
       :value="value"
-      :label="rest.label"
-      :type="rest.type"
-      :name="keyName"
-      :mask="rest.mask"
-      :fill-mask="rest.fillMask || false"
-      :reverse-fill-mask="rest.reverseFill"
-      :unmasked-value="rest.unmaskedValue"
-      :clearable="rest.clearable === undefined ? true : rest.clearable"
-      clear-icon="close"
-      :prefix="rest.prefix"
-      :suffix="rest.suffix"
-      :autogrow="rest.autogrow"
-      :hint="rest.hint"
-      :readonly="rest.readonly"
-      :disable="rest.disable"
-      :class="rest.class + ' input-'+keyName"
-      :filled="rest.filled"
-      :outlined="rest.outlined"
+      :class="rest.class + ' input-' + keyName"
       @focus="onFocus"
       @blur="onBlur"
       @input="input"
@@ -94,6 +77,14 @@ export default {
     };
   },
   computed: {
+    filtered() {
+      let res = {};
+      res = { ...this.rest };
+      for (const [key, value] of Object.entries(res)) {
+        if (typeof value === "function") delete res[key];
+      }
+      return res;
+    },
     appendType() {
       let r = "";
       if (this.rest.append)

@@ -2,18 +2,11 @@
   <q-date
     ref="calendar"
     :value="rest.range ? rangeValues : value"
-    :color="rest.color"
-    :text-color="rest.textColor"
-    :minimal="rest.mini"
     :default-year-month="
       rest.defaultYearMonth ? rest.defaultYearMonth : '2020/03'
     "
-    :default-view="rest.defaultView"
-    :navigation-min-year-month="rest.navigationMinYearMonth"
-    :navigation-max-year-month="rest.navigationMaxYearMonth"
-    :readonly="rest.readonly"
     :range="rest.range ? true : false"
-    :disable="rest.disable"
+    v-bind="filtered"
     :mask="rest.mask || 'DD.MM.YYYY'"
     today-btn
     @input="onInput"
@@ -67,6 +60,14 @@ export default {
     };
   },
   computed: {
+    filtered() {
+      let res = {};
+      res = { ...this.rest };
+      for (const [key, value] of Object.entries(res)) {
+        if (typeof value === "function") delete res[key];
+      }
+      return res;
+    },
     rangeValues() {
       let res = {};
       if (typeof this.value === "object" && this.value) {

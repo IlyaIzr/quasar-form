@@ -141,12 +141,14 @@ export default {
     classNames() {
       let r = "";
       const basic =
-        this.rest.visible || this.rest.visible === undefined ? "col " : "hidden ";
+        this.rest.visible || this.rest.visible === undefined
+          ? "col "
+          : "hidden ";
       const margin =
         this.rest.hasOwnProperty("required") && !this.rest.required
           ? " q-mb-sm"
           : "";
-      r = basic + ' field-' + this.inputInfo.key + margin;
+      r = basic + " field-" + this.inputInfo.key + margin;
       return r;
     },
     inputType: function () {
@@ -171,48 +173,46 @@ export default {
           case "select":
             inputType = "select";
             return inputType;
-            break;
           case "selectCreatable":
             inputType = "selectCreatable";
             return inputType;
-            break;
           case "checkbox":
             inputType = "checkbox";
             return inputType;
-            break;
           case "slider":
             inputType = "slider";
             return inputType;
-            break;
           case "date":
             inputType = "date";
             return inputType;
-            break;
           case "multiple":
             inputType = "multiple";
             return inputType;
-            break;
           case "html":
             inputType = "html";
             return inputType;
-            break;
           case "editor":
             inputType = "editor";
             return inputType;
-            break;
           case "file":
             inputType = "file";
             return inputType;
-            break;
 
           default:
             inputType = "text";
             return inputType;
-            break;
         }
     },
   },
   beforeMount() {
+    // Additional rest config, unified for all inputs
+    this.inputInfo.ref = "input"
+    this.inputInfo.name = this.inputInfo.key 
+    this.inputInfo["clear-icon"] = "close"
+    this.inputInfo.clearable = this.inputInfo.clearable === undefined ? true : this.inputInfo.clearable   
+    this.inputInfo.visible = this.inputInfo.visible === undefined ? true : this.inputInfo.visible
+    // this.inputInfo.rules = () //TBD
+
     // store.updateKeyValue(this.inputInfo.key, this.inputInfo.value);  //set value even if field invisible
     const multiKey = this.inputInfo.multiKey || "";
 
@@ -342,6 +342,7 @@ export default {
         });
       }
     },
+
     async onOptionInput(val) {
       if (this.inputInfo.onOptionInput) {
         this.$nextTick(async function () {
@@ -356,8 +357,7 @@ export default {
         });
       }
     },
-  }, 
-  
+  },
 };
 </script>
 

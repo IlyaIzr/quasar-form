@@ -50,8 +50,8 @@ export const config = {
       rules: [val => val || 'Please select option'],
       readonly: false,
       clearable: false, // true by default
-      autocomplete: false, // true by default
-      noResultsMsg: 'No results', //autocomplete no-result message, 'Нет результатов' by default
+      writable: false, // true by default
+      noResultsMsg: 'No results', //writable no-result message, 'Нет результатов' by default
       
       // multiple: true, // false by default
       // value: [],   // value HAS TO BE ARRAY if multiple true
@@ -77,7 +77,7 @@ export const config = {
         }
       },
       async onOptionInput(/**Same args */){
-        // Runs with autocomplete
+        // Runs on input when searching options
       }
     },
 

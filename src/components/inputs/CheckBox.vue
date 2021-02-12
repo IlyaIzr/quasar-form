@@ -11,12 +11,9 @@
     >
       <template v-slot:control>
         <q-checkbox
-          ref="input"
+          v-bind="filtered"
           :value="value"
-          :label="rest.label"
-          :name="keyName"
-          :disable="rest.disable"
-          :class="rest.class + ' input-'+keyName"
+          :class="rest.class + ' input-' + keyName"
           @focus="onFocus"
           @blur="onBlur"
           @input="input"
@@ -54,6 +51,16 @@ export default {
       ),
       archiveRest: { ...this.rest },
     };
+  },
+  computed: {
+    filtered() {
+      let res = {};
+      res = { ...this.rest };
+      for (const [key, value] of Object.entries(res)) {
+        if (typeof value === "function") delete res[key];
+      }
+      return res;
+    },
   },
   methods: {
     onFocus(e) {
@@ -139,7 +146,7 @@ export default {
     },
   },
   mounted() {
-    this.validate = this.$refs.checkbox.validate
+    this.validate = this.$refs.checkbox.validate;
     if (this.rest.hasOwnProperty("visible") && !this.rest.visible) {
       this.$parent.$el.parentNode.className += " hidden";
     }

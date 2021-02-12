@@ -125,3 +125,11 @@ programmatic vue attributes
 * tab y-margins
 * extracted css to build
 * select use-chips fix
+
+
+11.02.2021 - V 1.2
+* restructuring
+
+
+=-=-=-=-=- Migration -=-=-=-=-=
+select "autocomplete" prop changed to "writable" (autocomplete prop exists on Quasar)

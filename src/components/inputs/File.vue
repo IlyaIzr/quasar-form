@@ -3,12 +3,7 @@
     <q-file
       bottom-slots
       v-if="rest.visible === undefined ? true : rest.visible"
-      ref="input"
-      :label="rest.label"
-      :disable="rest.disable"
-      :clearable="rest.clearable === undefined ? true : rest.clearable"
-      clear-icon="close"
-      :hint="rest.hint"
+      v-bind="filtered"
       :class="rest.class + ' input-'+keyName"
       @blur="onBlur"
       @input="input"
@@ -45,6 +40,16 @@ export default {
       value: this.getStoreValue(),
       archiveRest: { ...this.rest },
     };
+  },
+  computed: {
+    filtered() {
+      let res = {};
+      res = { ...this.rest };
+      for (const [key, value] of Object.entries(res)) {
+        if (typeof value === "function") delete res[key];
+      }
+      return res;
+    },
   },
   methods: {
     onFocus(e) {

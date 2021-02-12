@@ -2,14 +2,32 @@ export const config = {
   fields: [
 
 
+
     {
-      label: "Создатель",
-      key: "owner",
-      options: [],
-      type: 'select',
-      hint: 'sass',
-      async onOptionInput(v, val, methods, store) {
-        console.log(val)
+      value: 'anton',
+      onInput(vnode, value, m, vNodeStore) {
+        const dateField = vNodeStore.get('date')
+        dateField.setValue('11.12.2012')
+        dateField.setConfig('visible', false)
+        vnode.setValue(value + '*')
+      }
+    },
+
+    {
+      key: 'selectF', type: 'select', rowIndex: 2,
+      options: [
+        { name: 'A', id: 'aletter' }, { name: 'B', id: 'bletter' }, { name: 'C', id: 'cletter' }
+      ],
+      value: 'bletter',
+      onInput(vnode, value, m, vNodeStore) {
+        vnode.setValue('cletter')
+      },
+    },
+
+    {
+      type: 'text', key: 'date', rowIndex: 2, value: '16.03.1995',
+      onInput(vnode, value, m, vNodeStore) {
+        vnode.setValue('12.12.2012')  //set self
       }
     },
 

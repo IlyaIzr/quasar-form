@@ -2,10 +2,9 @@
   <div class="q-gutter-md">
     <q-card-section
       v-if="rest.visible === undefined ? true : rest.visible"
+      v-bind="filtered"
       ref="editor"
-      :name="keyName"
-      :disable="rest.disable"
-      :class="rest.class + ' input-'+keyName"
+      :class="rest.class + ' input-' + keyName"
       v-html="value"
       @focus="onFocus"
     />
@@ -31,6 +30,17 @@ export default {
       value: this.getStoreValue(),
       archiveRest: { ...this.rest },
     };
+  },
+  computed: {
+    filtered() {
+      let res = {};
+      res = { ...this.rest };
+      for (const [key, value] of Object.entries(res)) {
+        if (typeof value === "function") delete res[key];
+      }
+      delete res.ref;
+      return res;
+    },
   },
 
   methods: {
