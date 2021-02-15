@@ -1,7 +1,6 @@
 <template>
   <div class="q-gutter-md">
     <q-select
-      v-if="rest.visible === undefined ? true : rest.visible"
       v-bind="filtered"
       :value="value"
       :rules="rules"

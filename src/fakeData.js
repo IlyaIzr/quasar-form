@@ -25,7 +25,7 @@ export const config = {
     },
 
     {
-      type: 'text', key: 'date', rowIndex: 2, value: '16.03.1995',
+      type: 'selectCreatable', key: 'date', rowIndex: 2, value: '16.03.1995',
       onInput(vnode, value, m, vNodeStore) {
         vnode.setValue('12.12.2012')  //set self
       }

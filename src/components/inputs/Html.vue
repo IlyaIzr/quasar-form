@@ -1,7 +1,6 @@
 <template>
   <div class="q-gutter-md">
     <q-card-section
-      v-if="rest.visible === undefined ? true : rest.visible"
       v-bind="filtered"
       ref="editor"
       :class="rest.class + ' input-' + keyName"

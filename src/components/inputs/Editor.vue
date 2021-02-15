@@ -2,7 +2,6 @@
   <div class="q-gutter-md">
     <p class="text-subtitle1 q-mb-none">{{ rest.label }}</p>
     <q-editor
-      v-if="rest.visible === undefined ? true : rest.visible"
       v-bind="filtered"
       :value="value"
       :class="rest.class + ' input-'+keyName"

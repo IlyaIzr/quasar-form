@@ -2,7 +2,6 @@
   <div class="q-gutter-md">
     <q-field
       ref="checkbox"
-      v-if="rest.visible === undefined ? true : rest.visible"
       :value="value"
       :rules="rules"
       :hint="rest.hint"

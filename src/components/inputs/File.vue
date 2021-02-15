@@ -2,7 +2,6 @@
   <div class="q-gutter-md">
     <q-file
       bottom-slots
-      v-if="rest.visible === undefined ? true : rest.visible"
       v-bind="filtered"
       :class="rest.class + ' input-'+keyName"
       @blur="onBlur"

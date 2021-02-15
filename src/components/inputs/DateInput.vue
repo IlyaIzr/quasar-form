@@ -1,5 +1,5 @@
 <template>
-  <div v-if="rest.visible === undefined ? true : rest.visible">
+  <div>
     <div
       v-if="!rest.withInput && rest.withInput !== undefined"
       class="q-gutter-md"
@@ -26,7 +26,7 @@
         :rules="rules"
         :key="fuckenMask"
         :label="rest.label"
-        :clearable="rest.clearable === undefined ? true : rest.clearable"
+        :clearable="rest.clearable"
         clear-icon="close"
         :class="rest.class + ' input-'+keyName"
         ref="input"

@@ -9,7 +9,6 @@
       :hint="rest.hint"
     >
       <q-slider
-        v-if="rest.visible === undefined ? true : rest.visible"
         ref="input"
         :value="value"
         :name="keyName"
