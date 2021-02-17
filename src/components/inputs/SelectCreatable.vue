@@ -4,7 +4,6 @@
       v-bind="filtered"
       :value="value"
       :rules="rules"
-      clear-icon="close"
       use-chips
       use-input
       multiple

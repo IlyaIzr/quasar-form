@@ -111,7 +111,7 @@ import File from "./inputs/File";
 import { configStore, optionsStore, store, vNodeStore } from "../store";
 
 export default {
-  name: "InputSorter",
+  name: "FieldSorter",
   data() {
     return {
       store,
@@ -206,11 +206,26 @@ export default {
   },
   beforeMount() {
     // Additional rest config, unified for all inputs
-    this.inputInfo.ref = "input"
-    this.inputInfo.name = this.inputInfo.key 
-    this.inputInfo["clear-icon"] = "close"
-    this.inputInfo.clearable = this.inputInfo.clearable === undefined ? true : this.inputInfo.clearable   
-    this.inputInfo.visible = this.inputInfo.visible === undefined ? true : this.inputInfo.visible
+    this.inputInfo.ref = "input";
+    this.inputInfo.name = this.inputInfo.key;
+    this.inputInfo["clear-icon"] = "close";
+    this.inputInfo.required =
+      this.inputInfo.required === undefined ? true : this.inputInfo.required;
+    this.inputInfo.clearable =
+      this.inputInfo.clearable === undefined ? true : this.inputInfo.clearable;
+    this.inputInfo.visible =
+      this.inputInfo.visible === undefined ? true : this.inputInfo.visible;
+    // RULES assignment
+    // if (this.inputInfo.required && Array.isArray(this.inputInfo.rules)) {
+    //   this.inputInfo.rules = [
+    //     (val) => Boolean(val) || this.inputInfo.requiredMessage || "Please select option",
+    //     ...this.inputInfo.rules,
+    //   ];
+    // } else if (this.inputInfo.required) {
+    //   this.inputInfo.rules = [
+    //     (val) => Boolean(val) || this.inputInfo.requiredMessage || "Please select option",
+    //   ];
+    // } 
     // this.inputInfo.rules = () //TBD
 
     // store.updateKeyValue(this.inputInfo.key, this.inputInfo.value);  //set value even if field invisible

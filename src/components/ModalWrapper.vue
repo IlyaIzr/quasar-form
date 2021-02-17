@@ -11,7 +11,7 @@
       :full-height="modal.fullHeigh === undefined || modal.maximized"
       :position="modal.position"
     >
-      <FormWrap :settings="settings" :values="values" />
+      <Form :settings="settings" :values="values" />
     </q-dialog>
 
     <q-btn
@@ -24,15 +24,15 @@
     />
   </div>
 
-  <FormWrap v-else :settings="settings" :values="values" />
+  <Form v-else :settings="settings" :values="values" />
 </template>
 
 <script>
 import { vNodeStore } from "src/store";
-import FormWrap from "./FormWrap";
+import Form from "./Form";
 export default {
   name: "ModalWrapper",
-  components: { FormWrap },
+  components: { Form },
   data() {
     return {
       modal: { ...this.settings.modal },

@@ -1,15 +1,15 @@
 <template>
   <div v-if="row" class="row q-col-gutter-x-md q-col-gutter-y-lg">
-    <InputSorter :inputInfo="item" v-for="item in row" v-bind:key="item.key" />
+    <FieldSorter :inputInfo="item" v-for="item in row" v-bind:key="item.key" />
   </div>
 </template>
 
 <script>
-import InputSorter from "./InputSorter";
+import FieldSorter from "./FieldSorter";
 export default {
   name: "FormRow",
   components: {
-    InputSorter,
+    FieldSorter,
   },
   props: {
     row: {

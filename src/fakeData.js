@@ -4,7 +4,9 @@ export const config = {
 
 
     {
-      value: 'anton',
+      value: 'pi',
+      // label: 'pi',
+      // required: false,
       onInput(vnode, value, m, vNodeStore) {
         const dateField = vNodeStore.get('date')
         dateField.setValue('11.12.2012')
@@ -18,17 +20,21 @@ export const config = {
       options: [
         { name: 'A', id: 'aletter' }, { name: 'B', id: 'bletter' }, { name: 'C', id: 'cletter' }
       ],
-      value: 'bletter',
+      value: '',
       onInput(vnode, value, m, vNodeStore) {
         vnode.setValue('cletter')
       },
     },
 
     {
-      type: 'selectCreatable', key: 'date', rowIndex: 2, value: '16.03.1995',
-      onInput(vnode, value, m, vNodeStore) {
-        vnode.setValue('12.12.2012')  //set self
-      }
+      type: 'slider', 
+      key: 'test', rowIndex: 5, value: 11,
+      label: 's',
+      // min: 22, max: 55,
+      // onInput(vnode, value, m, vNodeStore) {
+      //   vnode.setValue('12.12.2012')  //set self
+      // }
+      // rules: [(v) => v && v > 25 || 'be bigger']
     },
 
   ],
@@ -37,7 +43,7 @@ export const config = {
   form: {
     async onSubmit(vNode, data, formMethods, vNodeStore) {
       console.log('subbed', data)
-      vNode.clear()
+      // vNode.clear()
     },
     async onValidateError(vNode, data, formMethods, errorComponent, vNodeStore) {
       console.log('validation error', errorComponent)

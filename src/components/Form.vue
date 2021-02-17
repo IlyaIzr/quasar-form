@@ -63,7 +63,7 @@ import FieldMapper from "./FieldMapper";
 import Buttons from "./Buttons";
 import { store, vNodeStore } from "../store";
 export default {
-  name: "FormWrap",
+  name: "Form",
   components: {
     FieldMapper,
     Buttons,
