@@ -73,7 +73,6 @@ export default {
       const fieldRowSorter = (fields) => {
         const res = [];
         const noRowIndexes = [];
-        const fieldSorter = (field) => {};
         fields.map((field) => {
           // Assign multiKey if there's any
           if (this.multiKey) {
@@ -98,6 +97,16 @@ export default {
           //Assign default key if theres none
           if (field.key === undefined)
             field.key = "undefinedKeyN" + Math.random();
+
+          // Recieve function or primitive value (case: label)
+          // if (field.label && typeof field.label === "function") {
+          //   field.label = field.label(field);
+          // }
+          for (const [key, value] of Object.entries(field)) {
+            if (typeof value === "function" && key !== 'onInput' && key !== 'onBlur' && key !== 'onFocus') {
+              field[key] = field[key](field)
+            }
+          }
 
           // Make extra array for not indexed fields
           if (field.rowIndex === undefined) {

@@ -4,8 +4,12 @@ export const config = {
 
 
     {
-      value: 'pi',
-      // label: 'pi',
+      value: 'pi', 
+      rowIndex: 1,
+      label: 'pi',
+      label(field) {
+        if (field.value == 'pi') return "ABC" + " _01"
+      },
       // required: false,
       onInput(vnode, value, m, vNodeStore) {
         const dateField = vNodeStore.get('date')
@@ -15,19 +19,19 @@ export const config = {
       }
     },
 
-    {
-      key: 'selectF', type: 'select', rowIndex: 2,
-      options: [
-        { name: 'A', id: 'aletter' }, { name: 'B', id: 'bletter' }, { name: 'C', id: 'cletter' }
-      ],
-      value: '',
-      onInput(vnode, value, m, vNodeStore) {
-        vnode.setValue('cletter')
-      },
-    },
+    // {
+    //   key: 'selectF', type: 'select', rowIndex: 2,
+    //   options: [
+    //     { name: 'A', id: 'aletter' }, { name: 'B', id: 'bletter' }, { name: 'C', id: 'cletter' }
+    //   ],
+    //   value: '',
+    //   onInput(vnode, value, m, vNodeStore) {
+    //     vnode.setValue('cletter')
+    //   },
+    // },
 
     {
-      type: 'slider', 
+      type: 'slider',
       key: 'test', rowIndex: 5, value: 11,
       label: 's',
       // min: 22, max: 55,
