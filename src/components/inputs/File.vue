@@ -17,7 +17,14 @@
 </template>
 
 <script>
-import { methods, commonMethods, watchers, mountedCommon } from "./extra";
+import {
+  methods,
+  commonMethods,
+  watchers,
+  mountedCommon,
+  computed,
+} from "./extra";
+
 export default {
   name: "File",
   props: {
@@ -41,14 +48,7 @@ export default {
     };
   },
   computed: {
-    filtered() {
-      let res = {};
-      res = { ...this.rest };
-      for (const [key, value] of Object.entries(res)) {
-        if (typeof value === "function") delete res[key];
-      }
-      return res;
-    },
+    ...computed,
   },
   methods: {
     ...commonMethods,

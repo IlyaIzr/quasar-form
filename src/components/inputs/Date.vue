@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import { methods, commonMethods, watchers } from "./extra";
+import { methods, commonMethods, watchers, computed } from "./extra";
 export default {
   name: "Date",
   props: {
@@ -60,14 +60,8 @@ export default {
     };
   },
   computed: {
-    filtered() {
-      let res = {};
-      res = { ...this.rest };
-      for (const [key, value] of Object.entries(res)) {
-        if (typeof value === "function") delete res[key];
-      }
-      return res;
-    },
+    ...computed,
+    
     rangeValues() {
       let res = {};
       if (typeof this.value === "object" && this.value) {

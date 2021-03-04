@@ -49,7 +49,15 @@
 
 <script>
 import { vNodeStore } from "../../store";
-import { methods, commonMethods, watchers, mountedCommon } from "./extra";
+import {
+  methods,
+  commonMethods,
+  watchers,
+  mountedCommon,
+  stringRules,
+  computed,
+} from "./extra";
+
 export default {
   name: "SimpleInput",
   props: {
@@ -74,14 +82,8 @@ export default {
     };
   },
   computed: {
-    filtered() {
-      let res = {};
-      res = { ...this.rest };
-      for (const [key, value] of Object.entries(res)) {
-        if (typeof value === "function") delete res[key];
-      }
-      return res;
-    },
+    ...computed,
+
     appendType() {
       let r = "";
       if (this.rest.append)
@@ -100,6 +102,7 @@ export default {
   methods: {
     ...commonMethods,
     ...methods,
+    ...stringRules,
 
     async appendClick(e) {
       this.rest.appendOnClick(this, this.value, this.$refs.input, vNodeStore);
@@ -107,29 +110,12 @@ export default {
     async prependClick(e) {
       this.rest.prependOnClick(this, this.value, this.$refs.input, vNodeStore);
     },
-
-    checkRules(rules, required) {
-      let res;
-      if (required) {
-        this.$nextTick(() => this.$forceUpdate());
-        if (typeof rules === "object") {
-          res = [
-            (val) => Boolean(val) || this.rest.requiredMessage || "Please fill",
-            ...this.rest.rules,
-          ];
-        } else
-          res = [
-            (val) => Boolean(val) || this.rest.requiredMessage || "Please fill",
-          ];
-      } else res = this.rest.rules;
-      return res;
-    },
   },
   watch: {
-    ...watchers
+    ...watchers,
   },
   mounted() {
-    mountedCommon(this)
+    mountedCommon(this);
   },
 };
 </script>

@@ -30,7 +30,14 @@
 
 <script>
 import { store, optionsStore } from "../../store";
-import { methods, commonMethods, watchers, mountedCommon } from "./extra";
+import {
+  methods,
+  commonMethods,
+  watchers,
+  mountedCommon,
+  computed,
+} from "./extra";
+
 export default {
   name: "SelectInput",
   props: {
@@ -64,14 +71,8 @@ export default {
     };
   },
   computed: {
-    filtered() {
-      let res = {};
-      res = { ...this.rest };
-      for (const [key, value] of Object.entries(res)) {
-        if (typeof value === "function") delete res[key];
-      }
-      return res;
-    },
+    ...computed,
+
     parsedOptions() {
       const arr = [];
       this.localOptions.map((option) => {
@@ -89,7 +90,7 @@ export default {
   methods: {
     ...commonMethods,
     ...methods,
-    
+
     parseValue(value, options) {
       let res = [];
       options &&
@@ -232,7 +233,7 @@ export default {
     },
     reset() {
       this.setConfig(this.archiveRest);
-      this.setOptions(this.archiveRest.options);  // The only difference to methods
+      this.setOptions(this.archiveRest.options); // The only difference to methods
       this.setValue(this.archiveRest.value);
       this.$nextTick(function () {
         this.$refs.input.resetValidation();
@@ -240,11 +241,11 @@ export default {
     },
   },
   mounted() {
-    mountedCommon(this)
+    mountedCommon(this);
   },
   watch: {
     ...watchers,
-  }
+  },
 };
 </script>
 

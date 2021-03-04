@@ -11,7 +11,14 @@
 </template>
 
 <script>
-import { methods, commonMethods, watchers, mountedCommon } from "./extra";
+import {
+  methods,
+  commonMethods,
+  watchers,
+  mountedCommon,
+  computed,
+} from "./extra";
+
 export default {
   name: "Html",
   props: {
@@ -31,15 +38,7 @@ export default {
     };
   },
   computed: {
-    filtered() {
-      let res = {};
-      res = { ...this.rest };
-      for (const [key, value] of Object.entries(res)) {
-        if (typeof value === "function") delete res[key];
-      }
-      delete res.ref;
-      return res;
-    },
+    ...computed,
   },
 
   methods: {
@@ -50,11 +49,11 @@ export default {
     //   this.setValue(this.archiveRest.value);
     // },
   },
-  mounted(){
-    mountedCommon(this)
+  mounted() {
+    mountedCommon(this);
   },
   watch: {
-    ...watchers
+    ...watchers,
   },
 };
 </script>

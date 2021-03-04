@@ -4,7 +4,7 @@
     <q-editor
       v-bind="filtered"
       :value="value"
-      :class="rest.class + ' input-'+keyName"
+      :class="rest.class + ' input-' + keyName"
       @focus="onFocus"
       @blur="onBlur"
       @input="input"
@@ -15,7 +15,14 @@
 </template>
 
 <script>
-import { methods, commonMethods, watchers, mountedCommon } from "./extra";
+import {
+  methods,
+  commonMethods,
+  watchers,
+  mountedCommon,
+  computed,
+} from "./extra";
+
 export default {
   name: "Editor",
   props: {
@@ -40,14 +47,7 @@ export default {
     };
   },
   computed: {
-    filtered() {
-      let res = {};
-      res = { ...this.rest };
-      for (const [key, value] of Object.entries(res)) {
-        if (typeof value === "function") delete res[key];
-      }
-      return res;
-    },
+    ...computed,
   },
   methods: {
     ...commonMethods,
@@ -57,10 +57,10 @@ export default {
     },
   },
   mounted() {
-    mountedCommon(this)
+    mountedCommon(this);
   },
   watch: {
-    ...watchers
+    ...watchers,
   },
 };
 </script>

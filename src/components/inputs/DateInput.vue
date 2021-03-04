@@ -57,7 +57,7 @@
 </template>
 
 <script>
-import { methods, commonMethods, watchers } from "./extra";
+import { methods, commonMethods, watchers, stringRules } from "./extra";
 import { date } from "quasar";
 import DateInp from "./Date";
 const { formatDate } = date;
@@ -117,6 +117,7 @@ export default {
   methods: {
     ...commonMethods,
     ...methods,
+    ...stringRules,
 
     onInput(val) {
       this.fuckenMask += 1;
@@ -138,21 +139,6 @@ export default {
       }
       this.storeValue(finalVal);
       this.$emit("input", finalVal);
-    },
-    checkRules(rules, required) {
-      let res;
-      if (required) {
-        if (typeof rules === "object") {
-          res = [
-            (val) => Boolean(val) || this.rest.requiredMessage || "Please fill",
-            ...this.rest.rules,
-          ];
-        } else
-          res = [
-            (val) => Boolean(val) || this.rest.requiredMessage || "Please fill",
-          ];
-      } else res = this.rest.rules;
-      return res;
     },
   },
   mounted() {

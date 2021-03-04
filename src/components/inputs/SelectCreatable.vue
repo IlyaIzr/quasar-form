@@ -21,7 +21,15 @@
 
 <script>
 import { store } from "../../store";
-import { methods, commonMethods, mountedCommon, watchers } from "./extra";
+import {
+  methods,
+  commonMethods,
+  mountedCommon,
+  watchers,
+  stringRules,
+  computed,
+} from "./extra";
+
 export default {
   name: "SelectCreatable",
   props: {
@@ -49,36 +57,13 @@ export default {
     };
   },
   computed: {
-    filtered() {
-      let res = {};
-      res = { ...this.rest };
-      for (const [key, value] of Object.entries(res)) {
-        if (typeof value === "function") delete res[key];
-      }
-      return res;
-    },
+    ...computed,
   },
   methods: {
     ...commonMethods,
     ...methods,
-    checkRules(rules, required) {
-      let res;
-      if (required) {
-        if (typeof rules === "object") {
-          res = [
-            (val) => val || this.rest.requiredMessage || "Please select option",
-            ...this.rest.rules,
-          ];
-        } else
-          res = [
-            (val) =>
-              Boolean(val) ||
-              this.rest.requiredMessage ||
-              "Please select option",
-          ];
-      } else res = this.rest.rules;
-      return res;
-    },
+    ...stringRules,
+
     getStoreValue() {
       let res;
       if (this.rest.multiKey)

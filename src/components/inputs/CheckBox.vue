@@ -24,7 +24,15 @@
 </template>
 
 <script>
-import { methods, commonMethods, mountedCommon, watchers } from "./extra";
+import {
+  methods,
+  commonMethods,
+  mountedCommon,
+  watchers,
+  stringRules,
+  computed,
+} from "./extra";
+
 export default {
   name: "CheckBox",
   props: {
@@ -52,18 +60,13 @@ export default {
     };
   },
   computed: {
-    filtered() {
-      let res = {};
-      res = { ...this.rest };
-      for (const [key, value] of Object.entries(res)) {
-        if (typeof value === "function") delete res[key];
-      }
-      return res;
-    },
+    ...computed,
   },
   methods: {
     ...commonMethods,
     ...methods,
+    ...stringRules,
+    
     onInput(val) {
       this.storeValue(val);
       this.$refs.input.validate();
@@ -81,21 +84,6 @@ export default {
     //   if (Array.isArray(res) && !res.length) res = false;
     //   return Boolean(res);
     // },
-    checkRules(rules, required) {
-      let res;
-      if (required) {
-        if (typeof rules === "object") {
-          res = [
-            (val) => Boolean(val) || this.rest.requiredMessage || "Please fill",
-            ...this.rest.rules,
-          ];
-        } else
-          res = [
-            (val) => Boolean(val) || this.rest.requiredMessage || "Please fill",
-          ];
-      } else res = this.rest.rules;
-      return res;
-    },
   },
   mounted() {
     mountedCommon(this);
