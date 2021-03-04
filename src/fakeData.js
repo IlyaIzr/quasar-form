@@ -2,37 +2,43 @@ export const config = {
   fields: [
 
 
+    // {
+    //   key: 'select', type: 'select', rowIndex: 1,
+    //   options: [
+    //     { name: 'Ab 1', id: 'aletter' }, { name: 'Bd 2', id: 'bletter' }, { name: 'Cs 3', id: 'cletter' }, { name: 'Dd 3', id: 'dletter' }
+    //   ],
+    //   label: 'Pesting',
+    //   writable: true,
+    //   multiple: true,
+    //   value: ['cletter', 'dletter'],
+    //   // onInput(vnode, value, m, vNodeStore) {
+    //   //   const sel2 = vNodeStore.get('select2')
+    //   //   console.log(sel2)
+    //   //   // sel2.setOptions([{ name: 'A', id: 'aletter' },])
+    //   //   sel2.setConfig('visible', false)
+    //   // },
+    // },
     {
-      key: 'select', type: 'select', rowIndex: 1,
-      options: [
-        { name: 'Ab 1', id: 'aletter' }, { name: 'Bd 2', id: 'bletter' }, { name: 'Cs 3', id: 'cletter' }, { name: 'Dd 3', id: 'dletter' }
-      ],
-      label: 'Pesting',
-      writable: true,
-      multiple: true,
-      value: ['cletter', 'dletter'],
-      onInput(vnode, value, m, vNodeStore) {
-        const sel2 = vNodeStore.get('select2')
-        console.log(sel2)
-        // sel2.setOptions([{ name: 'A', id: 'aletter' },])
-        sel2.setConfig('visible', false)
-      },
-    },
-    {
-      key: 'select2', type: 'select', rowIndex: 2, 
+      key: 'select2', type: 'select', rowIndex: 2,
       // visible: false,
+      // required: false,
+      // label(){return 'peps'},
+      hint: (node) => { return node._uid + 'neuve' },
       options: [
       ],
     },
+    {
+      value(){ return 'Pepperoni'}
+    }
 
   ],
 
   global: {
     label: 'Global default label',
-    hint(config){
-      return String (new Date)
+    hint(config) {
+      return String(new Date)
     },
-    type(){return 'password'},
+    type() { return 'password' },
     // tabs: {
     //   buttons: 'aaa'
     // },

@@ -213,18 +213,6 @@ export default {
       this.inputInfo.clearable === undefined ? true : this.inputInfo.clearable;
     this.inputInfo.visible =
       this.inputInfo.visible === undefined ? true : this.inputInfo.visible;
-    // RULES assignment
-    // if (this.inputInfo.required && Array.isArray(this.inputInfo.rules)) {
-    //   this.inputInfo.rules = [
-    //     (val) => Boolean(val) || this.inputInfo.requiredMessage || "Please select option",
-    //     ...this.inputInfo.rules,
-    //   ];
-    // } else if (this.inputInfo.required) {
-    //   this.inputInfo.rules = [
-    //     (val) => Boolean(val) || this.inputInfo.requiredMessage || "Please select option",
-    //   ];
-    // } 
-    // this.inputInfo.rules = () //TBD
 
     // store.updateKeyValue(this.inputInfo.key, this.inputInfo.value);  //set value even if field invisible
     const multiKey = this.inputInfo.multiKey || "";
@@ -278,12 +266,6 @@ export default {
 
       store.updateKeyValue(this.inputInfo.key, this.inputInfo.value);
 
-      // Set label required * sign
-      if (this.inputInfo.required || this.inputInfo.required === undefined)
-        this.inputInfo.label =
-          this.inputInfo.label && !this.inputInfo.label.endsWith(" *")
-            ? this.inputInfo.label + " *"
-            : " *";
 
       configStore.create(this.inputInfo.key, this.inputInfo);
       this.rest = configStore.get(this.inputInfo.key);

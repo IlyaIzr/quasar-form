@@ -28,6 +28,7 @@ export const commonMethods = {
         this.rest.multiIndex
       );
     else res = store.getValueByKey(this.rest.key);
+    console.log(res);
     return res;
   },
   setConfig(arg1 = "", arg2) {
@@ -123,10 +124,31 @@ export const computed = {
     let res = {};
     res = { ...this.rest };
     for (const [key, value] of Object.entries(res)) {
-      if (typeof value === "function") delete res[key];
+      if (
+        typeof value === "function" &&
+        key !== "onInput" &&
+        key !== "onBlur" &&
+        key !== "onFocus"
+      ) {
+        res[key] = value(this);
+      }
+    }
+    // end required fields with '*' automaticly
+    if (res.required || res.required === undefined) {
+      if (!res.label) res.label = "*"
+      else if (!res.label.endsWith(" *")) res.label = res.label + " *"
     }
     return res;
   },
+
+  // value() {
+  //   let res = {}
+  //   const val = this.getStoreValue()
+  //   if (typeof val === 'function') {
+  //     res = val(this)
+  //   } else res = val
+  //   return res
+  // },
 }
 
 // Exeptions: Multiple
@@ -147,7 +169,7 @@ export const watchers = {
 
 // Exeptions: Date, DateInput
 export const mountedCommon = (vThis) => {
-  vThis.validate = vThis.$refs.input.validate;
+  vThis.validate = vThis.$refs.input?.validate;
   if (vThis.rest.hasOwnProperty("visible") && !vThis.rest.visible) {
     vThis.$parent.$el.parentNode.className += " hidden";
   }
