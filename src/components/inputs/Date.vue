@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import { methods, commonMethods } from "./extra";
+import { methods, commonMethods, watchers } from "./extra";
 export default {
   name: "Date",
   props: {
@@ -109,12 +109,7 @@ export default {
     ...methods,
   },
   watch: {
-    "store.state.watcher": function () {
-      const val = this.getStoreValue();
-      if (val !== this.value) {
-        this.value = val;
-      }
-    },
+    ...watchers
   },
 };
 </script>

@@ -49,7 +49,7 @@
 
 <script>
 import { vNodeStore } from "../../store";
-import { methods, commonMethods } from "./extra";
+import { methods, commonMethods, watchers, mountedCommon } from "./extra";
 export default {
   name: "SimpleInput",
   props: {
@@ -126,21 +126,10 @@ export default {
     },
   },
   watch: {
-    "store.state.watcher": function () {
-      const val = this.getStoreValue();
-      if (val !== this.value) {
-        this.value = val;
-      }
-    },
-    "this.rest.visible": function () {
-      console.log("check for visibility watched");
-      if (this.rest.hasOwnProperty("visible") && !this.rest.visible) {
-        this.$parent.$el.parentNode.className += " hidden";
-      }
-    },
+    ...watchers
   },
   mounted() {
-    this.validate = this.$refs.input.validate;
+    mountedCommon(this)
   },
 };
 </script>

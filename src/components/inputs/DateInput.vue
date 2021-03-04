@@ -12,7 +12,7 @@
         :store="store"
         :hasInput="hasInput"
         :value="value"
-        :class="rest.class + ' input-'+keyName"
+        :class="rest.class + ' input-' + keyName"
         @input="onInput"
         @focus="onFocus"
         @blur="onBlur"
@@ -28,7 +28,7 @@
         :label="rest.label"
         :clearable="rest.clearable"
         clear-icon="close"
-        :class="rest.class + ' input-'+keyName"
+        :class="rest.class + ' input-' + keyName"
         ref="input"
       >
         <template v-slot:append>
@@ -57,7 +57,7 @@
 </template>
 
 <script>
-import { methods, commonMethods } from "./extra";
+import { methods, commonMethods, watchers } from "./extra";
 import { date } from "quasar";
 import DateInp from "./Date";
 const { formatDate } = date;
@@ -117,7 +117,7 @@ export default {
   methods: {
     ...commonMethods,
     ...methods,
-    
+
     onInput(val) {
       this.fuckenMask += 1;
       let finalVal = val;
@@ -164,17 +164,7 @@ export default {
     }
   },
   watch: {
-    "store.state.watcher": function () {
-      const val = this.getStoreValue();
-      if (val !== this.value) {
-        this.value = val;
-      }
-    },
-    "this.rest.visible": function () {
-      if (this.rest.hasOwnProperty("visible") && !this.rest.visible) {
-        this.$parent.$el.parentNode.className += " hidden";
-      }
-    },
+    ...watchers,
   },
 };
 </script>

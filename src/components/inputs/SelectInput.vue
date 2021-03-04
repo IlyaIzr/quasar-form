@@ -5,7 +5,7 @@
       :value="parsedValue"
       :options="parsedOptions"
       :rules="rules"
-      :use-chips="Boolean(value.length)"
+      :use-chips="Boolean(value && value.length)"
       :use-input="
         rest.writable === undefined && rest.multiple === undefined
           ? true
@@ -30,7 +30,7 @@
 
 <script>
 import { store, optionsStore } from "../../store";
-import { methods, commonMethods } from "./extra";
+import { methods, commonMethods, watchers, mountedCommon } from "./extra";
 export default {
   name: "SelectInput",
   props: {
@@ -189,7 +189,7 @@ export default {
       this.localOptions = newOptions;
       this.$emit("optionInput", val);
       this.$nextTick(function () {
-        this.$refs.input.resetValidation();
+        this.$refs.input?.resetValidation?.();
       });
     },
     checkRules(rules, required) {
@@ -240,24 +240,11 @@ export default {
     },
   },
   mounted() {
-    this.validate = this.$refs.input.validate;
-    if (this.rest.hasOwnProperty("visible") && !this.rest.visible) {
-      this.$parent.$el.parentNode.className += " hidden";
-    }
+    mountedCommon(this)
   },
   watch: {
-    "store.state.watcher": function () {
-      const val = this.getStoreValue();
-      if (val !== this.value) {
-        this.value = val;
-      }
-    },
-    "this.rest.visible": function () {
-      if (this.rest.hasOwnProperty("visible") && !this.rest.visible) {
-        this.$parent.$el.parentNode.className += " hidden";
-      }
-    },
-  },
+    ...watchers,
+  }
 };
 </script>
 

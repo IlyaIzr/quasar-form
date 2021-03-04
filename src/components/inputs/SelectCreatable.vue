@@ -11,7 +11,7 @@
       input-debounce="0"
       new-value-mode="add-unique"
       :class="rest.class + ' input-' + keyName"
-      @input="input"
+      @input="onInput"
       @focus="onFocus"
       @blur="onBlur"
     >
@@ -21,7 +21,7 @@
 
 <script>
 import { store } from "../../store";
-import { methods, commonMethods } from "./extra";
+import { methods, commonMethods, mountedCommon, watchers } from "./extra";
 export default {
   name: "SelectCreatable",
   props: {
@@ -61,25 +61,6 @@ export default {
   methods: {
     ...commonMethods,
     ...methods,
-    storeValue(val) {
-      if (this.rest.multiKey)
-        store.updateKeyValue(
-          this.keyName,
-          val,
-          this.rest.multiKey,
-          this.rest.multiIndex
-        );
-      else store.updateKeyValue(this.keyName, val);
-      this.value = this.getStoreValue();
-    },
-    input(val) {
-      this.storeValue(val);
-      this.$emit("input", val);
-    },
-    onInput(val) {
-      this.storeValue(val);
-      this.$emit("input", val);
-    },
     checkRules(rules, required) {
       let res;
       if (required) {
@@ -120,23 +101,10 @@ export default {
     },
   },
   mounted() {
-    this.validate = this.$refs.input.validate;
-    if (this.rest.hasOwnProperty("visible") && !this.rest.visible) {
-      this.$parent.$el.parentNode.className += " hidden";
-    }
+    mountedCommon(this);
   },
   watch: {
-    "store.state.watcher": function () {
-      const val = this.getStoreValue();
-      if (val !== this.value) {
-        this.value = val;
-      }
-    },
-    "this.rest.visible": function () {
-      if (this.rest.hasOwnProperty("visible") && !this.rest.visible) {
-        this.$parent.$el.parentNode.className += " hidden";
-      }
-    },
+    ...watchers,
   },
 };
 </script>

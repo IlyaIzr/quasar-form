@@ -63,6 +63,7 @@
 
 <script>
 import { store } from "../../store";
+import { mountedCommon } from './extra';
 export default {
   name: "Multiple",
   components: {
@@ -149,10 +150,7 @@ export default {
     },
   },
   mounted() {
-    this.validate = this.$refs.checkbox.validate
-    if (this.rest.hasOwnProperty("visible") && !this.rest.visible) {
-      this.$parent.$el.parentNode.className += " hidden";
-    }
+    mountedCommon(this)
   },
   watch: {
     "this.rest.visible": function () {
