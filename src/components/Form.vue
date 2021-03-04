@@ -1,6 +1,11 @@
 <template>
   <q-card style="min-width: min(75vw, 1800px)" class="form">
-    <q-card-section v-if="settings.title" style="max-height: 8vh" class="formTitle q-px-md q-py-xs relative-position">
+    <!-- Close modal v-if it's modal -->
+    <q-card-section
+      v-if="settings.title"
+      style="max-height: 8vh"
+      class="formTitle q-px-md q-py-xs relative-position"
+    >
       <q-btn
         v-if="settings.modal"
         dense
@@ -14,13 +19,14 @@
       </q-btn>
       <div class="text-h5">{{ settings.title }}</div>
     </q-card-section>
-    
+
     <q-separator />
 
+    <!-- Form itself -->
     <q-card-section class="formContent q-pa-none">
       <q-form
         :style="settings.modal && 'max-height: 65vh'"
-        :class="`scroll bg-white ${settings.tabs ? '' : 'q-pa-md q-py-none' }`"
+        :class="`scroll bg-white ${settings.tabs ? '' : 'q-pa-md q-py-none'}`"
         ref="form"
         @submit="onSubmit"
         @reset="onReset"
@@ -41,10 +47,13 @@
 
     <q-separator />
 
+    <!-- Buttons -->
     <q-card-section
       v-if="!settings.noButtons"
       style="max-height: 12vh"
-      :class="`formButtons ${settings.modal && ' float-right q-mr-md '}  ${settings.tabs && ' q-pa-none'} `"
+      :class="`formButtons ${settings.modal && ' float-right q-mr-md '}  ${
+        settings.tabs && ' q-pa-none'
+      } `"
     >
       <Buttons
         :buttons="settings.buttons"
@@ -70,7 +79,7 @@ export default {
   },
   data() {
     return {
-      form: { ...this.settings.form },
+      form: this.settings.form,
     };
   },
   props: {
@@ -100,12 +109,13 @@ export default {
       let seriveKeys = [];
       let multiKeys = [];
       this.settings.fields.map((field) => {
-        if (field.service || field.type === 'html') seriveKeys.push(field.key);
+        if (field.service || field.type === "html") seriveKeys.push(field.key);
         else if (field.type === "multiple") {
           multiKeys.push(field.key);
-          field.fields.map(
-            (miniF) => { if (miniF.service || miniF.field?.type === 'html') seriveKeys.push(miniF.key) }
-          );
+          field.fields.map((miniF) => {
+            if (miniF.service || miniF.field?.type === "html")
+              seriveKeys.push(miniF.key);
+          });
         }
       });
       const checkDates = (value) => {
@@ -187,8 +197,9 @@ export default {
     },
     async onValidateError(err) {
       vNodeStore.setComponent("firstFieldFailedValidation", err);
-      if (this.form.onValidateError) {
-        const cb = await this.form.onValidateError(
+      const f = this.form.onValidateError || this.form.onValidateError;
+      if (f) {
+        const cb = await f(
           this,
           { ...this.valuesResponse },
           this.$refs.form,

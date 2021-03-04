@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import { store } from "../../store";
+import { methods, commonMethods } from "./extra";
 export default {
   name: "Date",
   props: {
@@ -105,29 +105,8 @@ export default {
     },
   },
   methods: {
-    onFocus(e) {
-      this.$emit("focus", e);
-    },
-    onBlur(e) {
-      this.$emit("blur", e);
-    },
-    onInput(val) {
-      // if (this.rest.range)
-      //  console.log(this.$refs.btn)
-      // this.$refs.btn.$el.click()
-      this.$emit("input", val);
-    },
-    getStoreValue() {
-      let res;
-      if (this.rest.multiKey)
-        res = store.getValueByKey(
-          this.keyName,
-          this.rest.multiKey,
-          this.rest.multiIndex
-        );
-      else res = store.getValueByKey(this.keyName);
-      return res;
-    },
+    ...commonMethods,
+    ...methods,
   },
   watch: {
     "store.state.watcher": function () {

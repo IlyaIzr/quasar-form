@@ -1,26 +1,14 @@
 <template>
-  <div v-if="isModal" >
-    <q-dialog 
-      v-model="isOpen"
-      :persistent="modal.persistent"
-      :maximized="modal.maximized"
-      :transition-show="modal.transitionShow"
-      :transition-hide="modal.transitionHide"
-      :seamless="modal.seamless"
-      :full-width="modal.fullWidth === undefined || modal.maximized"
-      :full-height="modal.fullHeigh === undefined || modal.maximized"
-      :position="modal.position"
-    >
+  <div v-if="isModal">
+    <q-dialog v-model="isOpen" v-bind="modal">
       <Form :settings="settings" :values="values" />
     </q-dialog>
 
     <q-btn
       v-if="modal.triggerButton"
+      v-bind="modal.triggerButton"
       type="btn"
-      :label="modal.triggerButton.label"
       @click="isOpen = !isOpen"
-      :color="modal.triggerButton.color"
-      :text-color="modal.triggerButton.textColor"
     />
   </div>
 
@@ -37,11 +25,8 @@ export default {
     return {
       modal: { ...this.settings.modal },
       isModal: Boolean(this.settings.modal),
-      isOpen:
-        this.settings.modal && this.settings.modal.opened === false
-          ? false
-          : true,
-      maximized: Boolean(this.settings.modal && this.settings.modal.maximized),
+      isOpen: this.settings.modal?.opened === false ? false : true,
+      maximized: Boolean(this.settings.modal?.maximized),
     };
   },
   props: {

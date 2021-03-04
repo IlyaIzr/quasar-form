@@ -3,7 +3,7 @@
     <q-input
       v-bind="filtered"
       :value="value"
-      :class="rest.class + ' input-' + keyName"
+      :class="rest.class + ' input-' + rest.key"
       @focus="onFocus"
       @blur="onBlur"
       @input="input"
@@ -48,14 +48,11 @@
 </template>
 
 <script>
-import { store, configStore, vNodeStore } from "../../store";
+import { vNodeStore } from "../../store";
+import { methods, commonMethods } from "./extra";
 export default {
   name: "SimpleInput",
   props: {
-    keyName: {
-      type: String,
-      required: true,
-    },
     rest: {
       type: Object,
       required: true,
@@ -101,79 +98,16 @@ export default {
     },
   },
   methods: {
+    ...commonMethods,
+    ...methods,
+
     async appendClick(e) {
       this.rest.appendOnClick(this, this.value, this.$refs.input, vNodeStore);
     },
     async prependClick(e) {
       this.rest.prependOnClick(this, this.value, this.$refs.input, vNodeStore);
     },
-    onFocus(e) {
-      this.$emit("focus", e);
-    },
-    onBlur(e) {
-      this.$emit("blur", e);
-    },
-    onInput(val) {
-      this.storeValue(val);
-      this.$emit("input", val);
-    },
-    input(val) {
-      this.onInput(val);
-    },
-    storeValue(val) {
-      if (this.rest.multiKey)
-        store.updateKeyValue(
-          this.keyName,
-          val,
-          this.rest.multiKey,
-          this.rest.multiIndex
-        );
-      else store.updateKeyValue(this.keyName, val);
-      this.value = this.getStoreValue();
-    },
-    getStoreValue() {
-      let res;
-      if (this.rest.multiKey)
-        res = store.getValueByKey(
-          this.keyName,
-          this.rest.multiKey,
-          this.rest.multiIndex
-        );
-      else res = store.getValueByKey(this.keyName);
-      return res;
-    },
-    setConfig(arg1 = "", arg2) {
-      if (arguments.length === 2) {
-        // Case 2 arg
-        if (arg1) this.storeConfig({ [arg1]: arg2 });
-        else console.log("WARNING! No name provided!");
-      } else if (arguments.length === 1) {
-        // Case 1 arg
-        if (arg1 && typeof arg1 === "object") this.storeConfig(arg1);
-        else console.log("WARNING! No value object provided!");
-      }
-    },
-    storeConfig(obj) {
-      if (this.rest.multiKey) {
-        configStore.set(
-          this.keyName,
-          obj,
-          this.rest.multiKey,
-          this.rest.multiIndex
-        );
-        this.$parent.rest = configStore.get(
-          this.keyName,
-          this.rest.multiKey,
-          this.rest.multiIndex
-        );
-      } else {
-        configStore.set(this.keyName, obj);
-        this.$parent.rest = configStore.get(this.keyName);
-      }
-    },
-    setValue(val) {
-      this.storeValue(val);
-    },
+
     checkRules(rules, required) {
       let res;
       if (required) {
@@ -189,19 +123,6 @@ export default {
           ];
       } else res = this.rest.rules;
       return res;
-    },
-    reset() {
-      this.setConfig(this.archiveRest);
-      this.setValue(this.archiveRest.value);
-      this.$nextTick(function () {
-        this.$refs.input.resetValidation();
-      });
-    },
-    clear() {
-      this.setValue("");
-      this.$nextTick(function () {
-        this.$refs.input.resetValidation();
-      });
     },
   },
   watch: {

@@ -21,6 +21,7 @@
 
 <script>
 import { store } from "../../store";
+import { methods, commonMethods } from "./extra";
 export default {
   name: "SelectCreatable",
   props: {
@@ -58,6 +59,8 @@ export default {
     },
   },
   methods: {
+    ...commonMethods,
+    ...methods,
     storeValue(val) {
       if (this.rest.multiKey)
         store.updateKeyValue(
@@ -76,12 +79,6 @@ export default {
     onInput(val) {
       this.storeValue(val);
       this.$emit("input", val);
-    },
-    onFocus(e) {
-      this.$emit("focus", e);
-    },
-    onBlur(e) {
-      this.$emit("blur", e);
     },
     checkRules(rules, required) {
       let res;
@@ -113,32 +110,10 @@ export default {
       if (res === "") res = null;
       return res;
     },
-    setConfig(arg1 = "", arg2) {
-      if (arguments.length === 2) {
-        if (arg1) this.rest[arg1] = arg2;
-        else console.log("WARNING! No name provided!");
-      } else if (arguments.length === 1) {
-        if (arg1 && typeof arg1 === "object") {
-          for (const [key, value] of Object.entries(arg1)) {
-            this.rest[key] = value;
-          }
-        } else console.log("WARNING! No value object provided!");
-      }
-      this.$forceUpdate();
-    },
-    setValue(val) {
-      this.storeValue(val);
-    },
     reset() {
       this.setConfig(this.archiveRest);
       this.setOptions(this.archiveRest.options);
       this.setValue(this.archiveRest.value);
-      this.$nextTick(function () {
-        this.$refs.input.resetValidation();
-      });
-    },
-    clear() {
-      this.setValue("");
       this.$nextTick(function () {
         this.$refs.input.resetValidation();
       });

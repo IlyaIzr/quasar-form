@@ -2,8 +2,6 @@
   <div :class="classNames">
     <SimpleInput
       v-if="inputType === 'simple'"
-      :type="inputInfo.type"
-      :keyName="inputInfo.key"
       :rest="rest"
       :store="store"
       @input="onInput"
@@ -234,7 +232,7 @@ export default {
     // CASE MULTIKEY
     if (multiKey) {
       // Set options if they're provided
-      if (this.inputInfo.options && this.inputInfo.options.length)
+      if (this.inputInfo.options?.length)
         optionsStore.setOptions(
           this.inputInfo.key,
           this.inputInfo.options,
@@ -272,7 +270,7 @@ export default {
       // CASE SINGLE KEY
     } else if (!multiKey) {
       // Set options if they're provided
-      if (this.inputInfo.options && this.inputInfo.options.length)
+      if (this.inputInfo.options?.length)
         optionsStore.setOptions(this.inputInfo.key, this.inputInfo.options);
       //Check if stored already
       const stored = store.getValueByKey(this.inputInfo.key);

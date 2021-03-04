@@ -1,7 +1,7 @@
 <template>
   <div class="q-gutter-md">
     <q-field
-      ref="checkbox"
+      ref="input"
       :value="value"
       :rules="rules"
       :hint="rest.hint"
@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import { store } from "../../store";
+import { methods, commonMethods } from "./extra";
 export default {
   name: "CheckBox",
   props: {
@@ -62,59 +62,25 @@ export default {
     },
   },
   methods: {
-    onFocus(e) {
-      this.$emit("focus", e);
-    },
-    onBlur(e) {
-      this.$emit("blur", e);
-    },
+    ...commonMethods,
+    ...methods,
     onInput(val) {
       this.storeValue(val);
-      this.$refs.checkbox.validate();
+      this.$refs.input.validate();
       this.$emit("input", val);
     },
-    input(val) {
-      this.onInput(val);
-    },
-    storeValue(val) {
-      if (this.rest.multiKey)
-        store.updateKeyValue(
-          this.keyName,
-          val,
-          this.rest.multiKey,
-          this.rest.multiIndex
-        );
-      else store.updateKeyValue(this.keyName, val);
-      this.value = this.getStoreValue();
-    },
-    getStoreValue() {
-      let res;
-      if (this.rest.multiKey)
-        res = store.getValueByKey(
-          this.keyName,
-          this.rest.multiKey,
-          this.rest.multiIndex
-        );
-      else res = store.getValueByKey(this.keyName);
-      if (Array.isArray(res) && !res.length) res = false;
-      return Boolean(res);
-    },
-    setConfig(arg1 = "", arg2) {
-      if (arguments.length === 2) {
-        if (arg1) this.rest[arg1] = arg2;
-        else console.log("WARNING! No name provided!");
-      } else if (arguments.length === 1) {
-        if (arg1 && typeof arg1 === "object") {
-          for (const [key, value] of Object.entries(arg1)) {
-            this.rest[key] = value;
-          }
-        } else console.log("WARNING! No value object provided!");
-      }
-      this.$forceUpdate();
-    },
-    setValue(val) {
-      this.storeValue(val);
-    },
+    // getStoreValue() {  // Watch it
+    //   let res;
+    //   if (this.rest.multiKey)
+    //     res = store.getValueByKey(
+    //       this.keyName,
+    //       this.rest.multiKey,
+    //       this.rest.multiIndex
+    //     );
+    //   else res = store.getValueByKey(this.keyName);
+    //   if (Array.isArray(res) && !res.length) res = false;
+    //   return Boolean(res);
+    // },
     checkRules(rules, required) {
       let res;
       if (required) {
@@ -130,22 +96,9 @@ export default {
       } else res = this.rest.rules;
       return res;
     },
-    reset() {
-      this.setConfig(this.archiveRest);
-      this.setValue(this.archiveRest.value);
-      this.$nextTick(function () {
-        this.$refs.checkbox.resetValidation();
-      });
-    },
-    clear() {
-      this.setValue("");
-      this.$nextTick(function () {
-        this.$refs.checkbox.resetValidation();
-      });
-    },
   },
   mounted() {
-    this.validate = this.$refs.checkbox.validate;
+    this.validate = this.$refs.input.validate;
     if (this.rest.hasOwnProperty("visible") && !this.rest.visible) {
       this.$parent.$el.parentNode.className += " hidden";
     }

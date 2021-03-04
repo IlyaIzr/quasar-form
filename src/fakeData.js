@@ -2,47 +2,42 @@ export const config = {
   fields: [
 
 
-
     {
-      value: 'pi', 
-      rowIndex: 1,
-      label: 'pi',
-      label(field) {
-        if (field.value == 'pi') return "ABC" + " _01"
-      },
-      // required: false,
+      key: 'select', type: 'select', rowIndex: 1,
+      options: [
+        { name: 'Ab 1', id: 'aletter' }, { name: 'Bd 2', id: 'bletter' }, { name: 'Cs 3', id: 'cletter' }, { name: 'Dd 3', id: 'dletter' }
+      ],
+      label: 'Pesting',
+      writable: true,
+      multiple: true,
+      value: ['cletter', 'dletter'],
       onInput(vnode, value, m, vNodeStore) {
-        const dateField = vNodeStore.get('date')
-        dateField.setValue('11.12.2012')
-        dateField.setConfig('visible', false)
-        vnode.setValue(value + '*')
-      }
+        const sel2 = vNodeStore.get('select2')
+        console.log(sel2)
+        sel2.setOptions([{ name: 'A', id: 'aletter' },])
+      },
     },
-
-    // {
-    //   key: 'selectF', type: 'select', rowIndex: 2,
-    //   options: [
-    //     { name: 'A', id: 'aletter' }, { name: 'B', id: 'bletter' }, { name: 'C', id: 'cletter' }
-    //   ],
-    //   value: '',
-    //   onInput(vnode, value, m, vNodeStore) {
-    //     vnode.setValue('cletter')
-    //   },
-    // },
-
     {
-      type: 'slider',
-      key: 'test', rowIndex: 5, value: 11,
-      label: 's',
-      // min: 22, max: 55,
-      // onInput(vnode, value, m, vNodeStore) {
-      //   vnode.setValue('12.12.2012')  //set self
-      // }
-      // rules: [(v) => v && v > 25 || 'be bigger']
+      key: 'select2', type: 'select', rowIndex: 2,
+      options: [
+      ],
     },
 
   ],
 
+  global: {
+    label: 'Global default label',
+    hint(config){
+      return String (new Date)
+    },
+    type(){return 'password'},
+    // tabs: {
+    //   buttons: 'aaa'
+    // },
+    // fields: {
+    //   label: 'a'
+    // },
+  },
 
   form: {
     async onSubmit(vNode, data, formMethods, vNodeStore) {

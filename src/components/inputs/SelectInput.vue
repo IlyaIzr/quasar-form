@@ -30,6 +30,7 @@
 
 <script>
 import { store, optionsStore } from "../../store";
+import { methods, commonMethods } from "./extra";
 export default {
   name: "SelectInput",
   props: {
@@ -86,6 +87,9 @@ export default {
     },
   },
   methods: {
+    ...commonMethods,
+    ...methods,
+    
     parseValue(value, options) {
       let res = [];
       options &&
@@ -188,16 +192,6 @@ export default {
         this.$refs.input.resetValidation();
       });
     },
-    onInput(val) {
-      this.storeValue(val);
-      this.$emit("input", val);
-    },
-    onFocus(e) {
-      this.$emit("focus", e);
-    },
-    onBlur(e) {
-      this.$emit("blur", e);
-    },
     checkRules(rules, required) {
       let res;
       if (required) {
@@ -221,17 +215,6 @@ export default {
       } else res = this.rest.rules;
       return res;
     },
-    getStoreValue() {
-      let res;
-      if (this.rest.multiKey)
-        res = store.getValueByKey(
-          this.keyName,
-          this.rest.multiKey,
-          this.rest.multiIndex
-        );
-      else res = store.getValueByKey(this.keyName);
-      return res;
-    },
     getStoreOptions() {
       let res;
       if (this.rest.multiKey)
@@ -247,32 +230,10 @@ export default {
       optionsStore.setOptions(this.keyName, options);
       this.localOptions = options;
     },
-    setConfig(arg1 = "", arg2) {
-      if (arguments.length === 2) {
-        if (arg1) this.rest[arg1] = arg2;
-        else console.log("WARNING! No name provided!");
-      } else if (arguments.length === 1) {
-        if (arg1 && typeof arg1 === "object") {
-          for (const [key, value] of Object.entries(arg1)) {
-            this.rest[key] = value;
-          }
-        } else console.log("WARNING! No value object provided!");
-      }
-      this.$forceUpdate();
-    },
-    setValue(val) {
-      this.storeValue(val);
-    },
     reset() {
       this.setConfig(this.archiveRest);
-      this.setOptions(this.archiveRest.options);
+      this.setOptions(this.archiveRest.options);  // The only difference to methods
       this.setValue(this.archiveRest.value);
-      this.$nextTick(function () {
-        this.$refs.input.resetValidation();
-      });
-    },
-    clear() {
-      this.setValue("");
       this.$nextTick(function () {
         this.$refs.input.resetValidation();
       });

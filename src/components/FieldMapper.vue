@@ -73,6 +73,32 @@ export default {
       const fieldRowSorter = (fields) => {
         const res = [];
         const noRowIndexes = [];
+
+        // Global assignments
+        let globalDefaultValue;
+        let globalFieldType;
+        const globalRest = {};
+        const globalFields =
+          this.settings?.global?.fields &&
+          Object.entries(this.settings.global.fields);
+        globalFields?.length &&
+          globalFields.forEach((keyVal) => {
+            if (keyVal[0] === "value") {
+              globalDefaultValue =
+                typeof keyVal[1] === "function"
+                  ? keyVal[1](this.settings)
+                  : keyVal[1];
+            } else if (keyVal[0] === "type") {
+              globalFieldType =
+                typeof keyVal[1] === "function"
+                  ? keyVal[1](this.settings)
+                  : keyVal[1];
+            } else if (typeof keyVal[1] === "function") {
+              globalRest[keyVal[0]] = keyVal[1](this.settings);
+            } else if (typeof keyVal[1] === "string") {
+              globalRest[keyVal[0]] = keyVal[1];
+            }
+          });
         fields.map((field) => {
           // Assign multiKey if there's any
           if (this.multiKey) {
@@ -90,21 +116,22 @@ export default {
             !this.multiKey
           ) {
             field.value = this.values[field.key];
-          } else if (field.value === undefined) field.value = "";
+          } else if (field.value === undefined)
+            field.value = globalDefaultValue || "";
           //Assign default field type as 'text'
-          if (field.type === undefined) field.type = "text";
+          if (field.type === undefined) field.type = globalFieldType || "text";
 
           //Assign default key if theres none
           if (field.key === undefined)
             field.key = "undefinedKeyN" + Math.random();
 
-          // Recieve function or primitive value (case: label)
-          // if (field.label && typeof field.label === "function") {
-          //   field.label = field.label(field);
-          // }
-          for (const [key, value] of Object.entries(field)) {
-            if (typeof value === "function" && key !== 'onInput' && key !== 'onBlur' && key !== 'onFocus') {
-              field[key] = field[key](field)
+          // Assign default rest values
+          for (const [key, value] of Object.entries(globalRest)) {
+            if (field[key] !== undefined) {
+            } else if (typeof value === "function") {
+              field[key] = value(this.settings, field);
+            } else if (typeof value === "string") {
+              field[key] = value;
             }
           }
 
@@ -118,9 +145,6 @@ export default {
               res[field.rowIndex - 1] = [...cell, { ...field }]; //fucking observers
             } else {
               res[field.rowIndex - 1] = [{ ...field, value: field.value }];
-              // res[field.rowIndex - 1][0].value = 'temsto'
-              // console.log(field)
-              // console.log(res[field.rowIndex - 1])
             }
           }
         });
@@ -135,7 +159,7 @@ export default {
 
       //Tabs case
       let tabbedFields = [];
-      sortedFields.map((row, index) => {
+      sortedFields.map((row) => {
         row.map((field) => {
           const tabIndex = field.tabIndex || 1;
           const cell = tabbedFields[tabIndex - 1];
@@ -149,9 +173,7 @@ export default {
       tabbedFields = tabbedFields.filter((field) => field != null);
       const tabbedAndSorted = [];
       // console.log('second loop')
-      tabbedFields.map((tab, index) => {
-        tabbedAndSorted.push(fieldRowSorter(tab));
-      });
+      tabbedFields.map((tab) => tabbedAndSorted.push(fieldRowSorter(tab)));
 
       return tabbedAndSorted;
     },

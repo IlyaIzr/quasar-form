@@ -266,6 +266,7 @@ export const config = {
       //   console.log('callback function')
       // }
     },
+    async onError(vNode, data, formMethods, errorComponent){}, // ALIAS to onValidateError
     async onValidateError(vNode, data, formMethods, errorComponent) {
       console.log('validation error', errorComponent)
       // return function (vNode) {

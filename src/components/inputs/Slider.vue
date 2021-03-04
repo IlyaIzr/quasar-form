@@ -2,14 +2,14 @@
   <div class="q-gutter-md">
     <q-field
       borderless
-      ref="slider"
+      ref="input"
       :label="rest.label"
       :rules="rules"
       :value="value"
       :hint="rest.hint"
     >
       <q-slider
-        ref="input"
+        ref="slider"
         :value="value"
         :name="keyName"
         :min="rest.min"
@@ -24,7 +24,7 @@
         :label-color="rest.labelColor"
         :label-text-color="rest.labelTextColor"
         :class="rest.class + ' input-' + keyName"
-        @change="onChange"
+        @change="onBlur"
         @input="onInput"
       />
     </q-field>
@@ -33,6 +33,7 @@
 
 <script>
 import { store } from "../../store";
+import { methods, commonMethods } from "./extra";
 export default {
   name: "Slider",
   props: {
@@ -65,54 +66,9 @@ export default {
     };
   },
   methods: {
-    onChange(e) {
-      this.$emit("blur", e);
-    },
-    onInput(val) {
-      this.storeValue(val);
-      this.$emit("input", val);
-    },
-    input(val) {
-      this.onInput(val);
-    },
-    storeValue(val) {
-      if (this.rest.multiKey)
-        store.updateKeyValue(
-          this.keyName,
-          val,
-          this.rest.multiKey,
-          this.rest.multiIndex
-        );
-      else store.updateKeyValue(this.keyName, val);
-      this.value = this.getStoreValue();
-    },
-    getStoreValue() {
-      let res;
-      if (this.rest.multiKey)
-        res = store.getValueByKey(
-          this.keyName,
-          this.rest.multiKey,
-          this.rest.multiIndex
-        );
-      else res = store.getValueByKey(this.keyName);
-      return res;
-    },
-    setValue(val) {
-      this.storeValue(val);
-    },
-    setConfig(arg1 = "", arg2) {
-      if (arguments.length === 2) {
-        if (arg1) this.rest[arg1] = arg2;
-        else console.log("WARNING! No name provided!");
-      } else if (arguments.length === 1) {
-        if (arg1 && typeof arg1 === "object") {
-          for (const [key, value] of Object.entries(arg1)) {
-            this.rest[key] = value;
-          }
-        } else console.log("WARNING! No value object provided!");
-      }
-      this.$forceUpdate();
-    },
+    ...commonMethods,
+    ...methods,
+    
     checkRules(rules, required) {
       let res;
       if (required) {
@@ -129,22 +85,9 @@ export default {
       } else res = this.rest.rules;
       return res;
     },
-    reset() {
-      this.setConfig(this.archiveRest);
-      this.setValue(this.archiveRest.value);
-      this.$nextTick(function () {
-        this.$refs.slider.resetValidation();
-      });
-    },
-    clear() {
-      this.setValue(0);
-      this.$nextTick(function () {
-        this.$refs.slider.resetValidation();
-      });
-    },
   },
   mounted() {
-    this.validate = this.$refs.slider.validate;
+    this.validate = this.$refs.input.validate;
     if (this.rest.hasOwnProperty("visible") && !this.rest.visible) {
       this.$parent.$el.parentNode.className += " hidden";
     }
